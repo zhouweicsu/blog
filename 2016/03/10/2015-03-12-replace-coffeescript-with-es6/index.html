@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>zhouweicsu&#39;s blog</title>
+  <title>用ES6替代CoffeeScript | zhouweicsu&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
-<meta property="og:title" content="zhouweicsu's blog">
-<meta property="og:url" content="http://zhouweicsu.github.io/blog/index.html">
+  <meta name="description" content="原文链接：Replace CoffeeScript with ES6
+一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。
+###如何使用ES6###我们可以通过6to5这个项目开始使用ES6,6to5可以将ES6代码转译成符合ES5标准的代码。6to5支持">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用ES6替代CoffeeScript">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2016/03/10/2015-03-12-replace-coffeescript-with-es6/index.html">
 <meta property="og:site_name" content="zhouweicsu's blog">
-<meta property="og:description">
+<meta property="og:description" content="原文链接：Replace CoffeeScript with ES6
+一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。
+###如何使用ES6###我们可以通过6to5这个项目开始使用ES6,6to5可以将ES6代码转译成符合ES5标准的代码。6to5支持">
+<meta property="og:updated_time" content="2016-05-18T07:56:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="zhouweicsu's blog">
-<meta name="twitter:description">
+<meta name="twitter:title" content="用ES6替代CoffeeScript">
+<meta name="twitter:description" content="原文链接：Replace CoffeeScript with ES6
+一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。
+###如何使用ES6###我们可以通过6to5这个项目开始使用ES6,6to5可以将ES6代码转译成符合ES5标准的代码。6to5支持">
   
     <link rel="alternate" href="/atom.xml" title="zhouweicsu&#39;s blog" type="application/atom+xml">
   
@@ -66,54 +73,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/05/18/hello-world/" class="article-date">
-  <time datetime="2016-05-18T06:24:21.000Z" itemprop="datePublished">2016-05-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/05/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://zhouweicsu.github.io/blog/blog/2016/05/18/hello-world/" data-id="ciockr32b0001zy0ga71wjwro" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-2015-03-12-replace-coffeescript-with-es6" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-2015-03-12-replace-coffeescript-with-es6" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/blog/2016/03/10/2015-03-12-replace-coffeescript-with-es6/" class="article-date">
   <time datetime="2016-03-10T13:27:00.000Z" itemprop="datePublished">2016-03-10</time>
@@ -130,8 +90,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/03/10/2015-03-12-replace-coffeescript-with-es6/">用ES6替代CoffeeScript</a>
+    <h1 class="article-title" itemprop="name">
+      用ES6替代CoffeeScript
     </h1>
   
 
@@ -209,132 +169,28 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-2014-12-9-trigger-touchcancel-in-mobile-browsers" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/03/10/2014-12-9-trigger-touchcancel-in-mobile-browsers/" class="article-date">
-  <time datetime="2016-03-10T13:27:00.000Z" itemprop="datePublished">2016-03-10</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/mobile/">mobile</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
+    <a href="/blog/2016/05/18/hello-world/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
         
+          Hello World
+        
+      </div>
+    </a>
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/blog/2016/03/10/2014-12-9-trigger-touchcancel-in-mobile-browsers/">手机浏览器下触发touchcancel事件的操作</a>
-    </h1>
   
+    <a href="/blog/2016/03/10/2014-12-9-trigger-touchcancel-in-mobile-browsers/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">手机浏览器下触发touchcancel事件的操作</div>
+    </a>
+  
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>原文链接：<a href="http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/" target="_blank" rel="external">Different ways to trigger touchcancel in mobile browsers</a></p>
-<p>Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。</p>
-<p>touch事件最初是Apple为Safari浏览器创建的，现在已经被纳入了<a href="http://www.w3.org/TR/2011/WD-touch-events-20110505/" target="_blank" rel="external">W3C Touch 事件规范</a>。原始的<a href="https://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/doc/uid/TP40009358" target="_blank" rel="external">Safari DOM参考文档</a>关于touchcancel事件的信息少的可怜，仅有一句话：</p>
-<blockquote>
-<p>当系统取消跟踪touch事件时触发。</p>
-</blockquote>
-<p>幸运地是，W3C Touch事件规范提供了更多的细节，包括一些会触发该事件的场景：</p>
-<blockquote>
-<p>在touch事件被系统自定义行为干扰之后，客户端必须触发touchcancel事件，例如客户端原生的同步事件或操作取消了touch事件，或者触摸点滑出文档窗口移至一个可以处理用户交互的非文档区域（如，客户端原生界面，插件）。另外，当用户放置的触摸点超出了设备可存储的数量，那么最早进入TouchList的Touch对象也将被移除，此时客户端会触发该Touch对象的touchcancel事件。</p>
-</blockquote>
-<p>从上一段描述中我们可以进一步理解touchcancel事件与浏览器行为的关系。这不仅能帮助浏览器精确地引用TouchList中的Touch对象，而且也能被开发者用来实现特定的UI操作，例如在touchstart和touchmove事件处理函数中重置正在使用的变量。当系统取消了跟踪touch事件但touchend事件没有被触发时，touchcancel将会拯救你。</p>
-<p>那浏览器什么时候触发这个事件？开始研究之前有必要构建一个简单的事件日志来跟踪所有的touch事件。测试主要记录在touch区域滑动时最后一个被触发的touch事件，这些日志将使我们更加直观地分析到底是哪种交互操作触发了touchcancel事件。</p>
-<p>以下是我们在多种手机浏览器上的发现。值得指出的是touchcancel事件很不可预测的，尤其在安卓（2.3.5）上。甚至在iOS5上有时也不能准确预测什么操作会触发touchcancel事件。</p>
-<p>###iOS Safari 5.0.1（iPhone 4 &amp; iPad 1）###<br>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下home键</li>
-<li>用户按下Safari浏览器底部工具栏的操作按钮</li>
-<li>用户在屏幕中使用手掌触摸或涂抹，生成了许多不可辨别的单一触摸点（仅iPhone？）</li>
-<li>用户在iPad上使用四个或更多手指同时触摸，或使用系统设置中的多任务手势</li>
-</ul>
-</blockquote>
-<p>在touchstart或touchmove事件中不会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下Safari浏览器底部工具栏中的书签按钮</li>
-<li>用户按下Safari浏览器底部工具栏中的前进或回退按钮</li>
-<li>用户点击聚焦在Safari浏览器的搜索栏</li>
-<li>用户旋转设备的方向</li>
-<li>屏幕弹出系统通知，例如WiFi查找或闹钟提醒</li>
-<li>屏幕上方弹出iOS5风格的新通知</li>
-<li>用户新开了一个tab（iPad）</li>
-<li>用户刷新网页</li>
-<li>用户按下音量键</li>
-<li>用户切换设备静音/振动的开关</li>
-<li>用户接到一个来电</li>
-</ul>
-</blockquote>
-<p>在有些情况下以上操作中，浏览器会直接触发一个touchend事件而不是touchcancel事件。在其他情景中（例如旧风格的弹出通知），touchstart和touchmove事件仍然是起作用的（即使内容已经被通知覆盖），除非用户移开手指触发了touchend事件。<br>值得注意的是当touchstart或者touchmove事件被触发时，部分iOS5系统方法是无法执行的：</p>
-<blockquote>
-<ul>
-<li>用户不能使用Safari浏览器的地址栏</li>
-<li>用户不能打开一个新页面（iPhone）</li>
-<li>用户不能双击home键打开应用盒子（app tray）</li>
-<li>用户不能从屏幕上方往下滑动打开通知中心</li>
-<li>用户无法打开屏幕上方出现的iOS5风格的通知</li>
-</ul>
-</blockquote>
-<p>###安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器###<br>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下锁屏键</li>
-<li>此种情况下，似乎没有明显的原因touchcancel事件也会被随机触发，这种现象在重复快速点击和滑动的时候尤其显著</li>
-</ul>
-</blockquote>
-<p>在touchstart或touchmove事件中不会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下home键</li>
-<li>用户旋转设备的方向</li>
-<li>用户按下音量键</li>
-</ul>
-</blockquote>
-<p>当touchstart或者touchmove事件被触发时，部分安卓2.3.5系统方法是无法执行的：</p>
-<blockquote>
-<ul>
-<li>用户无法按下菜单键和回退键</li>
-<li>用户无法打开通知菜单</li>
-<li>用户无法聚焦到浏览器地址栏</li>
-<li>用户无法点击书签按钮</li>
-</ul>
-</blockquote>
-<h3 id="Opera-Mobile"><a href="#Opera-Mobile" class="headerlink" title="Opera Mobile"></a>Opera Mobile</h3><p>安卓版Opera Mobile 11.50 </p>
-<p>也测试了。然而浏览器似乎支持touchcancel事件，实际上他并未触发这个事件。例如在按下home键的时候，Opera Mobile似乎直接触发了touchend事件。</p>
-<p>###黑莓平板电脑 (1.0.8.6067)###<br>尽管浏览器声称支持touchcancel事件，但该事件似乎并未被触发。即使按下电源键使设备待机，touchcancel事件也未被触发。同样的，按下浏览器工具条的按钮或聚焦在地址栏都未触发此事件。另外值得注意的是，当触发touchstart或touchmove事件后，平板电脑不会响应任何滑动的手势。</p>
-<p>##结论##</p>
-<p>从测试结果看，touchcancel事件仍然是不可预测的。然而确定在哪种情况下事件会被触发还是很容易的，在哪种情况下不被触发也几乎能确定。那么这个事件的作用也无需出现在本次研究中，因为在所有可预期的情况下，开发者目前似乎无法依赖这个事件的触发。</p>
-<p>然而可以肯定的是，你无法在每台设备上都仅仅只依赖touchend事件被的触发。你需要编写处理touchcancel事件的代码。例如在iPad上尤其如此，假如你写了个多点触控的app或联机的HTML5游戏。由于程序没有办法辨别用户是否启用了多任务手势，这时你的app就需要优雅地处理touchcancel事件。安卓浏览器不可预测的特性也是使得处理这个事件变得尤为重要，不这么做将会导致你的UI出现bug。</p>
-<p>所以，当你下次处理touch事件时，别忘记处理touchcancel事件。尽管许多浏览器支持此事件，但在处理某些意想不到的用户交互时还是非常方便的。</p>
-<p>译者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a><br>2014 年 12月 09日    </p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://zhouweicsu.github.io/blog/blog/2016/03/10/2014-12-9-trigger-touchcancel-in-mobile-browsers/" data-id="ciockr32j0004zy0gatj14lgo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/mobile-browsers/">mobile browsers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/touch/">touch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/touchcancel/">touchcancel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/移动开发/">移动开发</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
