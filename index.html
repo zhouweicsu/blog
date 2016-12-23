@@ -3,84 +3,150 @@
 <head>
   <meta charset="utf-8">
   
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <link rel="dns-prefetch" href="http://zhouweicsu.github.io/blog">
   <title>zhouweicsu&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description">
-<meta property="og:type" content="website">
+  <meta property="og:type" content="website">
 <meta property="og:title" content="zhouweicsu's blog">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/index.html">
 <meta property="og:site_name" content="zhouweicsu's blog">
-<meta property="og:description">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="zhouweicsu's blog">
-<meta name="twitter:description">
   
-    <link rel="alternate" href="/atom.xml" title="zhouweicsu&#39;s blog" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="zhouweicsu&#39;s blog" type="application/atom+xml">
   
   
     <link rel="icon" href="/favicon.png">
   
+  <link rel="stylesheet" href="/blog/main.css?v=4.0.0.css">
   
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/blog/css/style.css">
+
   
 
 </head>
 
 <body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/blog/" id="logo">zhouweicsu&#39;s blog</a>
-      </h1>
-      
-        <h2 id="subtitle-wrap">
-          <a href="/blog/" id="subtitle">Be confident, Asking Questions and Make a Change everyday.</a>
-        </h2>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/blog/">Home</a>
-        
-          <a class="main-nav-link" href="/blog/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="搜索"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://zhouweicsu.github.io/blog"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main">
-  
-    <article id="post-fit-to-scale" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/07/05/fit-to-scale/" class="article-date">
-  <time datetime="2016-07-04T16:00:00.000Z" itemprop="datePublished">2016-07-05</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/CSS/">CSS</a>
-  </div>
+  <div id="container" q-class="show:isCtnShow">
+    <canvas id="anm-canvas" class="anm-canvas"></canvas>
+    <div class="left-col" q-class="show:isShow">
+      <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			<img src="null" class="js-avatar">
+		</a>
 
-  </div>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">zhouweicsu</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+		
+
+		<nav class="header-menu">
+			<ul>
+			
+				<li><a href="/blog/">主页</a></li>
+	        
+				<li><a href="/blog/tags/随笔/">随笔</a></li>
+	        
+			</ul>
+		</nav>
+		<nav class="header-smart-menu">
+	        
+    		
+    			
+    			<a data-idx="0" q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
+    			
+    			
+            
+    			
+    			<a data-idx="1" q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
+    			
+    			
+            
+    			
+    			<a data-idx="2" q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
+    			
+    			
+            
+		</nav>
+		<nav class="header-nav">
+			<div class="social">
+				
+					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+		        
+					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+		        
+					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+		        
+					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+		        
+			</div>
+		</nav>
+	</header>		
+</div>
+
+    </div>
+    <div class="mid-col" q-class="show:isShow,hide:isShow|isFalse">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"><i class="icon-sort"></i></div>
+  		<h1 class="header-author js-mobile-header hide">zhouweicsu</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+				<img src="null" class="js-avatar">
+			</div>
+			<hgroup>
+			  <h1 class="header-author">zhouweicsu</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/blog/">主页</a></li>
+		        
+					<li><a href="/blog/tags/随笔/">随笔</a></li>
+		        
+		        
+		        	<li><a href="/archives/">所有文章</a></li>
+		        
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+			        
+						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+			        
+						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
+			        
+						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div id="wrapper" class="body-wrap">
+        <div class="menu-l">
+          <div class="canvas-wrap">
+            <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
+          </div>
+          <div id="js-content" class="content-ll">
+            
+  
+    <article id="post-fit-to-scale" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
     
       <header class="article-header">
         
@@ -90,57 +156,58 @@
     </h1>
   
 
+        <a href="/blog/2016/07/05/fit-to-scale/" class="archive-article-date">
+  	<time datetime="2016-07-04T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-05</time>
+</a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。"><a href="#我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。" class="headerlink" title="我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。"></a>我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。</h3><p>在为 <a href="http://www.dolectures.co.uk/" target="_blank" rel="external">Do Lectures website</a> 网站做重新设计时，我对“响应式方案是否应该与设计以及 Paravel 的工作流（Paravel 是作者所在的公司，一家位于德克萨斯州奥斯汀的网页设计公司。—— 译者注）保持一致”的所有认知被全部颠覆了。我们不必大改整个流程，还可以控制预算，还能保证网站结构从台式电脑到移动设备都保持完好。由于在这个项目获取的积极意义的经验，我决定把我学到的以及关于本网站形成的观点写一篇文章。</p>
-<p>距 Ethan Marcotte 的分水岭级文章 <a href="http://www.alistapart.com/articles/responsive-web-design/" target="_blank" rel="external">A List Apart：响应式 Web 设计</a>已经快一年了，从那以后每当看到我的网站在我妻子的笔记本电脑上出现横向滚动条时我都备受折磨。对响应式的喜爱是因为他的理念，就是无论手机、全屏桌面还是介于两者之间的任何一种设备都可以访问网站。如果说人们不会用网站宽度一半的设备访问网站，那绝对是在逃避问题。人们不会，那是因为我们没有提供这种访问的可能性。然而我依然推荐用户使用全屏访问，不可否认无论是同时对比两篇文章，还是在文本编辑器窗口旁打开一个参考网页都是十分方便的。</p>
-<h3 id="结构完整性"><a href="#结构完整性" class="headerlink" title="结构完整性"></a>结构完整性</h3><p>如果说之前有什么顾虑的话，也不是关于响应式设计本身，而是一些我曾经看到过的响应式实例。在大部分情况下，屏幕调整时页面元素糟糕的剧烈调整会误导用户。诚然，当 3 列变成 1 列时有些东西必须放弃，但是网站的结构和层级必须仍然保留。如果用户第一次使用网站全宽的设备访问，当使用较窄窗口的浏览器或者移动设备再次访问时，他们应该也能认识该网站且能轻松自如的访问。个人认为这应该被认为 UX 设计的另一个组成部分。</p>
-<p>我们花费了如此多的时间讨论决定页面上每个元素的位置，那为什么当窗口变窄时就让所有这些工作都付诸东流呢？响应式 Web 设计不是适应内容（就像重新装填搬家货车），而是裁剪内容去适应用户（就像布置家具）。当设备宽度变化时，内容与布局要优雅的缩放。</p>
-<h3 id="FitText-简介"><a href="#FitText-简介" class="headerlink" title="FitText 简介"></a>FitText 简介</h3><p>我喜欢对 Web 字体排版<em>和</em>响应式进行细微控制，但我很担心这两者不能共存。如何让字符，单词或者行的位置微调也变成可缩放的？当你想保留格式化的大标题和紧跟其后未被 h1 包裹 2 或 3 次的文章段落或图片之间的间距时会发生什么？即使是这个网站，也仍然有一些<a href="http://trentwalton.com/2011/03/29/making-it-personal/" target="_blank" rel="external">地方</a>的依赖文本的布局不管窗口大小都显示成全宽度。我知道 <a href="http://letteringjs.com" target="_blank" rel="external">Lettering.js</a> 需要一个插件了，带着这个想法我去找 Paravel 的小伙伴 Dave Rupert。第二天他给我介绍了 <a href="http://fittextjs.com" target="_blank" rel="external">FitText</a>！</p>
-<p><a href="http://fittextjs.com" target="_blank" rel="external"><img src="http://p5.qhimg.com/t0136d2932cfb1bfc61.png" alt="fittext"></a></p>
-<p>我真的想挑战一下自己，让之前写的文章适应新的响应式布局。过程中每篇文章都会暴露出一个待解决的独特问题集，未解决的问题都被 FitText 处理了。该 jQuery 插件放大 web 类型来适应其父元素。不管窗口大小文本总显示成全宽度。FitText 能与 Lettering.js 或任何 CSS3 属性（本文标题就是一个例子）完美搭配，不用说你也永远不会在段落文本上使用 FitText（我希望你不要这样用），但是在适当的位置，FitText 能让响应式 Web 设计令人更加兴奋。</p>
-<h3 id="我的关键属性"><a href="#我的关键属性" class="headerlink" title="我的关键属性"></a>我的关键属性</h3><p>现在本网站是响应式的，我打算继续拿他当练兵场 —— 持续改进我的计划和针对内容的设计。从旧的设计方法转变到 web 响应式并不是自动的，在真正得出效果最佳的方案前还有一些令人兴奋的工作。我所有的文章都有他们自己一个小而独特的样式表，在使每篇博客在任何宽度的设备上看起来都好的路上我学了很多东西。下面是一些真正支撑本网站更新的属性：</p>
-<ul>
-<li><p>backgroun-size 的百分比能帮我直观地、无缝地缩放旧文章中的网页结构，插图和文字图片。</p>
-</li>
-<li><p>用垂直 padding 或 margins 代替垂直 height，这样保持标题栏的高宽比会变得非常简单。</p>
-</li>
-<li><p><a href="http://trentwalton.com/2010/07/19/css3-multi-column-layout-column-count/" target="_blank" rel="external">Column-count</a> 依然不是很可靠，但在 tags 模块通过媒体查询，Column-count 简化了 4 栏布局变成 3 栏再到 2 栏的过渡过程。当这个和 <a href="http://www.html5rocks.com/tutorials/flexbox/quick/" target="_blank" rel="external">flex-box</a> 都时机成熟时，代码产出将会异常高效。</p>
-</li>
-</ul>
-<p>Ok，这些对目前来说足够了。我会写更多关于响应式 Web 设计和 FitText 的文章。同时，点一点我的博客或使用 FitText 创建一些自己的东西。感谢阅读，希望你喜欢这篇更新！ </p>
-<p>2011 年 5 月 10 日</p>
+        <h3 id="我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。"><a href="#我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。" class="headerlink" title="我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。"></a>我的网站现在是响应式的。与弹性图片、弹性布局和媒体查询一起工作的越久，我对取得的成果评价就越高。</h3><p>在为 <a href="http://www.dolectures.co.uk/">Do Lectures website</a> 网站做重新设计时，我对“响应式方案是否应该与设计以及 Paravel 的工作流（Paravel 是作者所在的公司，一家位于德克萨斯州奥斯汀的网页设计公司。—— 译者注）保持一致”的所有认知被全部颠覆了。我们不必大改整个流程，还可以控制预算，还能保证网站结构从台式电脑到移动设备都保持完好。由于在这个项目获取的积极意义的经验，我决定把我学到的以及关于本网站形成的观点写一篇文章。</p>
+        
+          <a class="article-more-a" href="/blog/2016/07/05/fit-to-scale/#more">more >></a>
+        
+      
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zhouweicsu.github.io/blog/blog/2016/07/05/fit-to-scale/" data-id="ciquksrnc00041k0gprmk62vu" class="article-share-link">Share</a>
+    <div class="article-info article-info-index">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/fluid/">fluid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scale/">scale</a></li></ul>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/fluid/">fluid</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/scale/">scale</a></li></ul>
+	</div>
 
-    </footer>
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/blog/categories/CSS/">CSS</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2016/07/05/fit-to-scale/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-fluid-typography" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2016/06/29/fluid-typography/" class="article-date">
-  <time datetime="2016-06-28T16:00:00.000Z" itemprop="datePublished">2016-06-29</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/CSS/">CSS</a>
-  </div>
 
-  </div>
+
+
+
+
+
+  
+    <article id="post-fluid-typography" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
     
       <header class="article-header">
         
@@ -150,13 +217,16 @@
     </h1>
   
 
+        <a href="/blog/2016/06/29/fluid-typography/" class="archive-article-date">
+  	<time datetime="2016-06-28T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-29</time>
+</a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文：<a href="https://www.smashingmagazine.com/2016/05/fluid-typography/" target="_blank" rel="external">Truly Fluid Typography With vh And vw Units</a></p>
+        <p>原文：<a href="https://www.smashingmagazine.com/2016/05/fluid-typography/">Truly Fluid Typography With vh And vw Units</a></p>
 <ul>
-<li><p>作者： <a href="https://www.smashingmagazine.com/author/michaelriethmuller/" target="_blank" rel="external">Michael Riethmuller</a></p>
+<li><p>作者： <a href="https://www.smashingmagazine.com/author/michaelriethmuller/">Michael Riethmuller</a></p>
 </li>
 <li><p>2016-05-10</p>
 </li>
@@ -165,279 +235,50 @@
 <p>不像响应式文字排版，文字只在指定的几个分界点才会调整，<strong>流式文字排版则能平滑地调整文字</strong>来适应任何宽度的设备。当网站需要支持几乎无限个屏幕尺寸的时候，流式排版就是不二之选。然而，由于一些原因，他的普及率却仍远不及响应式技术。</p>
 <p>也许是因为文字排版受印刷排版的古老历史影响太深。“流式”这个概念常常有违这些传统。在印刷业，尺寸通常是固定的，而 web 上却没有固定。这就是为什么我认为流式文字排版是 web 的完美搭档。他是截然不同的媒介的另一种处理方式。</p>
 <p>但这并不意味着我们需要抛弃所有惯例和关于文字排版的一切。我们只需以稍微不同的方式<strong>学习如何应用一些我们已知的技术</strong>。谨慎对待每一个细节将确保我们在所有屏幕尺寸中都获得完美的设计体验。</p>
-<h3 id="流式文字排版快速入门"><a href="#流式文字排版快速入门" class="headerlink" title="流式文字排版快速入门"></a>流式文字排版快速入门</h3><p>视口单位是 web 上能应用流式文字排版的重要元素。视口单位指的是浏览器视口尺寸的百分比。例如，1 <code>vw</code> 等于视口宽度的 1%。与单位百分比不同，他们总是相对于视口，而百分比是相对于元素的父容器。</p>
-<p>这意味着，与所有其他单位类型不同，视口单位与基础的字体大小没有任何关系。这个区别意义重大，也让这个单位变得有趣而独特。</p>
-<p>可用的四个视口单位：</p>
-<ul>
-<li><code>vw</code>: 视口宽度</li>
-<li><code>vh</code>: 视口高度</li>
-<li><code>vmin</code>: 视口宽度和高度的较小值</li>
-<li><code>vmax</code>: 视口宽度和高度的较大值</li>
-</ul>
-<p>应用流式字体排版技术最简单的方法就是给 <code>html</code> 元素上的 <code>font-size</code> 设置一个流式单位：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html &#123; font-size: 2vw; &#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，我们给根元素设置了 <code>2vw</code>。因此，我们改变了 “root em”。因为所有使用了 <code>em</code> 和 <code>rem</code> 单位的元素都直接或间接的与这个 root em 有关，所以他们也将变成流式的。例如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">h1 &#123; font-size: 2em; &#125;</span><br></pre></td></tr></table></figure>
-<p><code>2em</code> 的标题大小现在等于 <code>4vw</code>，因为这是当前基础字体大小 <code>2vw</code> 的两倍。</p>
-<p>单独使用视口相关的单位也会带来一些弊端。例如我们无法精确控制缩放速率；无法设置最小或最大的字体大小；还有，与像素一样，一行声明也许会覆盖用户的 font-size 偏好设置。但幸运的是，总有方法来克服这些缺陷。</p>
-<h3 id="控制视口单位来设置最小与最大字体大小"><a href="#控制视口单位来设置最小与最大字体大小" class="headerlink" title="控制视口单位来设置最小与最大字体大小"></a>控制视口单位来设置最小与最大字体大小</h3><p>给 <code>html</code> 元素设置 <code>2vw</code> 让所有元素都流动起来然后收工回家，这么做当然简单，但这达不到最佳效果。视口单位是一个钝器，要得到可行结果需要一些外力辅助。</p>
-<p>因为视口单位通常与视口有着直接的关系，所以在很小的屏幕下，你会看见小的离谱的字。</p>
-<p>理论上，我们应该设置一个最小的字体大小，可惜 CSS 中并没有 <code>min-font-size</code> 这个属性。但换个角度思考一下，我们采用一些不同的方法也可以达到同样的效果。</p>
-<p>第一，我们可以使用 <code>calc()</code> 表达式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">html &#123; font-size: calc(1em + 1vw); &#125;</span><br></pre></td></tr></table></figure></p>
-<p>在这个例子中，如果视口宽度为 0，那 <code>font-size</code> 就是 <code>1em</code>。当屏幕变大，<code>1vw</code> 的值将会与最小字体大小 <code>1em</code> 相加。但这个技巧并不是完美的；通常我们希望能在某个屏幕大小时设置一个最小的字体大小，而不是让他等于 0。使用媒体查询可以解决这个问题：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (min-width: 50em) &#123;</span><br><span class="line">    html &#123;</span><br><span class="line">        font-size: 2vw;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，当视口宽度达到 50 em 的时候，字体大小就会变成动态的。这个方案效果很好，但在固定值和动态值之间通常会有一个抖动。为了消除这个抖动，我们要算出动态值与固定值刚好相等的那个视口宽度，然后在这个地方设置分界点。</p>
-<p>如果默认的字体大小是 16 像素，<code>2vw</code> 是视口宽度的 2%，那么计算分界点的计算式就是 <code>16 ÷ (2 ÷ 100)</code>。结果是 800 像素。</p>
-<blockquote>
-<p>2% * y = 16<br>y = 16 ÷ (2 ÷ 100)<br>——译者注</p>
-</blockquote>
-<p>如果想在媒体查询中使用 em 单位，那就需要将 px 转换为 em。用 800 除以 16（或其他等于 rem 的像素值）： <code>800 ÷ 16 = 50</code>。如果你觉得这更简单，也可以直接使用 em 作为单位来计算：<code>1 ÷ (2 ÷ 100) = 50</code>。如上例所示，设置一个 <code>2vw</code> 的字体大小和 <code>50em</code> 的分界点，可以使固定值与动态值无缝衔接。</p>
-<p>同样的计算式也可计算出字体大小的最大值。如果想让字体大小最大不超过 24px，我们应该这样计算：<code>24 ÷ (2 ÷ 100) = 1200px</code>。使用 em 计算式就是：<code>1.5 ÷ (2 ÷ 100) = 75</code>（1.5 = 24 ÷ 16——译者注）。因此，超过 75em 的宽度后，字体大小就是固定值 1.5em。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">@media screen and (min-width: 75em) &#123;</span><br><span class="line">    html &#123;</span><br><span class="line">        font-size: 1.5em;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这些计算式都不难，表格有助于直观的查看不同视口单位的分界点和字体缩放比例。表格头部是视口单位的值，表格左侧是设备解决方案。</p>
-<table>
-<thead>
-<tr>
-<th>-</th>
-<th style="text-align:center">1vw</th>
-<th style="text-align:center">2vw</th>
-<th style="text-align:center">3vw</th>
-<th style="text-align:center">4vw</th>
-<th style="text-align:center">5vw</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>400px</strong></td>
-<td style="text-align:center">4px</td>
-<td style="text-align:center">8px</td>
-<td style="text-align:center">12px</td>
-<td style="text-align:center">16px</td>
-<td style="text-align:center">20px</td>
-</tr>
-<tr>
-<td><strong>500px</strong></td>
-<td style="text-align:center">5px</td>
-<td style="text-align:center">10px</td>
-<td style="text-align:center">15px</td>
-<td style="text-align:center">20px</td>
-<td style="text-align:center">25px</td>
-</tr>
-<tr>
-<td><strong>600px</strong></td>
-<td style="text-align:center">6px</td>
-<td style="text-align:center">12px</td>
-<td style="text-align:center">18px</td>
-<td style="text-align:center">24px</td>
-<td style="text-align:center">30px</td>
-</tr>
-<tr>
-<td><strong>700px</strong></td>
-<td style="text-align:center">7px</td>
-<td style="text-align:center">14px</td>
-<td style="text-align:center">21px</td>
-<td style="text-align:center">28px</td>
-<td style="text-align:center">35px</td>
-</tr>
-<tr>
-<td><strong>800px</strong></td>
-<td style="text-align:center">8px</td>
-<td style="text-align:center">16px</td>
-<td style="text-align:center">24px</td>
-<td style="text-align:center">32px</td>
-<td style="text-align:center">40px</td>
-</tr>
-</tbody>
-</table>
-<p>通过表格可以看出，我们几乎无法控制视口单位大小改变时字体大小的改变速率。单独使用视口单位，字体大小就完全受限于表格的某一单列。</p>
-<h3 id="控制缩放速率"><a href="#控制缩放速率" class="headerlink" title="控制缩放速率"></a>控制缩放速率</h3><p>如果想让字体大小在屏幕分辨率 400px 时为 16px，分辨率达到 800px 时调整到 24px，使用分界点实现不了这个需求。上面我们为最小和最大字体大小计算过分界点，不是选择他们。</p>
-<p>那我们如何解决这个问题呢？答案就是<a href="https://www.smashingmagazine.com/2015/12/getting-started-css-calc-techniques/" target="_blank" rel="external">使用 calc()</a>。将 <code>calc()</code> 和视口单位结合使用可以得到进阶版流式文字排版，字体会在指定的视口范围内的指定像素值之间完美缩放。我们只需简单的创造一个基本的数学公式。</p>
-<p><img src="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/advanced-calc-500-opt.png" alt="Image of a function: calc(16px + (24 - 16) * (100vw - 400px) / (800 - 400))"></p>
-<p><a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/advanced-calc-800-opt.png" target="_blank" rel="external">点击查看大图片</a></p>
-<p>这个函数取指定范围内的一个值，然后计算出应用在不同范围的新值。所以，如果取数字 1 和 100 还有值 50，那么应用到 1 和 200 之间时，新值就是 100。而且这些值在范围中任何点都是正确的。</p>
-<p>这是个很普通的映射函数，在 JavaScript 处理数据时已经使用过很多次。我很好奇将函数与 <code>calc()</code> 一起使用的可能性，当发现这就是纯数学函数时，我知道就缺一个变量了。这是使用视口的关键区别：视口大小就是变量。<code>100vw</code> 的值就是这个方程式的变量，因为当视口变化时 <code>100vw</code> 的值也是变化的。有了这个初始想法，我花了一段时间使得这个函数工作。<code>calc()</code> 函数以特定方式处理方程式中的单位类型。如果你对这类事情感兴趣，我极力推荐阅读<a href="https://www.w3.org/TR/css3-values/" target="_blank" rel="external"> W3C 规范：单位的类型与值</a>；如果不出意外，掌握这个你就可以去显摆了。</p>
-<p>尽管这个计算式看起来有点复杂，但其实相当简单。我们选定最小字体大小和最大字体大小，最小屏幕尺寸和最大的屏幕尺寸，不是选定字体应该缩放的大小，然后将选定的值代入方程中。我们可以使用任何类型的单位，包括 em，rem 或 px。在文章的例子中我喜欢使用 px 这个单位，因为 px 让概念更容易理解，但在实际工作中我更喜欢使用 rem。但无论你选择哪个单位，都要保证方程式中所有的值都使用相同类型的单位，你必须剥离单位的影响，如例子所示。</p>
-<p>如果你不想手写，网上有很多工具，比如 <a href="http://www.sassmeister.com/gist/7f22e44ace49b5124eec" target="_blank" rel="external">Sass</a> 和 <a href="http://codepen.io/MadeByMike/pen/RWJyML" target="_blank" rel="external">LESS</a> 的 mixins，还有 <a href="https://www.npmjs.com/package/postcss-responsive-type" target="_blank" rel="external">PostCSS</a> 的插件。你想怎么玩，就怎么玩。</p>
-<h3 id="维持完美行宽"><a href="#维持完美行宽" class="headerlink" title="维持完美行宽"></a>维持完美行宽</h3><p>Robert 在他的书《印刷风格要素》中建议，一个令人感觉舒适的行宽大概是 45 到 75 个字符。</p>
-<blockquote>
-<p>对于在正文中使用衬线字体（译者注：英语中的一种格式）的单栏页面来说，45 到 75 个字符被广泛认为是令人满意的行宽。66 个字符（包括字符与空格）则被公认为完美行宽。</p>
-</blockquote>
-<p>这个规则可以直接复用到流式文字排版中，另外在许多情况下，随着文字的缩放实现一致的行宽也是有可能的。</p>
-<p>在响应式方案中，我们通过设置分界点来调整字体大小，还会经常任意调整容器宽度来维持正确的行宽。然而，在流式文字排版中，指定分界点处的文字调整已经没有必要了。现在只需要设置容器宽度随着字体大小的变化速率而缩放就行。可以在 <code>width</code> 属性中使用 <code>calc()</code> 技术，与 <code>font-size</code> 的设置一样简单。这样就能轻松维持完美行宽——同时我也注意到样式表更容易阅读和维护了。</p>
-<p>保持完美行宽在非常小的屏幕下是不切实际的。为了维护“完美的”阅读宽度而缩小字体，当缩小到某个点后总会损害可读性。我们只能接受这个事实，然后针对移动设备为某些关键内容的容器设置宽度。</p>
-<h3 id="实现一个模块化比例尺"><a href="#实现一个模块化比例尺" class="headerlink" title="实现一个模块化比例尺"></a>实现一个模块化比例尺</h3><p>模块化比例尺就是一系列相互之间比例协调的数字。一图胜千言：</p>
-<p><a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/what-is-ms-800-opt.png" target="_blank" rel="external"><img src="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/what-is-ms-500-opt.png" alt="Image of the senctence What is modular scale repeated six times but in different sizes"></a></p>
-<p>每个标题都比前一个标题的缩小了 1.2 倍（译者注：原文写的是 bigger，应该是错误的）。（<a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/what-is-ms-800-opt.png" target="_blank" rel="external">点击查看大图</a>）</p>
-<p>不同的比例尺在不同尺寸的屏幕下效果更好。</p>
-<p><a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/different-scales-800-opt.png" target="_blank" rel="external"><img src="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/different-scales-500-opt.png" alt="Comparison of a modular scale on a smartphone in portrait and a desktop screen"></a></p>
-<p>（<a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/different-scales-800-opt.png" target="_blank" rel="external">点击查看大图</a>）</p>
-<p>在小屏幕中，标题大小应该更统一；因为大屏幕有更多的空间应付更多样的变化。在不同的模块化比例尺之间，可以使用上文提到的动态变化的文字排版技术。只需为小屏幕选择一个比例尺，为大屏幕选择另一个比例尺，然后为每一个级别的标题计算出最小字体大小与最大字体大小。</p>
-<p>为了计算出模块化比例尺，我们先取基础的字体大小与选定比例相乘得到一个更大的数字。除以选定比例得到一个较小的数字。根据得到的数字再重复此步骤，就会得到缩放过程中每个必需的值。</p>
-<h4 id="放大"><a href="#放大" class="headerlink" title="放大"></a>放大</h4><ul>
-<li><p>1em × 1.125em =  1.125em</p>
-</li>
-<li><p>1.125em × 1.125em = 1.266em</p>
-</li>
-<li><p>1.266em × 1.125em = 1.424em</p>
-</li>
-<li><p>1.424em × 1.125em = 1.602em</p>
-</li>
-</ul>
-<h4 id="缩小"><a href="#缩小" class="headerlink" title="缩小"></a>缩小</h4><ul>
-<li><p>1em ÷ 1.125em = 0.889em</p>
-</li>
-<li><p>0.889em ÷ 1.125em = 0.790em</p>
-</li>
-<li><p>0.790em ÷ 1.125em = 0.702em</p>
-</li>
-<li><p>0.702em ÷ 1.125em = 0.624em</p>
-</li>
-</ul>
-<p>我们取 1.125 作为最小缩放比例，取 1.250 作为最大缩放比例 ，然后做重复计算。然后在不同级别的标题中使用比例尺中的不同比例。</p>
-<ul>
-<li><p>最小缩放比例： 1.125</p>
-</li>
-<li><p>最大缩放比例：1.250</p>
-</li>
-</ul>
-<table>
-<thead>
-<tr>
-<th>标题级别</th>
-<th>最小字体大小</th>
-<th>最大字体大小</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>h1</td>
-<td>1.602em</td>
-<td>2.441em</td>
-</tr>
-<tr>
-<td>h2</td>
-<td>1.424em</td>
-<td>1.953em</td>
-</tr>
-<tr>
-<td>h3</td>
-<td>1.266em</td>
-<td>1.563em</td>
-</tr>
-<tr>
-<td>h4</td>
-<td>1.125em</td>
-<td>1.250em</td>
-</tr>
-</tbody>
-</table>
-<p>我在 Codepen 上实现了一个<a href="http://codepen.io/MadeByMike/pen/VvwqvW" target="_blank" rel="external">流式模块化比例尺标题</a>的例子。你还可以在 Tim Brown 的文章<a href="http://alistapart.com/article/more-meaningful-typography" target="_blank" rel="external">《更有意义的文字排版》</a>中阅读更多关于模块化比例尺的内容。</p>
-<p>如果你在选择合适的比例尺时需要帮助，我推荐 Jeremy Church 的网站 <a href="http://type-scale.com/" target="_blank" rel="external">Type Scale</a> 和 Tim Brown 与 Scott Kellum 的网站 <a href="http://www.modularscale.com/" target="_blank" rel="external">Modular Scale</a>。</p>
-<h3 id="保持垂直节奏"><a href="#保持垂直节奏" class="headerlink" title="保持垂直节奏"></a>保持垂直节奏</h3><p>垂直节奏就是让页面上的元素之间保持一致且成比例的间距。你可以在 Espen Brunborg 的文章<a href="https://www.smashingmagazine.com/2012/12/css-baseline-the-good-the-bad-and-the-ugly/" target="_blank" rel="external">《CSS 基线：好的，坏的和丑的》</a>中找到更多关于垂直节奏的信息。</p>
-<p>在流式布局中要保持垂直节奏，我们需要将每个元素的垂直间距设置为基准值的某个比例值。响应式文字排版中令许多人感到挑战的是如何找到在小屏幕和大屏幕下都能工作的垂直节奏。通常情况下，可以为小屏幕与大屏幕设置不同的基准值，也可以使用不同的比例。</p>
-<p>在流式文字排版中，基准值也可以像字体大小一样设置为动态的。其实，如果已经给根元素设置了一个动态值，那我们就可以直接使用单位 <code>em</code> 或者 <code>rem</code>，也可以使用 <code>calc()</code> 。</p>
-<p>假设基准值是 <code>1.5rem</code>。那么元素 <code>body</code> 的 padding 值就是 <code>1.5rem</code>。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">body &#123;</span><br><span class="line">    padding: 1.5rem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>同样的，我们将 line-height 和 margin 也设置为 1.5rem。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">p &#123;</span><br><span class="line">    line-height: 1.5rem;</span><br><span class="line">    margin-bottom: 1.5rem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>对于标题元素，我想设置一个不同的行高。然而，我又想让行高加上 margin 之后等于基准值的增量。这时 <code>calc()</code> 就派上用场了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">h1 &#123;</span><br><span class="line">    font-size: 2rem;</span><br><span class="line">    line-height: 2rem;</span><br><span class="line">    margin-top: calc((1.5rem - 2rem) + 1.5rem);</span><br><span class="line">    margin-bottom: 1.5rem;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，标题元素的总高度加上 margin 值将会是 <code>3rem</code>，刚好等于基准值的两倍。</p>
-<p>我在 Codepen 上使用 Sass 变量写了一个<a href="http://codepen.io/MadeByMike/pen/0dbc9b82769c3e2a0cbfc3192bcaabd3?editors%3D0100" target="_blank" rel="external">例子</a>，你可以设置不同的基准值来看看它是如何工作的。</p>
-<p>未来，自定义 CSS 属性将会使得这个技巧更有趣。那时我们可以在 <code>calc()</code> 中使用 CSS 变量来改变媒体查询中的基线值。</p>
-<h3 id="如何处理限制条件"><a href="#如何处理限制条件" class="headerlink" title="如何处理限制条件"></a>如何处理限制条件</h3><p>也许你想在有布局限制的网站上实现流式文字排版，又或许你不得不使用 WordPress 或 Bootstrap 中的预定义布局。在这些情况下，容器很有可能不是流式的，如果是，大概也不会与字体大小以同速率变化。</p>
-<p>我最近为澳大利亚政府民政部门的网站实现流式文字排版。这是个充满挑战的大网站，我们还必须基于现有的设计工作。在这样一个访问量巨大的网站上实现流式文字排版，我主要关注两个问题。</p>
-<p>第一，我如何避免破坏布局？尤其是当字体大小以不同速率变化时我以为导航容器中的内容会溢出。但令我惊讶的是，这根本不是个问题。</p>
-<p>实际上，内容可以自然地调整以适应容器，而在之前需要指定分界点来调整。总之，样式表需要更少的媒体查询，并且在大部分情况下，组件也需要的样式声明比原来少得多。</p>
-<p>这是个意外收获，我们还在许多地方抛弃了对平板电脑的优化设计，因为桌面版现在也能在更小的屏幕上工作了。</p>
-<p>下面是一个之前需要在不同屏幕尺寸中需要若干调整的导航组件实例。虽然在小屏幕下不完美，但字体紧凑，功能健全，也没有破坏布局。</p>
-<p><a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/component-example-full-opt.png" target="_blank" rel="external"><img src="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/component-example-500-opt.png" alt="A colorful navigation component adjusting to the viewport-width"></a></p>
-<p>(<a href="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/component-example-full-opt.png" target="_blank" rel="external">点击查看大图</a>)</p>
-<p>我的第二个问题是，有些元素是固定宽度，我也知道不可能每一行都达到完美行宽。实际上，我将字体大小调整为手机和平板上面的完美长度 —— 我认为这是最重要的。</p>
-<p>还有不得不接受的情况是，由于主容器没有以和文字以同速率缩放，一些文字可能在浏览器调整大小的时候不可避免地回流。之所以称之为一个问题，是因为我不想让读者在旋转设备时丢失他们的阅读焦点。但因为我们无法避免这个问题，所以我们唯一能做的就是在指定设备上测试一下有多少影响。很幸运的是回流在移动设备上几乎很难被注意到，甚至在大的平板电脑上这个影响也是极小的。</p>
-<p>我们对最终的效果很满意。然而我们可以做更多来提升字体排版，毫无疑问这么做提升了网站的可读性。鉴于从实现流式字体排版中吸取的教训，该网站设计的下一个迭代应主要关注字体如何排版以及网站的可读性方面。</p>
-<h3 id="在已有网站上实现流式文字排版的建议"><a href="#在已有网站上实现流式文字排版的建议" class="headerlink" title="在已有网站上实现流式文字排版的建议"></a>在已有网站上实现流式文字排版的建议</h3><ul>
-<li><p>认真地选择缩放比例、最小和最大字体大小，确保能与你的设计完美契合。</p>
-</li>
-<li><p>字体大小使用单位 em。如果你需要在某一特定容器中禁用流式文字排版，例如导航栏，那么可将容器的字体大小设为一个固定值。这时该容器中单位为 em 的值将与这个固定值相关。</p>
-</li>
-<li><p>同样地，如果你需要给某一特定容器设置流式字体排版。那你可以给该容器的字体大小设置一个不定值，那容器中单位为 em 的值会变成流式的。</p>
-</li>
-<li><p>如果文字回流只发生在浏览器调整大小或设备旋转的时候，那没必要把它当作一个坏事情。</p>
-</li>
-<li><p>保持完美行宽是不可能的。主要考虑手机和平板电脑的完美行宽就行。</p>
-</li>
-</ul>
-<h3 id="浏览器支持与-Bugs"><a href="#浏览器支持与-Bugs" class="headerlink" title="浏览器支持与 Bugs"></a>浏览器支持与 Bugs</h3><p>我经常听说 Safari，尤其是移动版 Safari，在使用视口单位和 <code>calc()</code> 表达式时都有严重的 bug。然而，很多时候都没有提到具体问题，所以我想我得自己测试。</p>
-<p>我分别测试了 <code>calc()</code> 表达式和视口单位，以及结合了视口单位和 <code>calc()</code> 的进阶版流式字体排版技术。但我没有发现任何阻止我使用这些技术的问题。</p>
-<p><code>calc()</code> 和视口单位在高级浏览器上都能正常工作。但是在低于 Safari8 和 IE11 的版本里，当 <code>calc()</code> 表达式中使用了视口单位时，浏览器窗口改变时不会重新计算结果。</p>
-<p>你可以通过额外的媒体查询来强制表达式重新计算：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">/* 老版本浏览器 */</span><br><span class="line">html &#123; font-size: 16px; &#125;</span><br><span class="line"></span><br><span class="line">/* 高级浏览器只需要下面这个*/</span><br><span class="line">@media screen and (min-width: 25em)&#123;</span><br><span class="line">    html &#123; font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">/* Safari &lt;8 和 IE &lt;11 */</span><br><span class="line">@media screen and (min-width: 25em)&#123;</span><br><span class="line">    html &#123; font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); &#125;</span><br><span class="line">&#125;</span><br><span class="line">@media screen and (min-width: 50em)&#123;</span><br><span class="line">    html &#123; font-size: calc( 16px + (24 - 16) * (100vw - 400px) / (800 - 400) ); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个技术强制低于 Safari8 和  IE11 的浏览器在指定分界点处重新计算字体大小。</p>
-<p>在 JavaScript 中使用窗口重绘事件来强制低版本浏览器重新布局也许可以，但我还没有找到一个可依赖方法来这么做，还有这样做可能会影响性能。在大多数情况下，在指定分界点处重新计算是这些浏览器可接受的一个降级方案。</p>
-<p>对于那些<a href="http://caniuse.com/#feat=viewport-units" target="_blank" rel="external">不支持视口单位</a>和 <a href="http://caniuse.com/#feat=calc" target="_blank" rel="external">calc() 表达式</a>的古董浏览器，流式技术可以直接忽略。如果设置了合理的默认值，这些技术也可以作为渐进增强方案。</p>
-<h3 id="今天如何使用流式字体排版"><a href="#今天如何使用流式字体排版" class="headerlink" title="今天如何使用流式字体排版"></a>今天如何使用流式字体排版</h3><p>如果你计划实现流式字体排版，首先你得确定采用哪种方法。</p>
-<p>如果整个设计都是流式的，那你可以考虑将 root em 设置为流式的，通过在元素 <code>html</code> 上声明一个使用流式单位的字体大小。然后，整个设计的其他部分都使用 <code>em</code> 或者 <code>rem</code> 单位就可以了。</p>
-<p>认真地选择最小和最大的字体大小。在这一点上，你需要决定是否直接使用视口单位，还是更精确控制缩放速率。如果选择后者，那么<a href="http://www.sassmeister.com/gist/7f22e44ace49b5124eec" target="_blank" rel="external">Sass</a>或者 <a href="http://codepen.io/MadeByMike/pen/RWJyML" target="_blank" rel="external">LESS</a> 的 mixin 或者 <a href="https://www.npmjs.com/package/postcss-responsive-type" target="_blank" rel="external">PostCSS</a> 插件会帮你省不少工作。</p>
-<p>一开始就选择好最小和最大的字体大小。这是最重要的选择。因为其他所有组件的字体大小都依赖 root em。在项目后期修改 root em，意味着你必须调整所有的一切。</p>
-<p>在使用流式技术之前别忘了声明的一个默认的字体大小。这个默认值会在不支持流式单位的浏览器上工作，它不用等于最小的字体大小。</p>
-<p>最后，你还需要考虑设计稿的限制，以及如何处理如标题级别和行宽等事情。看看文章中提到的这些技术。如果你想让组件而不是标题以与常规文本不同的速率缩放，那在添加 <code>calc()</code> 表达式之前考虑可读性和样式表的维护。</p>
-<p>希望你看完本文能有所启发，考虑下个项目是否适合使用流式字体布局。</p>
-<h4 id="必读"><a href="#必读" class="headerlink" title="必读"></a>必读</h4><ul>
-<li><p>“<a href="http://trentwalton.com/2011/05/10/fit-to-scale/" target="_blank" rel="external">Fit to Scale</a>,” Trent Walton</p>
-</li>
-<li><p>“<a href="http://trentwalton.com/2012/06/19/fluid-type/" target="_blank" rel="external">Fluid Type</a>,” Trent Walton</p>
-</li>
-<li><p>“<a href="https://css-tricks.com/viewport-sized-typography/" target="_blank" rel="external">Viewport Sized Typography</a>,” Chris Coyier</p>
-</li>
-</ul>
-<h4 id="相关阅读"><a href="#相关阅读" class="headerlink" title="相关阅读"></a>相关阅读</h4><ul>
-<li><p>“<a href="https://www.smashingmagazine.com/2015/06/responsive-typography-with-sass-maps/" target="_blank" rel="external">Responsive Typography With SASS Maps</a>,” Jonathan Suh</p>
-</li>
-<li><p>“<a href="https://www.smashingmagazine.com/2015/05/benton-modern-typography-case-study/" target="_blank" rel="external">Benton Modern: A Case Study on Art-Directed Responsive Web Typography</a>,” Marko Dugonjić</p>
-</li>
-<li><p>“<a href="http://www.elliotjaystocks.com/blog/responsive-web-typography/" target="_blank" rel="external">Advanced Web Typography: Responsive Web Typography</a>,” Elliot Jay Stocks</p>
-</li>
-</ul>
-<h4 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h4><ul>
-<li><p>“<a href="http://www.zell-weekeat.com/responsive-typography/" target="_blank" rel="external">Everything I Know About Responsive Web Typography</a>,” Zell Liew</p>
-</li>
-<li><p>“<a href="http://blog.bugsnag.com/responsive-typography-with-rems" target="_blank" rel="external">Responsive Typography With REMs: How to Build a Scalable Typographic Foundation in Three Steps</a>,” Max Luster</p>
-</li>
-<li><p>“<a href="http://academy.bindtuning.com/fluid-type-for-responsive-websites/" target="_blank" rel="external">Fluid Typography for Responsive Websites</a>,” Ana Sampaio</p>
-</li>
-<li><p>“<a href="https://responsivedesign.is/design/responsive-typography" target="_blank" rel="external">Responsive Typography</a>,” Responsivedesign.is</p>
-</li>
-</ul>
+        
+          <a class="article-more-a" href="/blog/2016/06/29/fluid-typography/#more">more >></a>
+        
+      
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zhouweicsu.github.io/blog/blog/2016/06/29/fluid-typography/" data-id="ciquksrnf00051k0g6huoajg3" class="article-share-link">Share</a>
+    <div class="article-info article-info-index">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Typography/">Typography</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/fluid/">fluid</a></li></ul>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/Typography/">Typography</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/fluid/">fluid</a></li></ul>
+	</div>
 
-    </footer>
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/blog/categories/CSS/">CSS</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2016/06/29/fluid-typography/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-replace-coffeescript-with-es6" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2015/03/12/replace-coffeescript-with-es6/" class="article-date">
-  <time datetime="2015-03-11T16:00:00.000Z" itemprop="datePublished">2015-03-12</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/JavaScript/">JavaScript</a>
-  </div>
 
-  </div>
+
+
+
+
+
+  
+    <article id="post-replace-coffeescript-with-es6" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
     
       <header class="article-header">
         
@@ -447,97 +288,59 @@
     </h1>
   
 
+        <a href="/blog/2015/03/12/replace-coffeescript-with-es6/" class="archive-article-date">
+  	<time datetime="2015-03-11T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2015-03-12</time>
+</a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文链接：<a href="https://robots.thoughtbot.com/replace-coffeescript-with-es6" target="_blank" rel="external">Replace CoffeeScript with ES6</a></p>
-<p>一直以来我都在关注和研究JavaScript的下一个版本——<a href="http://en.wikipedia.org/wiki/ECMAScript#ECMAScript_Harmony_.286th_Edition.29" target="_blank" rel="external">ES6</a>，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多<a href="http://coffeescript.org/" target="_blank" rel="external">CoffeeScript</a>尝试不去大量修改语法想解决的问题。</p>
-<p>###如何使用ES6###<br>我们可以通过6to5这个项目开始使用ES6,<a href="https://babeljs.io/" target="_blank" rel="external">6to5</a>可以将ES6代码转译成符合ES5标准的代码。6to5支持数量众多的构建工具，包括Broccoli，Grunt，Gulp，和Sprockets。我在使用<a href="https://github.com/josh/sprockets-es6" target="_blank" rel="external">sprockets-es6</a>上有许多成功的经验，并且Sprockets 4.x版本将会非常好的支持6to5。</p>
-<p>如果你使用Vim编辑器的话，那么你可以通过将如下代码加入你的<code>.vimrc</code>文件，从而将带<code>.es6</code>扩展名的文件与JavaScript关联起来。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">autocmd BufRead,BufNewFile *.es6 setfiletype javascript</span><br></pre></td></tr></table></figure>
-<p>你也可以在浏览器中使用<a href="https://babeljs.io/repl/" target="_blank" rel="external">6to5 REPL</a>来编写ES6代码。</p>
-<p>###类###<br>CoffeeScript与ES6都支持类。让我们来看下CoffeeScript类与相同功能的ES6类的对比。</p>
-<p>CoffeeScript有可以利用的三个优势：参数列表使用实例变量，字符串插值，函数调用不需要括号。</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></span><br><span class="line">  constructor: <span class="function"><span class="params">(@firstName, @lastName)</span> -&gt;</span></span><br><span class="line"></span><br><span class="line">  name: <span class="function">-&gt;</span></span><br><span class="line">    <span class="string">"<span class="subst">#&#123;@first_name&#125;</span> <span class="subst">#&#123;@last_name&#125;</span>"</span></span><br><span class="line"></span><br><span class="line">  setName: <span class="function"><span class="params">(name)</span> -&gt;</span></span><br><span class="line">    names = name.split <span class="string">" "</span></span><br><span class="line"></span><br><span class="line">    @firstName = names[<span class="number">0</span>]</span><br><span class="line">    @lastName = names[<span class="number">1</span>]</span><br><span class="line"></span><br><span class="line">blake = <span class="keyword">new</span> Person <span class="string">"Blake"</span>, <span class="string">"Williams"</span></span><br><span class="line">blake.setName(<span class="string">"Blake Anderson"</span>)</span><br><span class="line"><span class="built_in">console</span>.log blake.name()</span><br></pre></td></tr></table></figure>
-<p>ES6我们可以使用classes、getters和setters：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">class Person &#123;</span><br><span class="line">  constructor(firstName, lastName) &#123;</span><br><span class="line">    this.firstName = firstName;</span><br><span class="line">    this.lastName = lastName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  get name() &#123;</span><br><span class="line">    return this.firstName + &quot; &quot; + this.lastName;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  set name(name) &#123;</span><br><span class="line">    var names = name.split(&quot; &quot;);</span><br><span class="line"></span><br><span class="line">    this.firstName = names[0];</span><br><span class="line">    this.lastName = names[1];</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var blake = new Person(&quot;Blake&quot;, &quot;Williams&quot;);</span><br><span class="line">blake.name = &quot;Blake Anderson&quot;</span><br><span class="line">console.log(blake.name);</span><br></pre></td></tr></table></figure>
-<p>如果你使用过任何提供类机制的javascript库或框架，你会发现ES6的语法有一点点不同之处：</p>
-<blockquote>
-<ul>
-<li>函数名之后没有分号</li>
-<li>关键字function被省略了</li>
-<li>每个定义之后都没有逗号了</li>
-</ul>
-</blockquote>
-<p>我们也可以利用getters和setters方法让使用<code>name</code>方法像属性那样方便。</p>
-<p>###字符串插值###<br>我一直希望JavaScript能够拥有更加有方便的字符串语法。幸运地是ES6新加了<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings" target="_blank" rel="external">template strings</a>。下面我们来比较一下CoffeeScript strings，JavaScript strings，和template strings，看看他们的能力。</p>
-<p>CoffeeScript:</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"CoffeeScript allows multi-line strings</span><br><span class="line">with</span><br><span class="line">interpolation like 1 + 1 = <span class="subst">#&#123;<span class="number">1</span> + <span class="number">1</span>&#125;</span></span><br><span class="line">"</span></span><br></pre></td></tr></table></figure>
-<p>JavaScript strings:</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">"JavaScript strings can only span a single line "</span> +</span><br><span class="line">  <span class="string">"and interpolation isn't possible"</span></span><br></pre></td></tr></table></figure>
-<p>ES6 template strings:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">`Template strings allow strings to span</span><br><span class="line">multiple lines and allow interpolation like 1 + 1 = $&#123;1 + 1&#125;</span><br><span class="line">`</span><br></pre></td></tr></table></figure>
-<p>我们可以在前文给出的例子中使用template strings，将<code>name</code>的getter方法改为如下形式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">get name() &#123;</span><br><span class="line">  return `$&#123;this.firstName&#125; $&#123;this.lastName&#125;`;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这比之前的字符串拼接的方式看起来清爽多了，并且看起来更加像CoffeeScript。</p>
-<p>###胖箭头###<br>另一个CoffeeScript中很吸引人的特性在ES6中也有新增，那就是胖箭头。胖箭头可以将函数与当前上下文的<code>this</code>值绑定起来。首先，让我看看不使用胖箭头函数是如何处理this的。</p>
-<p>在ES5中，定义一个函数前必须用一个变量来保存当前的<code>this</code>值：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var self = this;</span><br><span class="line"></span><br><span class="line">$(&quot;button&quot;).on(&quot;click&quot;, function() &#123;</span><br><span class="line">  // do something with self</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>CoffeeScript中使用胖箭头，并且可以省略参数和花括号：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;button&quot;).on&quot;click&quot;, =&gt; </span><br><span class="line">    # do something with this</span><br></pre></td></tr></table></figure>
-<p>在ES6中，花括号是必须的，但是参数可以省略：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(&quot;button&quot;).on(&quot;click&quot;, () =&gt; &#123;</span><br><span class="line">  // do something with this</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>###其他特性###<br>ES6有一些其他的特性值得顺便提一下。</p>
-<p>##默认参数##</p>
-<p>CoffeeScript：</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">hello</span> = <span class="params">(name = <span class="string">"guest"</span>)</span> -&gt;</span></span><br><span class="line">  alert(name)</span><br></pre></td></tr></table></figure>
-<p>ES6:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var hello = function(name = &quot;guest&quot;)&#123;</span><br><span class="line">  alert(name);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##参数列表（splats）##<br><a href="http://en.wikipedia.org/wiki/Variadic_function" target="_blank" rel="external">变长参数函数</a>，CoffeeScript称之为参数列表（splats），允许收集附加参数传递给函数作为一个数组。ES6中称之为其他参数。</p>
-<p>CoffeeScript:</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="title">awards</span> = <span class="params">(first, second, others...)</span> -&gt;</span></span><br><span class="line">  gold = first</span><br><span class="line">  silver = second</span><br><span class="line">  honorable_mention = others</span><br></pre></td></tr></table></figure>
-<p>ES6:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var awards = function(first, second, ...others) &#123;</span><br><span class="line">  var gold = first;</span><br><span class="line">  var silver = second;</span><br><span class="line">  var honorableMention = others;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>##解构赋值##<br>解构赋值允许按照一定模式，从数组和对象中提取值，对变量进行赋值。</p>
-<p>CoffeeScript:</p>
-<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[first, _, last] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</span><br></pre></td></tr></table></figure>
-<p>ES6:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var [first, , last] = [1, 2, 3]</span><br></pre></td></tr></table></figure>
-<p>我们可以使用解构赋值将之前定义的<code>name</code>的setter函数代码更加简洁：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">set name(name) &#123;</span><br><span class="line">  [this.firstName, this.lastName] = name.split(&quot; &quot;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>###结束语###<br>许多ES6转译工具已经在积极的开发中，功能上已经可以追上CoffeeScript了。本文仅仅介绍了极少数JavaScript的新特性，但是点击<a href="https://6to5.org/docs/learn-es6/" target="_blank" rel="external">这里</a>找到更多新特性。</p>
-<p>下个项目把CoffeeScript放一边，试一试ES6吧！</p>
-<p>译者 <a href="http://zhouweicsu.github.io/">@zhouweicsu</a><br>2015 年 3月 15日    </p>
+        <p>原文链接：<a href="https://robots.thoughtbot.com/replace-coffeescript-with-es6">Replace CoffeeScript with ES6</a></p>
+<p>一直以来我都在关注和研究JavaScript的下一个版本——<a href="http://en.wikipedia.org/wiki/ECMAScript#ECMAScript_Harmony_.286th_Edition.29">ES6</a>，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多<a href="http://coffeescript.org/">CoffeeScript</a>尝试不去大量修改语法想解决的问题。</p>
+        
+          <a class="article-more-a" href="/blog/2015/03/12/replace-coffeescript-with-es6/#more">more >></a>
+        
+      
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zhouweicsu.github.io/blog/blog/2015/03/12/replace-coffeescript-with-es6/" data-id="ciquksrmy00001k0gbc16motv" class="article-share-link">Share</a>
+    <div class="article-info article-info-index">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CoffeeScript/">CoffeeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ES6/">ES6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/JavaScript/">JavaScript</a></li></ul>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/CoffeeScript/">CoffeeScript</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/ES6/">ES6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/JavaScript/">JavaScript</a></li></ul>
+	</div>
 
-    </footer>
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/blog/categories/JavaScript/">JavaScript</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2015/03/12/replace-coffeescript-with-es6/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
-  
 </article>
 
 
-  
-    <article id="post-trigger-touchcancel-in-mobile-browsers" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/" class="article-date">
-  <time datetime="2014-12-08T16:00:00.000Z" itemprop="datePublished">2014-12-09</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/blog/categories/mobile/">mobile</a>
-  </div>
 
-  </div>
+
+
+
+
+
+  
+    <article id="post-trigger-touchcancel-in-mobile-browsers" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
-    
     
       <header class="article-header">
         
@@ -547,208 +350,307 @@
     </h1>
   
 
+        <a href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/" class="archive-article-date">
+  	<time datetime="2014-12-08T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2014-12-09</time>
+</a>
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文链接：<a href="http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/" target="_blank" rel="external">Different ways to trigger touchcancel in mobile browsers</a></p>
+        <p>原文链接：<a href="http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/">Different ways to trigger touchcancel in mobile browsers</a></p>
 <p>Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。</p>
-<p>touch事件最初是Apple为Safari浏览器创建的，现在已经被纳入了<a href="http://www.w3.org/TR/2011/WD-touch-events-20110505/" target="_blank" rel="external">W3C Touch 事件规范</a>。原始的<a href="https://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/doc/uid/TP40009358" target="_blank" rel="external">Safari DOM参考文档</a>关于touchcancel事件的信息少的可怜，仅有一句话：</p>
-<blockquote>
-<p>当系统取消跟踪touch事件时触发。</p>
-</blockquote>
-<p>幸运地是，W3C Touch事件规范提供了更多的细节，包括一些会触发该事件的场景：</p>
-<blockquote>
-<p>在touch事件被系统自定义行为干扰之后，客户端必须触发touchcancel事件，例如客户端原生的同步事件或操作取消了touch事件，或者触摸点滑出文档窗口移至一个可以处理用户交互的非文档区域（如，客户端原生界面，插件）。另外，当用户放置的触摸点超出了设备可存储的数量，那么最早进入TouchList的Touch对象也将被移除，此时客户端会触发该Touch对象的touchcancel事件。</p>
-</blockquote>
-<p>从上一段描述中我们可以进一步理解touchcancel事件与浏览器行为的关系。这不仅能帮助浏览器精确地引用TouchList中的Touch对象，而且也能被开发者用来实现特定的UI操作，例如在touchstart和touchmove事件处理函数中重置正在使用的变量。当系统取消了跟踪touch事件但touchend事件没有被触发时，touchcancel将会拯救你。</p>
-<p>那浏览器什么时候触发这个事件？开始研究之前有必要构建一个简单的事件日志来跟踪所有的touch事件。测试主要记录在touch区域滑动时最后一个被触发的touch事件，这些日志将使我们更加直观地分析到底是哪种交互操作触发了touchcancel事件。</p>
-<p>以下是我们在多种手机浏览器上的发现。值得指出的是touchcancel事件很不可预测的，尤其在安卓（2.3.5）上。甚至在iOS5上有时也不能准确预测什么操作会触发touchcancel事件。</p>
-<p>###iOS Safari 5.0.1（iPhone 4 &amp; iPad 1）###<br>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下home键</li>
-<li>用户按下Safari浏览器底部工具栏的操作按钮</li>
-<li>用户在屏幕中使用手掌触摸或涂抹，生成了许多不可辨别的单一触摸点（仅iPhone？）</li>
-<li>用户在iPad上使用四个或更多手指同时触摸，或使用系统设置中的多任务手势</li>
-</ul>
-</blockquote>
-<p>在touchstart或touchmove事件中不会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下Safari浏览器底部工具栏中的书签按钮</li>
-<li>用户按下Safari浏览器底部工具栏中的前进或回退按钮</li>
-<li>用户点击聚焦在Safari浏览器的搜索栏</li>
-<li>用户旋转设备的方向</li>
-<li>屏幕弹出系统通知，例如WiFi查找或闹钟提醒</li>
-<li>屏幕上方弹出iOS5风格的新通知</li>
-<li>用户新开了一个tab（iPad）</li>
-<li>用户刷新网页</li>
-<li>用户按下音量键</li>
-<li>用户切换设备静音/振动的开关</li>
-<li>用户接到一个来电</li>
-</ul>
-</blockquote>
-<p>在有些情况下以上操作中，浏览器会直接触发一个touchend事件而不是touchcancel事件。在其他情景中（例如旧风格的弹出通知），touchstart和touchmove事件仍然是起作用的（即使内容已经被通知覆盖），除非用户移开手指触发了touchend事件。<br>值得注意的是当touchstart或者touchmove事件被触发时，部分iOS5系统方法是无法执行的：</p>
-<blockquote>
-<ul>
-<li>用户不能使用Safari浏览器的地址栏</li>
-<li>用户不能打开一个新页面（iPhone）</li>
-<li>用户不能双击home键打开应用盒子（app tray）</li>
-<li>用户不能从屏幕上方往下滑动打开通知中心</li>
-<li>用户无法打开屏幕上方出现的iOS5风格的通知</li>
-</ul>
-</blockquote>
-<p>###安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器###<br>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下锁屏键</li>
-<li>此种情况下，似乎没有明显的原因touchcancel事件也会被随机触发，这种现象在重复快速点击和滑动的时候尤其显著</li>
-</ul>
-</blockquote>
-<p>在touchstart或touchmove事件中不会触发touchcancel事件的操作：</p>
-<blockquote>
-<ul>
-<li>用户按下home键</li>
-<li>用户旋转设备的方向</li>
-<li>用户按下音量键</li>
-</ul>
-</blockquote>
-<p>当touchstart或者touchmove事件被触发时，部分安卓2.3.5系统方法是无法执行的：</p>
-<blockquote>
-<ul>
-<li>用户无法按下菜单键和回退键</li>
-<li>用户无法打开通知菜单</li>
-<li>用户无法聚焦到浏览器地址栏</li>
-<li>用户无法点击书签按钮</li>
-</ul>
-</blockquote>
-<h3 id="Opera-Mobile"><a href="#Opera-Mobile" class="headerlink" title="Opera Mobile"></a>Opera Mobile</h3><p>安卓版Opera Mobile 11.50 </p>
-<p>也测试了。然而浏览器似乎支持touchcancel事件，实际上他并未触发这个事件。例如在按下home键的时候，Opera Mobile似乎直接触发了touchend事件。</p>
-<p>###黑莓平板电脑 (1.0.8.6067)###<br>尽管浏览器声称支持touchcancel事件，但该事件似乎并未被触发。即使按下电源键使设备待机，touchcancel事件也未被触发。同样的，按下浏览器工具条的按钮或聚焦在地址栏都未触发此事件。另外值得注意的是，当触发touchstart或touchmove事件后，平板电脑不会响应任何滑动的手势。</p>
-<p>##结论##</p>
-<p>从测试结果看，touchcancel事件仍然是不可预测的。然而确定在哪种情况下事件会被触发还是很容易的，在哪种情况下不被触发也几乎能确定。那么这个事件的作用也无需出现在本次研究中，因为在所有可预期的情况下，开发者目前似乎无法依赖这个事件的触发。</p>
-<p>然而可以肯定的是，你无法在每台设备上都仅仅只依赖touchend事件被的触发。你需要编写处理touchcancel事件的代码。例如在iPad上尤其如此，假如你写了个多点触控的app或联机的HTML5游戏。由于程序没有办法辨别用户是否启用了多任务手势，这时你的app就需要优雅地处理touchcancel事件。安卓浏览器不可预测的特性也是使得处理这个事件变得尤为重要，不这么做将会导致你的UI出现bug。</p>
-<p>所以，当你下次处理touch事件时，别忘记处理touchcancel事件。尽管许多浏览器支持此事件，但在处理某些意想不到的用户交互时还是非常方便的。</p>
-<p>译者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a><br>2014 年 12月 09日    </p>
+        
+          <a class="article-more-a" href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/#more">more >></a>
+        
+      
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://zhouweicsu.github.io/blog/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/" data-id="ciquksrn500011k0gr242u31i" class="article-share-link">Share</a>
+    <div class="article-info article-info-index">
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/mobile-browsers/">mobile browsers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/touch/">touch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/touchcancel/">touchcancel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/移动开发/">移动开发</a></li></ul>
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags"></i>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/mobile-browsers/">mobile browsers</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/touch/">touch</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/touchcancel/">touchcancel</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/blog/tags/移动开发/">移动开发</a></li></ul>
+	</div>
 
-    </footer>
+      
+	<div class="article-category tagcloud">
+	<i class="icon-book icon"></i>
+	<a class="article-category-link" href="/blog/categories/mobile/">mobile</a>
+	</div>
+
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
-  
 </article>
 
 
-  
 
-</section>
-        
-          <aside id="sidebar">
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">分类</h3>
-    <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/blog/categories/CSS/">CSS</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/JavaScript/">JavaScript</a></li><li class="category-list-item"><a class="category-list-link" href="/blog/categories/mobile/">mobile</a></li></ul>
-    </div>
-  </div>
+
+
+
 
 
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签</h3>
-    <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CSS/">CSS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/CoffeeScript/">CoffeeScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/ES6/">ES6</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/JavaScript/">JavaScript</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/Typography/">Typography</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/fluid/">fluid</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/mobile-browsers/">mobile browsers</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/scale/">scale</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/touch/">touch</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/touchcancel/">touchcancel</a></li><li class="tag-list-item"><a class="tag-list-link" href="/blog/tags/移动开发/">移动开发</a></li></ul>
-    </div>
-  </div>
-
-
   
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">标签云</h3>
-    <div class="widget tagcloud">
-      <a href="/blog/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/blog/tags/CoffeeScript/" style="font-size: 10px;">CoffeeScript</a> <a href="/blog/tags/ES6/" style="font-size: 10px;">ES6</a> <a href="/blog/tags/JavaScript/" style="font-size: 10px;">JavaScript</a> <a href="/blog/tags/Typography/" style="font-size: 10px;">Typography</a> <a href="/blog/tags/fluid/" style="font-size: 20px;">fluid</a> <a href="/blog/tags/mobile-browsers/" style="font-size: 10px;">mobile browsers</a> <a href="/blog/tags/scale/" style="font-size: 10px;">scale</a> <a href="/blog/tags/touch/" style="font-size: 10px;">touch</a> <a href="/blog/tags/touchcancel/" style="font-size: 10px;">touchcancel</a> <a href="/blog/tags/移动开发/" style="font-size: 10px;">移动开发</a>
-    </div>
-  </div>
-
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">归档</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/07/">七月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2016/06/">六月 2016</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2015/03/">三月 2015</a></li><li class="archive-list-item"><a class="archive-list-link" href="/blog/archives/2014/12/">十二月 2014</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">最新文章</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/blog/2016/07/05/fit-to-scale/">以变应变</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2016/06/29/fluid-typography/">使用 vh 和 vw 实现正真的流式文字排版</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2015/03/12/replace-coffeescript-with-es6/">用ES6替代CoffeeScript</a>
-          </li>
-        
-          <li>
-            <a href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/">手机浏览器下触发touchcancel事件的操作</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
-
-  
-</aside>
-        
+          </div>
+        </div>
       </div>
       <footer id="footer">
-  
   <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2016 zhouweicsu<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2016 zhouweicsu
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
     </div>
   </div>
 </footer>
     </div>
-    <nav id="mobile-nav">
-  
-    <a href="/blog/" class="mobile-nav-link">Home</a>
-  
-    <a href="/blog/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    <script>
+	var yiliaConfig = {
+		mathjax: false,
+		isHome: true,
+		isPost: false,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false,
+		root: "/blog/",
+		innerArchive: true
+	}
+</script>
+
+<script src="/blog/./main.js?v=4.0.0.js"></script>
+
+
+    
+<div class="tools-col" q-class="show:isShow,hide:isShow|isFalse" q-on="click:stop(e)">
+  <div class="tools-wrap">
+    
+    	<section class="tools-section tools-section-all" q-show="innerArchive">
+        <div class="search-wrap">
+          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
+          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
+          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
+        </div>
+        <div class="widget tagcloud search-tag">
+          <p class="search-tag-wording">tag:</p>
+          <label class="search-switch">
+            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
+          </label>
+          <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">移动开发</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">touchcancel</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">mobile browsers</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">touch</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">ES6</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">CoffeeScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">CSS</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">scale</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">fluid</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)">Typography</a>
+              </li>
+            
+            <div class="clearfix"></div>
+          </ul>
+        </div>
+        <ul class="search-ul">
+          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
+            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
+            2、在根目录_config.yml里添加配置：
+<pre style="font-size: 12px;" q-show="jsonFail">
+  jsonContent:
+    meta: false
+    pages: false
+    posts:
+      title: true
+      date: true
+      path: true
+      text: true
+      raw: false
+      content: false
+      slug: false
+      updated: false
+      comments: false
+      link: false
+      permalink: false
+      excerpt: false
+      categories: false
+      tags: true
+</pre>
+          </p>
+          <li class="search-li" q-repeat="items" q-show="isShow">
+            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
+            <p class="search-time">
+              <i class="icon-calendar icon"></i>
+              <span q-text="date|dateformat"></span>
+            </p>
+            <p class="search-tag">
+              <i class="icon-price-tags icon"></i>
+              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
+            </p>
+          </li>
+        </ul>
+    	</section>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    
+    	<section class="tools-section tools-section-friends" q-show="friends">
+  		
+        <ul class="search-ul">
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
+            </li>
+          
+            <li class="search-li">
+              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
+            </li>
+          
+        </ul>
+  		
+    	</section>
+    
 
+    
+    	<section class="tools-section tools-section-me" q-show="aboutme">
+  	  	
+  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
+  	  	
+    	</section>
+    
+  </div>
+  
+</div>
+    <!-- Root element of PhotoSwipe. Must have class pswp. -->
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
 
-  <link rel="stylesheet" href="/blog/fancybox/jquery.fancybox.css">
-  <script src="/blog/fancybox/jquery.fancybox.pack.js"></script>
+    <!-- Background of PhotoSwipe. 
+         It's a separate element as animating opacity is faster than rgba(). -->
+    <div class="pswp__bg"></div>
 
+    <!-- Slides wrapper with overflow:hidden. -->
+    <div class="pswp__scroll-wrap">
 
-<script src="/blog/js/script.js"></script>
+        <!-- Container that holds slides. 
+            PhotoSwipe keeps only 3 of them in the DOM to save memory.
+            Don't modify these 3 pswp__item elements, data is added later on. -->
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
 
+        <!-- Default (PhotoSwipeUI_Default) interface on top of sliding area. Can be changed. -->
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                <!--  Controls are self-explanatory. Order can be changed. -->
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" style="display:none" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                <!-- Preloader demo http://codepen.io/dimsemenov/pen/yyBWoR -->
+                <!-- element will get class pswp__preloader--active when preloader is running -->
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                      <div class="pswp__preloader__cut">
+                        <div class="pswp__preloader__donut"></div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div> 
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
   </div>
 </body>
 </html>
