@@ -6,46 +6,25 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhouweicsu.github.io/blog">
-  <title>使用 vh 和 vw 实现正真的流式文字排版 | zhouweicsu&#39;s blog</title>
+  <title>「译」使用 vh 和 vw 实现正真的流式文字排版 | zhouweicsu&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文：Truly Fluid Typography With vh And vw Units
-
-作者： Michael Riethmuller
-
-2016-05-10
-
-
-实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。
-不像响应式文字排版，文字只在指定的几个分界点才会调整，流式文字排版则能平滑地调整文字来适应任何宽度的设备。当网">
+  <meta name="description" content="实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。
+不像响应式文字排版，文字只在指定的几个分界点才会调整，流式文字排版则能平滑地调整文字来适应任何宽度的设备。当网站需要支持几乎无限个屏幕尺寸的时候，流式排版就是不二之选。然而，由于一些原因，他的普及率却仍远不及响应式技术。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="使用 vh 和 vw 实现正真的流式文字排版">
+<meta property="og:title" content="「译」使用 vh 和 vw 实现正真的流式文字排版">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2016/06/29/fluid-typography/index.html">
 <meta property="og:site_name" content="zhouweicsu's blog">
-<meta property="og:description" content="原文：Truly Fluid Typography With vh And vw Units
-
-作者： Michael Riethmuller
-
-2016-05-10
-
-
-实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。
-不像响应式文字排版，文字只在指定的几个分界点才会调整，流式文字排版则能平滑地调整文字来适应任何宽度的设备。当网">
+<meta property="og:description" content="实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。
+不像响应式文字排版，文字只在指定的几个分界点才会调整，流式文字排版则能平滑地调整文字来适应任何宽度的设备。当网站需要支持几乎无限个屏幕尺寸的时候，流式排版就是不二之选。然而，由于一些原因，他的普及率却仍远不及响应式技术。">
 <meta property="og:image" content="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/advanced-calc-500-opt.png">
 <meta property="og:image" content="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/what-is-ms-500-opt.png">
 <meta property="og:image" content="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/different-scales-500-opt.png">
 <meta property="og:image" content="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/component-example-500-opt.png">
-<meta property="og:updated_time" content="2016-08-24T07:08:36.000Z">
+<meta property="og:updated_time" content="2017-02-23T02:35:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="使用 vh 和 vw 实现正真的流式文字排版">
-<meta name="twitter:description" content="原文：Truly Fluid Typography With vh And vw Units
-
-作者： Michael Riethmuller
-
-2016-05-10
-
-
-实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。
-不像响应式文字排版，文字只在指定的几个分界点才会调整，流式文字排版则能平滑地调整文字来适应任何宽度的设备。当网">
+<meta name="twitter:title" content="「译」使用 vh 和 vw 实现正真的流式文字排版">
+<meta name="twitter:description" content="实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。
+不像响应式文字排版，文字只在指定的几个分界点才会调整，流式文字排版则能平滑地调整文字来适应任何宽度的设备。当网站需要支持几乎无限个屏幕尺寸的时候，流式排版就是不二之选。然而，由于一些原因，他的普及率却仍远不及响应式技术。">
 <meta name="twitter:image" content="https://media-mediatemple.netdna-ssl.com/wp-content/uploads/2016/05/advanced-calc-500-opt.png">
   
     <link rel="alternative" href="/atom.xml" title="zhouweicsu&#39;s blog" type="application/atom+xml">
@@ -96,15 +75,9 @@
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
             
     			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
             
-    			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
 		</nav>
@@ -113,11 +86,9 @@
 				
 					<a class="github" target="_blank" href="https://github.com/zhouweicsu" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/elizabeth1990" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-wei-82-1" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -156,11 +127,9 @@
 					
 						<a class="github" target="_blank" href="https://github.com/zhouweicsu" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/elizabeth1990" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-wei-82-1" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -193,7 +162,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      使用 vh 和 vw 实现正真的流式文字排版
+      「译」使用 vh 和 vw 实现正真的流式文字排版
     </h1>
   
 
@@ -206,18 +175,11 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文：<a href="https://www.smashingmagazine.com/2016/05/fluid-typography/" target="_blank" rel="external">Truly Fluid Typography With vh And vw Units</a></p>
-<ul>
-<li><p>作者： <a href="https://www.smashingmagazine.com/author/michaelriethmuller/" target="_blank" rel="external">Michael Riethmuller</a></p>
-</li>
-<li><p>2016-05-10</p>
-</li>
-</ul>
-<p>实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。</p>
+        <p>实现流式文字排版或许比你想象的更简单。他具有广泛的浏览器支持，实现简单，而且实现之后并不会让你失去对设计的整体把控。</p>
 <p>不像响应式文字排版，文字只在指定的几个分界点才会调整，<strong>流式文字排版则能平滑地调整文字</strong>来适应任何宽度的设备。当网站需要支持几乎无限个屏幕尺寸的时候，流式排版就是不二之选。然而，由于一些原因，他的普及率却仍远不及响应式技术。</p>
+<a id="more"></a>
 <p>也许是因为文字排版受印刷排版的古老历史影响太深。“流式”这个概念常常有违这些传统。在印刷业，尺寸通常是固定的，而 web 上却没有固定。这就是为什么我认为流式文字排版是 web 的完美搭档。他是截然不同的媒介的另一种处理方式。</p>
 <p>但这并不意味着我们需要抛弃所有惯例和关于文字排版的一切。我们只需以稍微不同的方式<strong>学习如何应用一些我们已知的技术</strong>。谨慎对待每一个细节将确保我们在所有屏幕尺寸中都获得完美的设计体验。</p>
-<a id="more"></a>
 <h3 id="流式文字排版快速入门"><a href="#流式文字排版快速入门" class="headerlink" title="流式文字排版快速入门"></a>流式文字排版快速入门</h3><p>视口单位是 web 上能应用流式文字排版的重要元素。视口单位指的是浏览器视口尺寸的百分比。例如，1 <code>vw</code> 等于视口宽度的 1%。与单位百分比不同，他们总是相对于视口，而百分比是相对于元素的父容器。</p>
 <p>这意味着，与所有其他单位类型不同，视口单位与基础的字体大小没有任何关系。这个区别意义重大，也让这个单位变得有趣而独特。</p>
 <p>可用的四个视口单位：</p>
@@ -462,30 +424,13 @@
 <li><p>“<a href="https://responsivedesign.is/design/responsive-typography" target="_blank" rel="external">Responsive Typography</a>,” Responsivedesign.is</p>
 </li>
 </ul>
+<p>原文：<a href="https://www.smashingmagazine.com/2016/05/fluid-typography/" target="_blank" rel="external">Truly Fluid Typography With vh And vw Units</a></p>
+<ul>
+<li>作者： <a href="https://www.smashingmagazine.com/author/michaelriethmuller/" target="_blank" rel="external">Michael Riethmuller</a></li>
+</ul>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -589,14 +534,14 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          以变应变
+          「译」以变应变
         
       </div>
     </a>
   
   
-    <a href="/blog/2015/03/12/replace-coffeescript-with-es6/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">用ES6替代CoffeeScript</div>
+    <a href="/blog/2016/03/10/which-programming-languages-are-functional/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">「译」哪些编程语言是函数式的？</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -610,7 +555,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="fluid-typography" data-title="使用 vh 和 vw 实现正真的流式文字排版" data-url="http://zhouweicsu.github.io/blog/blog/2016/06/29/fluid-typography/"></div>
+	<div class="ds-thread" data-thread-key="fluid-typography" data-title="「译」使用 vh 和 vw 实现正真的流式文字排版" data-url="http://zhouweicsu.github.io/blog/blog/2016/06/29/fluid-typography/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -658,7 +603,7 @@
 		isCategory: false,
 		open_in_new: false,
 		root: "/blog/",
-		innerArchive: true,
+		innerArchive: false,
 		showTags: false
 	}
 </script>
@@ -672,15 +617,9 @@
     
     
       
-      
-      
     
       
-      
-      
     
-      
-      
       
     
     
@@ -689,161 +628,18 @@
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
-      
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
         
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
   </div>
   <div class="tools-wrap">
     
-    	<section class="tools-section tools-section-all" q-show="innerArchive">
-        <div class="search-wrap">
-          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
-          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
-          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
-        </div>
-        <div class="widget tagcloud search-tag">
-          <p class="search-tag-wording">tag:</p>
-          <label class="search-switch">
-            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
-          </label>
-          <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">touchcancel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mobile browsers</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">touch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ES6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CoffeeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scale</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">fluid</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Typography</a>
-              </li>
-            
-            <div class="clearfix"></div>
-          </ul>
-        </div>
-        <ul class="search-ul">
-          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
-            2、在根目录_config.yml里添加配置：
-<pre style="font-size: 12px;" q-show="jsonFail">
-  jsonContent:
-    meta: false
-    pages: false
-    posts:
-      title: true
-      date: true
-      path: true
-      text: true
-      raw: false
-      content: false
-      slug: false
-      updated: false
-      comments: false
-      link: false
-      permalink: false
-      excerpt: false
-      categories: false
-      tags: true
-</pre>
-          </p>
-          <li class="search-li" q-repeat="items" q-show="isShow">
-            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
-            <p class="search-time">
-              <i class="icon-calendar icon"></i>
-              <span q-text="date|dateformat"></span>
-            </p>
-            <p class="search-tag">
-              <i class="icon-price-tags icon"></i>
-              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
-            </p>
-          </li>
-        </ul>
-    	</section>
-    
 
     
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
-    
 
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
-  	  	
-    	</section>
     
   </div>
   

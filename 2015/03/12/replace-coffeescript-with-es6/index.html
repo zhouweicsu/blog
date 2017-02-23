@@ -6,21 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhouweicsu.github.io/blog">
-  <title>用ES6替代CoffeeScript | zhouweicsu&#39;s blog</title>
+  <title>「译」用 ES6 替代 CoffeeScript | zhouweicsu&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文链接：Replace CoffeeScript with ES6
-一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
+  <meta name="description" content="一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="用ES6替代CoffeeScript">
+<meta property="og:title" content="「译」用 ES6 替代 CoffeeScript">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2015/03/12/replace-coffeescript-with-es6/index.html">
 <meta property="og:site_name" content="zhouweicsu's blog">
-<meta property="og:description" content="原文链接：Replace CoffeeScript with ES6
-一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
-<meta property="og:updated_time" content="2016-08-24T07:10:19.000Z">
+<meta property="og:description" content="一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
+<meta property="og:updated_time" content="2017-02-23T02:38:08.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="用ES6替代CoffeeScript">
-<meta name="twitter:description" content="原文链接：Replace CoffeeScript with ES6
-一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
+<meta name="twitter:title" content="「译」用 ES6 替代 CoffeeScript">
+<meta name="twitter:description" content="一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
   
     <link rel="alternative" href="/atom.xml" title="zhouweicsu&#39;s blog" type="application/atom+xml">
   
@@ -70,15 +67,9 @@
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
             
     			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
             
-    			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
 		</nav>
@@ -87,11 +78,9 @@
 				
 					<a class="github" target="_blank" href="https://github.com/zhouweicsu" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/elizabeth1990" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-wei-82-1" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -130,11 +119,9 @@
 					
 						<a class="github" target="_blank" href="https://github.com/zhouweicsu" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/elizabeth1990" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-wei-82-1" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -167,7 +154,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      用ES6替代CoffeeScript
+      「译」用 ES6 替代 CoffeeScript
     </h1>
   
 
@@ -180,8 +167,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文链接：<a href="https://robots.thoughtbot.com/replace-coffeescript-with-es6" target="_blank" rel="external">Replace CoffeeScript with ES6</a></p>
-<p>一直以来我都在关注和研究JavaScript的下一个版本——<a href="http://en.wikipedia.org/wiki/ECMAScript#ECMAScript_Harmony_.286th_Edition.29" target="_blank" rel="external">ES6</a>，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多<a href="http://coffeescript.org/" target="_blank" rel="external">CoffeeScript</a>尝试不去大量修改语法想解决的问题。</p>
+        <p>一直以来我都在关注和研究JavaScript的下一个版本——<a href="http://en.wikipedia.org/wiki/ECMAScript#ECMAScript_Harmony_.286th_Edition.29" target="_blank" rel="external">ES6</a>，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多<a href="http://coffeescript.org/" target="_blank" rel="external">CoffeeScript</a>尝试不去大量修改语法想解决的问题。</p>
 <a id="more"></a>
 <h3 id="如何使用ES6"><a href="#如何使用ES6" class="headerlink" title="如何使用ES6"></a>如何使用ES6</h3><p>我们可以通过6to5这个项目开始使用ES6,<a href="https://babeljs.io/" target="_blank" rel="external">6to5</a>可以将ES6代码转译成符合ES5标准的代码。6to5支持数量众多的构建工具，包括Broccoli，Grunt，Gulp，和Sprockets。我在使用<a href="https://github.com/josh/sprockets-es6" target="_blank" rel="external">sprockets-es6</a>上有许多成功的经验，并且Sprockets 4.x版本将会非常好的支持6to5。</p>
 <p>如果你使用Vim编辑器的话，那么你可以通过将如下代码加入你的<code>.vimrc</code>文件，从而将带<code>.es6</code>扩展名的文件与JavaScript关联起来。</p>
@@ -238,31 +224,11 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set name(name) &#123;</div><div class="line">  [this.firstName, this.lastName] = name.split(&quot; &quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>###结束语###<br>许多ES6转译工具已经在积极的开发中，功能上已经可以追上CoffeeScript了。本文仅仅介绍了极少数JavaScript的新特性，但是点击<a href="https://6to5.org/docs/learn-es6/" target="_blank" rel="external">这里</a>找到更多新特性。</p>
 <p>下个项目把CoffeeScript放一边，试一试ES6吧！</p>
+<p>原文链接：<a href="https://robots.thoughtbot.com/replace-coffeescript-with-es6" target="_blank" rel="external">Replace CoffeeScript with ES6</a></p>
 <p>译者 <a href="http://zhouweicsu.github.io/">@zhouweicsu</a><br>2015 年 3月 15日    </p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -362,18 +328,18 @@
   
 <nav id="article-nav">
   
-    <a href="/blog/2016/06/29/fluid-typography/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/blog/2015/04/15/long-live-coffeescript-and-es6/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          使用 vh 和 vw 实现正真的流式文字排版
+          「译」CoffeeScript万岁！ES6万岁！
         
       </div>
     </a>
   
   
-    <a href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">手机浏览器下触发touchcancel事件的操作</div>
+    <a href="/blog/2015/01/14/doT-template-SyntacError/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -387,7 +353,7 @@
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="replace-coffeescript-with-es6" data-title="用ES6替代CoffeeScript" data-url="http://zhouweicsu.github.io/blog/blog/2015/03/12/replace-coffeescript-with-es6/"></div>
+	<div class="ds-thread" data-thread-key="replace-coffeescript-with-es6" data-title="「译」用 ES6 替代 CoffeeScript" data-url="http://zhouweicsu.github.io/blog/blog/2015/03/12/replace-coffeescript-with-es6/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -435,7 +401,7 @@
 		isCategory: false,
 		open_in_new: false,
 		root: "/blog/",
-		innerArchive: true,
+		innerArchive: false,
 		showTags: false
 	}
 </script>
@@ -449,15 +415,9 @@
     
     
       
-      
-      
     
       
-      
-      
     
-      
-      
       
     
     
@@ -466,161 +426,18 @@
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
-      
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
         
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
   </div>
   <div class="tools-wrap">
     
-    	<section class="tools-section tools-section-all" q-show="innerArchive">
-        <div class="search-wrap">
-          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
-          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
-          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
-        </div>
-        <div class="widget tagcloud search-tag">
-          <p class="search-tag-wording">tag:</p>
-          <label class="search-switch">
-            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
-          </label>
-          <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">touchcancel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mobile browsers</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">touch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ES6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CoffeeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scale</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">fluid</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Typography</a>
-              </li>
-            
-            <div class="clearfix"></div>
-          </ul>
-        </div>
-        <ul class="search-ul">
-          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
-            2、在根目录_config.yml里添加配置：
-<pre style="font-size: 12px;" q-show="jsonFail">
-  jsonContent:
-    meta: false
-    pages: false
-    posts:
-      title: true
-      date: true
-      path: true
-      text: true
-      raw: false
-      content: false
-      slug: false
-      updated: false
-      comments: false
-      link: false
-      permalink: false
-      excerpt: false
-      categories: false
-      tags: true
-</pre>
-          </p>
-          <li class="search-li" q-repeat="items" q-show="isShow">
-            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
-            <p class="search-time">
-              <i class="icon-calendar icon"></i>
-              <span q-text="date|dateformat"></span>
-            </p>
-            <p class="search-tag">
-              <i class="icon-price-tags icon"></i>
-              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
-            </p>
-          </li>
-        </ul>
-    	</section>
-    
 
     
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
-    
 
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
-  	  	
-    	</section>
     
   </div>
   

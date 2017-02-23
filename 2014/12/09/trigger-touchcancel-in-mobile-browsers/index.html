@@ -6,21 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://zhouweicsu.github.io/blog">
-  <title>手机浏览器下触发touchcancel事件的操作 | zhouweicsu&#39;s blog</title>
+  <title>「译」手机浏览器下触发touchcancel事件的操作 | zhouweicsu&#39;s blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="原文链接：Different ways to trigger touchcancel in mobile browsers
-Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcance">
+  <meta name="description" content="Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="手机浏览器下触发touchcancel事件的操作">
+<meta property="og:title" content="「译」手机浏览器下触发touchcancel事件的操作">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/index.html">
 <meta property="og:site_name" content="zhouweicsu's blog">
-<meta property="og:description" content="原文链接：Different ways to trigger touchcancel in mobile browsers
-Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcance">
-<meta property="og:updated_time" content="2016-08-24T07:10:35.000Z">
+<meta property="og:description" content="Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。">
+<meta property="og:updated_time" content="2017-02-23T02:39:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="手机浏览器下触发touchcancel事件的操作">
-<meta name="twitter:description" content="原文链接：Different ways to trigger touchcancel in mobile browsers
-Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcance">
+<meta name="twitter:title" content="「译」手机浏览器下触发touchcancel事件的操作">
+<meta name="twitter:description" content="Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。">
   
     <link rel="alternative" href="/atom.xml" title="zhouweicsu&#39;s blog" type="application/atom+xml">
   
@@ -70,15 +67,9 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
 		<nav class="header-smart-menu">
     		
     			
-    			<a q-on="click: openSlider(e, 'innerArchive')" href="javascript:void(0)">所有文章</a>
-    			
             
     			
-    			<a q-on="click: openSlider(e, 'friends')" href="javascript:void(0)">友链</a>
-    			
             
-    			
-    			<a q-on="click: openSlider(e, 'aboutme')" href="javascript:void(0)">关于我</a>
     			
             
 		</nav>
@@ -87,11 +78,9 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
 				
 					<a class="github" target="_blank" href="https://github.com/zhouweicsu" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="weibo" target="_blank" href="http://weibo.com/elizabeth1990" title="weibo"><i class="icon-weibo"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-wei-82-1" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
 			</div>
 		</nav>
@@ -130,11 +119,9 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
 					
 						<a class="github" target="_blank" href="https://github.com/zhouweicsu" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="weibo" target="_blank" href="http://weibo.com/elizabeth1990" title="weibo"><i class="icon-weibo"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/zhou-wei-82-1" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
 				</div>
 			</nav>
@@ -167,7 +154,7 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
         
   
     <h1 class="article-title" itemprop="name">
-      手机浏览器下触发touchcancel事件的操作
+      「译」手机浏览器下触发touchcancel事件的操作
     </h1>
   
 
@@ -180,8 +167,7 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>原文链接：<a href="http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/" target="_blank" rel="external">Different ways to trigger touchcancel in mobile browsers</a></p>
-<p>Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。</p>
+        <p>Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。</p>
 <a id="more"></a>
 <p>touch事件最初是Apple为Safari浏览器创建的，现在已经被纳入了<a href="http://www.w3.org/TR/2011/WD-touch-events-20110505/" target="_blank" rel="external">W3C Touch 事件规范</a>。原始的<a href="https://developer.apple.com/library/safari/documentation/UserExperience/Reference/TouchEventClassReference/TouchEvent/TouchEvent.html#//apple_ref/doc/uid/TP40009358" target="_blank" rel="external">Safari DOM参考文档</a>关于touchcancel事件的信息少的可怜，仅有一句话：</p>
 <blockquote>
@@ -260,31 +246,10 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
 <p>从测试结果看，touchcancel事件仍然是不可预测的。然而确定在哪种情况下事件会被触发还是很容易的，在哪种情况下不被触发也几乎能确定。那么这个事件的作用也无需出现在本次研究中，因为在所有可预期的情况下，开发者目前似乎无法依赖这个事件的触发。</p>
 <p>然而可以肯定的是，你无法在每台设备上都仅仅只依赖touchend事件被的触发。你需要编写处理touchcancel事件的代码。例如在iPad上尤其如此，假如你写了个多点触控的app或联机的HTML5游戏。由于程序没有办法辨别用户是否启用了多任务手势，这时你的app就需要优雅地处理touchcancel事件。安卓浏览器不可预测的特性也是使得处理这个事件变得尤为重要，不这么做将会导致你的UI出现bug。</p>
 <p>所以，当你下次处理touch事件时，别忘记处理touchcancel事件。尽管许多浏览器支持此事件，但在处理某些意想不到的用户交互时还是非常方便的。</p>
-<p>译者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a><br>2014 年 12月 09日    </p>
+<p>原文链接：<a href="http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/" target="_blank" rel="external">Different ways to trigger touchcancel in mobile browsers</a><br>译者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a><br>2014 年 12月 09日    </p>
 
       
 
-      
-        <div class="page-reward">
-          <a href="javascript:;" class="page-reward-btn tooltip-top">
-            <div class="tooltip tooltip-east">
-            <span class="tooltip-item">
-              赏
-            </span>
-            <span class="tooltip-content">
-              <span class="tooltip-text">
-                <span class="tooltip-inner">
-                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
-                  <div class="reward-box">
-                    
-                    
-                  </div>
-                </span>
-              </span>
-            </span>
-          </div>
-          </a>
-        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -388,11 +353,11 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
   
 <nav id="article-nav">
   
-    <a href="/blog/2015/03/12/replace-coffeescript-with-es6/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/blog/2015/01/14/doT-template-SyntacError/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          用ES6替代CoffeeScript
+          「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier
         
       </div>
     </a>
@@ -408,7 +373,7 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
   
   <div class="duoshuo">
 	<!-- 多说评论框 start -->
-	<div class="ds-thread" data-thread-key="trigger-touchcancel-in-mobile-browsers" data-title="手机浏览器下触发touchcancel事件的操作" data-url="http://zhouweicsu.github.io/blog/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/"></div>
+	<div class="ds-thread" data-thread-key="trigger-touchcancel-in-mobile-browsers" data-title="「译」手机浏览器下触发touchcancel事件的操作" data-url="http://zhouweicsu.github.io/blog/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/"></div>
 	<!-- 多说评论框 end -->
 	<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 	<script type="text/javascript">
@@ -456,7 +421,7 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
 		isCategory: false,
 		open_in_new: false,
 		root: "/blog/",
-		innerArchive: true,
+		innerArchive: false,
 		showTags: false
 	}
 </script>
@@ -470,15 +435,9 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
     
     
       
-      
-      
     
       
-      
-      
     
-      
-      
       
     
     
@@ -487,161 +446,18 @@ Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏�
     
     
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'innerArchive')"><a href="javascript:void(0)" q-class="active:innerArchive">所有文章</a></li>
-      
         
       
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'friends')"><a href="javascript:void(0)" q-class="active:friends">友链</a></li>
-      
         
-      
-      <li style="width: 33.333333333333336%" q-on="click: openSlider(e, 'aboutme')"><a href="javascript:void(0)" q-class="active:aboutme">关于我</a></li>
       
         
     </ul>
   </div>
   <div class="tools-wrap">
     
-    	<section class="tools-section tools-section-all" q-show="innerArchive">
-        <div class="search-wrap">
-          <input class="search-ipt" q-model="search" type="text" placeholder="find something…">
-          <i class="icon-search icon" q-show="search|isEmptyStr"></i>
-          <i class="icon-close icon" q-show="search|isNotEmptyStr" q-on="click:clearChose(e)"></i>
-        </div>
-        <div class="widget tagcloud search-tag">
-          <p class="search-tag-wording">tag:</p>
-          <label class="search-switch">
-            <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
-          </label>
-          <ul class="article-tag-list" q-show="showTags">
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">移动开发</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">touchcancel</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">mobile browsers</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">touch</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">ES6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">CoffeeScript</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">CSS</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">scale</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">fluid</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">Typography</a>
-              </li>
-            
-            <div class="clearfix"></div>
-          </ul>
-        </div>
-        <ul class="search-ul">
-          <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br/>1、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
-            2、在根目录_config.yml里添加配置：
-<pre style="font-size: 12px;" q-show="jsonFail">
-  jsonContent:
-    meta: false
-    pages: false
-    posts:
-      title: true
-      date: true
-      path: true
-      text: true
-      raw: false
-      content: false
-      slug: false
-      updated: false
-      comments: false
-      link: false
-      permalink: false
-      excerpt: false
-      categories: false
-      tags: true
-</pre>
-          </p>
-          <li class="search-li" q-repeat="items" q-show="isShow">
-            <a q-attr="href:path|urlformat" class="search-title"><i class="icon-quo-left icon"></i><span q-text="title"></span></a>
-            <p class="search-time">
-              <i class="icon-calendar icon"></i>
-              <span q-text="date|dateformat"></span>
-            </p>
-            <p class="search-tag">
-              <i class="icon-price-tags icon"></i>
-              <span q-repeat="tags" q-on="click:choseTag(e, name)" q-text="name|tagformat"></span>
-            </p>
-          </li>
-        </ul>
-    	</section>
-    
 
     
-    	<section class="tools-section tools-section-friends" q-show="friends">
-  		
-        <ul class="search-ul">
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接1</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接2</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接3</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接4</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接5</a>
-            </li>
-          
-            <li class="search-li">
-              <a href="http://localhost:4000/" target="_blank" class="search-title"><i class="icon-quo-left icon"></i>友情链接6</a>
-            </li>
-          
-        </ul>
-  		
-    	</section>
-    
 
-    
-    	<section class="tools-section tools-section-me" q-show="aboutme">
-  	  	
-  	  		<div class="aboutme-wrap" id="js-aboutme">很惭愧&lt;br&gt;&lt;br&gt;只做了一点微小的工作&lt;br&gt;谢谢大家</div>
-  	  	
-    	</section>
     
   </div>
   
