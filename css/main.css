@@ -277,14 +277,14 @@ p {
   margin: 0 0 25px 0;
 }
 a {
-  color: #555;
+  color: #56bf8b;
   text-decoration: none;
   border-bottom: 1px solid #999;
   word-wrap: break-word;
 }
 a:hover {
-  color: #222;
-  border-bottom-color: #222;
+  color: #349866;
+  border-bottom-color: #349866;
 }
 ul {
   list-style: none;
@@ -1480,11 +1480,11 @@ pre .javascript .function {
   display: block;
   line-height: 25px;
   font-size: 14px;
-  color: #555;
+  color: #56bf8b;
   border-bottom: none;
 }
 .post-nav-item a:hover {
-  color: #222;
+  color: #349866;
   border-bottom: none;
 }
 .post-nav-item a:active {
@@ -1620,6 +1620,7 @@ pre .javascript .function {
   max-width: 120px;
   height: auto;
   border: 1px solid #eee;
+  border-radius: 100%;
 }
 .site-author-name {
   margin: 0;
@@ -1701,7 +1702,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #c8e277;
+  background: #ff051b;
 }
 .links-of-blogroll {
   font-size: 13px;
