@@ -1,0 +1,853 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,FP,Functional Programming," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文讲的是我认为的函数式编程到底是什么，这应该对于搬砖写码给别人打工一心只想快点把活干完的码农来说，应该是很合适的。
+首先我告诉你，你写的每个函数都有两组输入和两组输出。
+两个？只有一个吧，你确定？">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」什么是函数式编程？">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2016/01/14/what-is-functional-programming/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="本文讲的是我认为的函数式编程到底是什么，这应该对于搬砖写码给别人打工一心只想快点把活干完的码农来说，应该是很合适的。
+首先我告诉你，你写的每个函数都有两组输入和两组输出。
+两个？只有一个吧，你确定？">
+<meta property="og:updated_time" content="2017-02-23T02:36:10.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「译」什么是函数式编程？">
+<meta name="twitter:description" content="本文讲的是我认为的函数式编程到底是什么，这应该对于搬砖写码给别人打工一心只想快点把活干完的码农来说，应该是很合适的。
+首先我告诉你，你写的每个函数都有两组输入和两组输出。
+两个？只有一个吧，你确定？">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'shrimp',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2016/01/14/what-is-functional-programming/"/>
+
+
+
+
+
+  <title> 「译」什么是函数式编程？ | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2016/01/14/what-is-functional-programming/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                「译」什么是函数式编程？
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2016-01-14T00:00:00+08:00">
+                2016-01-14
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2016/01/14/what-is-functional-programming/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/01/14/what-is-functional-programming/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><em>本文讲的是我认为的函数式编程到底是什么，这应该对于搬砖写码给别人打工一心只想快点把活干完的码农来说，应该是很合适的。</em></p>
+<p>首先我告诉你，你写的每个函数都有两组输入和两组输出。</p>
+<p><em>两个？只有一个吧，你确定？</em></p>
+<a id="more"></a>
+<p>是的，两个。绝对是两个。我们来看看第一个例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public int square(int x) &#123;</div><div class="line">    return x * x;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 注意：其实什么语言无所谓，但为了强调，我选择了一个有明确的输入输出类型的语言。</div></pre></td></tr></table></figure>
+<p>上面的例子中，通常你认为输入就是<code>int x</code>，输出也是<code>int</code>。</p>
+<p>但这只是输入输出的第一个集合。如果你想叫它传统集合也可以。下面我们看看<em>第二组</em>输入输出集合的例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">public void processNext() &#123;</div><div class="line">    Message message = InboxQueue.popMessage();</div><div class="line"></div><div class="line">    if (message != null) &#123;</div><div class="line">        process(message);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>从语法上看，这个函数既没有输入也没有输出，然而很明显它依赖着什么，并且很显然也在做着什么。事实是，它有一个<em>隐含的</em>输入输出集合。这个隐含的输入是<code>popMessage()</code>函数调用之前<code>IndexQueue</code>的状态，隐含的输出是<code>process</code>产生的任何结果，再加上函数运行之后<code>InboxQueue</code>的状态。</p>
+<p>毫无疑问 —— <code>IndexQueue</code>的状态是这个函数真正的输入。如果不知道这个值，那<code>processNext</code>的行为不可预测。并且它也是真正的输出 —— 如果不考虑<code>IndexQueue</code>的新状态，那调用 <code>processNext</code>之后的结果也不能被完全理解。</p>
+<p>所以第二段代码有隐含的输入和输出。它依赖一些外部输入，也会产生一些结果，但是如果你只看 API，那你永远猜不对它在干什么。</p>
+<p>这些隐含的输入和输出有一个正式的名字：“副作用[side-effects]”。副作用有很多类型，但它们本质都一样：“当我们调用函数时，它需要的什么东西不在参数列表中，它的返回值里体现不出它做过什么事情。”</p>
+<p>（实际上我认为我们需要两个概念：隐含输出的“副作用[side-effects]”，和隐含输入的“副原因[side-causes]”。为了简便，接下来本文会使用“副作用”，但我绝对也在讨论副原因。我在讨论所有的<em>隐含</em>输入和输出。）</p>
+<h2 id="副作用是水下面的冰山"><a href="#副作用是水下面的冰山" class="headerlink" title="副作用是水下面的冰山"></a>副作用是水下面的冰山</h2><p>当函数有副作用（和副原因）时，函数看起来像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">public boolean processMessage(Channel channel) &#123;...&#125;</div></pre></td></tr></table></figure>
+<p>…如果你自以为知道它在干什么，那就大错特错了。如果不看内部代码，你根本就不知道它需要什么，它会产生什么结果。它会从 channel（通道）中取得一段消息然后处理它吗？可能。如果某个条件为真它会关闭 channel 吗？也许。它会在数据库的某处更新一个数值吗？或许会。如果找不到它期望的日志存储路径它会崩溃吗？可能会。</p>
+<p>副作用是复杂的冰山。你看着函数签名与名字，认为知道这个函数在干嘛。但隐含在函数签名的表面之下的，有可能是其他任何操作。任何隐含的依赖，任何隐含的改变。不看具体的实现代码，你不会知道它到底涉及了哪些操作。API 的表面之下又是另一个潜在的巨大复杂体。如果想要掌控它，你只有三个选择：<br>选择一，深入了解函数定义，将里面的复杂体暴露出来；<br>选择二，忽略它，然后祈求出现最好的结果；<br>选择三，选择二通常是个严重的错误。</p>
+<h2 id="难道这不就是所谓的封装吗？"><a href="#难道这不就是所谓的封装吗？" class="headerlink" title="难道这不就是所谓的封装吗？"></a>难道这不就是所谓的封装吗？</h2><p>不是。</p>
+<p>封装是隐藏实现细节。隐藏调用者不需要关心的内部代码。封装是个好的设计原则，但跟我们刚才说的隐含的东西不是一回事。</p>
+<p>副作用并不是“隐藏实现细节”——而是隐藏了与函数外部环境相关的代码。一个有副原因的函数，会有许多找不到说明的<em>外部</em>依赖。一个有副作用的函数，不会告诉你它可能会改变哪些<em>外部</em>因素。</p>
+<h2 id="副作用不好吗？"><a href="#副作用不好吗？" class="headerlink" title="副作用不好吗？"></a>副作用不好吗？</h2><p>当它们完全按照最初程序员的预期那样工作，就不是不好的，他们可能会正常工作。但这有个前提：我们必须相信最初程序员的隐含期望值是完全正确的，并且随着时间的推移依然正确。</p>
+<p>我们有没有按照这个函数当初编写时希望的那样正确地初始化环境状态呢？又或者这个环境有没有在某个地方已经改变了吗？也许因为一小段看似无关的代码的改变。又或者我们把它安装在了一个新环境中。对于环境状态的隐含假设，意味着我们默认了使环境如此运行的希望。</p>
+<p>我们能测试这些代码吗？答案是无法单独测试。这不像电路板，我们不能简单的给出输入然后检查输出。我们得打开代码，找出它<em>隐含的</em>依赖与影响，然后模拟它本该存在的外部环境。我已经见识过好几个TDD’ers（测试驱动开发者）在黑盒还是白盒测试的选择之间团团转了。正确的做法是，你应该做黑盒测试——忽略具体的实现细节——但是如果你允许副作用的存在，那就不能做黑盒测试了。副作用对黑盒彻底的关上了大门，因为如果不打开盒子看看里面的代码，你都不知道输入和输出是什么。</p>
+<p>这个影响在调试的时候会更复杂。如果函数不允许副作用（或副原因），那你可以通过给出特定输入然后检查输出结果，轻松判断函数是否正常工作。但如果函数有副作用呢？那你必须考虑多少系统的其他部分就不好说了。尤其是当函数什么都可以依赖，什么结果都可能出现的情况下，那任何地方都可能有 bug。</p>
+<h2 id="让副作用浮出水面"><a href="#让副作用浮出水面" class="headerlink" title="让副作用浮出水面"></a>让副作用浮出水面</h2><p>对于这个复杂体我们能做些什么吗？当然可以。实际上步骤相当简单：把函数的依赖变成输入，声明函数的返回并将它当做输出。就是这么简单。</p>
+<p>我们写个例子试一下。下面有个隐含输入的函数。快速找出它你就能得到额外奖励：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public Program getCurrentProgram(TVGuide guide, int channel) &#123;</div><div class="line">  Schedule schedule = guide.getSchedule(channel);</div><div class="line">  Program current = schedule.programAt(new Date());</div><div class="line">  return current;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个函数的隐含输入就是当前时间（<code>new Date()</code>）。我们只需将这个时间当做一个参数输入就能将这个复杂的问题解决：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">public Program getProgramAt(TVGuide guide, int channel, Date when) &#123;</div><div class="line">  Schedule schedule = guide.getSchedule(channel);</div><div class="line">  Program program = schedule.programAt(when);</div><div class="line">  return program;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>函数现在没有隐含的输入（和输出）。</p>
+<p>我们来对比一下这个新版本的优劣：</p>
+<h3 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h3><p><em>看起来</em>似乎更复杂了。本来是2个参数，现在变成了3个。</p>
+<h3 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h3><p>函数并没有变复杂。隐含一个依赖并没有使之变得更简单，实事求是地写出来也并没有使之变得更复杂。</p>
+<p>它让测试变得无比简单。测试一天的不同时间，时钟的变换，闰年等等，都很明确，因为可以传入任何想要的时间值。我在产品中见过加参数之前的代码版本，还有为了测试方便对系统时钟的各种欺骗。想象一下，多写一参数可以省多大事啊！</p>
+<p>很容易得到一个结论：现在函数仅仅是描述输入与输出之间的一种关系。如果你知道输入是什么，你就应该知道结果是什么，你对函数产生的结果了如指掌。<em>这个意义重大。</em>现在可以独立测试代码了。我们只需测试输入与输出之间的关系，就可完成整个函数的测试了。</p>
+<p>（另一方面，它也很有用。我们利用这个函数，还可以知道“一个小时之后会播放什么节目”。）</p>
+<h2 id="什么是“纯函数”？"><a href="#什么是“纯函数”？" class="headerlink" title="什么是“纯函数”？"></a>什么是“纯函数”？</h2><p><em>此处应该有掌声。</em></p>
+<p>终于，在清楚地知道隐含输入与输出之后，我们现在可以给出“一个搬砖码农对纯函数的定义”：</p>
+<p>一个函数能称之为“纯”函数，则该函数所有的输入都是显示的（无隐含输入），同样它的所有输出都是显示输出。</p>
+<p>相反，若函数有隐含输入或输出，那它就是“不纯”的，而函数给我们的协议并不完整。复杂的冰山隐隐可见。我们绝不能“单独”使用不纯的代码。我们也绝不能单独测试这些代码。因为它总是依赖别的东西，无论什么时候测试或调试，都要考虑这些依赖。</p>
+<h2 id="什么是“函数式编程”？"><a href="#什么是“函数式编程”？" class="headerlink" title="什么是“函数式编程”？"></a>什么是“函数式编程”？</h2><p>在了解纯函数与不纯函数之后，我们可以给出“一个搬砖码农对函数式编程的定义”：</p>
+<p>函数式编程就是编写纯函数，尽可能移除隐含的输入与输出，这样我们的代码就是<em>仅</em>描述输入与输出之间关系的代码。</p>
+<p>我们接受有些副作用是不可避免的——因为许多程序就是为了执行某些操作而不是获取返回值，但在我们的程序里，我们将严格控制它。我们会尽我们所能消除副作用（和副原因），当不能消除时，我们会严格控制。</p>
+<p>或者换一种说法：不要隐式地包含任何一段代码需要的任何东西，也不要隐藏它将会产生的任何结果。如果代码需要某些东西才能正确执行，就让它成为输入参数。如果函数做了什么有用的事情，声明它让它成为输出。当我们这么做了之后，我们的代码将会非常清晰。复杂体将会浮出水面，那时我们就能消除或者处理它。</p>
+<h2 id="什么是“函数式编程语言”？"><a href="#什么是“函数式编程语言”？" class="headerlink" title="什么是“函数式编程语言”？"></a>什么是“函数式编程语言”？</h2><p>每一种语言都支持纯函数——很难使得<code>add(x,y)</code>不纯（对 Java 来说，还是很难）。许多情况下，我们只需要将<em>所有的</em>输入和输出提升到函数签名中，就能将一个不纯的函数转换为纯函数，这样签名就能完整描述该函数的行为。那所有的编程语言都是“函数式”吗？</p>
+<p>当然不是。如果是那个词不就毫无意义了。</p>
+<p>那我们能给出的“搬砖码农对函数式编程语言的定义”是什么呢？</p>
+<p>函数式编程语言就是支持和鼓励不使用副作用来编程的语言。</p>
+<p>更确切的说法：函数式语言会尽可能帮你消除副作用，当不能消除时就严格控制。</p>
+<p>更生动的说法：函数式语言非常仇视副作用。副作用是复杂体，复杂体是 bug，bug 就是魔鬼。函数式语言也会帮助你仇视副作用。你们一起就能把副作用整得服服帖帖。</p>
+<h2 id="就这样？"><a href="#就这样？" class="headerlink" title="就这样？"></a>就这样？</h2><p>对，就这样。有些细微之处——你之前也许永远都不会认为这是一个隐藏输入的事情，但这个是关键。构建软件之前，带上“副作用是头等敌人”的看法，它会改变你对编程的一切认知。<a href="http://zhouweicsu.github.io/javascript/2016/03/10/which-programming-languages-are-functional/">戳我查看第二篇文章</a>，在对副作用，函数式编程有初步了解之后，拿出机关枪向编程领域开一梭子，看看能打到谁。</p>
+<h2 id="致谢"><a href="#致谢" class="headerlink" title="致谢"></a>致谢</h2><p>本文是对函数式编程本质的一系列讨论的总结。特别是与 <a href="https://twitter.com/sleepyfox" target="_blank" rel="external">Sleepyfox</a> 关于“如果使用正确的库，JavaScript 是否可以被认为是函数式编程语言”的讨论。我的直觉当然不是，但通过思考“为什么”，我走向了一条非常有价值的思考链。</p>
+<p>跟 <a href="https://twitter.com/jarohen" target="_blank" rel="external">James Henderson</a> 打个招呼，他今年跟我灌输了许多很有价值的函数式思想。</p>
+<p>感谢 <a href="https://twitter.com/malcolmsparks" target="_blank" rel="external">Malcolm Sparks</a>, <a href="https://twitter.com/llaisdy" target="_blank" rel="external">Ivan Uemlianin</a>, <a href="https://twitter.com/jclermont" target="_blank" rel="external">Joel Clermont</a>, <a href="https://twitter.com/katyemoe" target="_blank" rel="external">Katy Moe</a> 和我的影分身 <a href="https://twitter.com/cdpjenkins" target="_blank" rel="external">Chris Jenkins</a> 对本文的校对与指导。</p>
+<p><a href="http://blog.jenkster.com/2015/12/what-is-functional-programming.html" target="_blank" rel="external">原文：What Is Functional Programming?</a></p>
+<p>译者：<a href="http://zhouweicsu.github.io/">zhouweicsu</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/FP/" rel="tag"># FP</a>
+          
+            <a href="/blog/tags/Functional-Programming/" rel="tag"># Functional Programming</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2015/12/17/javascript-developer-survey-results/" rel="next" title="「译」2015 年度 JavaScript 开发者调查结果">
+                <i class="fa fa-chevron-left"></i> 「译」2015 年度 JavaScript 开发者调查结果
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2016/03/10/which-programming-languages-are-functional/" rel="prev" title="「译」哪些编程语言是函数式的？">
+                「译」哪些编程语言是函数式的？ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2016/01/14/what-is-functional-programming/"
+           data-title="「译」什么是函数式编程？" data-url="http://zhouweicsu.github.io/blog/blog/2016/01/14/what-is-functional-programming/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#副作用是水下面的冰山"><span class="nav-number">1.</span> <span class="nav-text">副作用是水下面的冰山</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#难道这不就是所谓的封装吗？"><span class="nav-number">2.</span> <span class="nav-text">难道这不就是所谓的封装吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#副作用不好吗？"><span class="nav-number">3.</span> <span class="nav-text">副作用不好吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#让副作用浮出水面"><span class="nav-number">4.</span> <span class="nav-text">让副作用浮出水面</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#缺点"><span class="nav-number">4.1.</span> <span class="nav-text">缺点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#优点"><span class="nav-number">4.2.</span> <span class="nav-text">优点</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是“纯函数”？"><span class="nav-number">5.</span> <span class="nav-text">什么是“纯函数”？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是“函数式编程”？"><span class="nav-number">6.</span> <span class="nav-text">什么是“函数式编程”？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#什么是“函数式编程语言”？"><span class="nav-number">7.</span> <span class="nav-text">什么是“函数式编程语言”？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#就这样？"><span class="nav-number">8.</span> <span class="nav-text">就这样？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#致谢"><span class="nav-number">9.</span> <span class="nav-text">致谢</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shrimp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

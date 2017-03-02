@@ -1,0 +1,819 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="HTML5,Page Visibility," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="优秀的应用从不丢失用户的进度与应用程序状态。而是在不中断用户的情况下自动保存相关数据，然后在必要的时候（例如：从后台状态或者意外关机中回来）恢复这些数据。
+不幸的是，许多 Web 应用因为没考虑移动端的生命周期从而导致了这个错误：它们错误地监听了也许永远不会被触发的事件，或者完全忽略这个问题从而导致代价高昂的极差用户体验。不过公平地说，Web 平台提供的诸多不同的事件（visibilityStat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="优秀的应用从不丢失用户的进度与应用程序状态。而是在不中断用户的情况下自动保存相关数据，然后在必要的时候（例如：从后台状态或者意外关机中回来）恢复这些数据。
+不幸的是，许多 Web 应用因为没考虑移动端的生命周期从而导致了这个错误：它们错误地监听了也许永远不会被触发的事件，或者完全忽略这个问题从而导致代价高昂的极差用户体验。不过公平地说，Web 平台提供的诸多不同的事件（visibilityStat">
+<meta property="og:image" content="https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/15/xlifecycle-events.png.pagespeed.ic.CwbcWo2upgP_fc8JwyaO.png">
+<meta property="og:image" content="https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/15/xlifecycle-events-testing.png.pagespeed.ic.mLbvU6UX-AQJSwkOff9e.png">
+<meta property="og:updated_time" content="2017-02-23T02:37:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧">
+<meta name="twitter:description" content="优秀的应用从不丢失用户的进度与应用程序状态。而是在不中断用户的情况下自动保存相关数据，然后在必要的时候（例如：从后台状态或者意外关机中回来）恢复这些数据。
+不幸的是，许多 Web 应用因为没考虑移动端的生命周期从而导致了这个错误：它们错误地监听了也许永远不会被触发的事件，或者完全忽略这个问题从而导致代价高昂的极差用户体验。不过公平地说，Web 平台提供的诸多不同的事件（visibilityStat">
+<meta name="twitter:image" content="https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/15/xlifecycle-events.png.pagespeed.ic.CwbcWo2upgP_fc8JwyaO.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'shrimp',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/"/>
+
+
+
+
+
+  <title> 「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧 | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-11-24T00:00:00+08:00">
+                2015-11-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/HTML5/" itemprop="url" rel="index">
+                    <span itemprop="name">HTML5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/11/24/dont-lose-user-and-app-state-use-page-visibility/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>优秀的应用从不丢失用户的进度与应用程序状态。</strong>而是在不中断用户的情况下自动保存相关数据，然后在必要的时候（例如：从后台状态或者意外关机中回来）恢复这些数据。</p>
+<p>不幸的是，许多 Web 应用因为没考虑移动端的生命周期从而导致了这个错误：它们错误地监听了也许永远不会被触发的事件，或者完全忽略这个问题从而导致代价高昂的极差用户体验。不过公平地说，Web 平台提供的诸多不同的事件（<a href="http://w3c.github.io/page-visibility/#introduction" target="_blank" rel="external">visibilityState</a>、 <a href="https://developer.mozilla.org/en-US/docs/Web/Events/pageshow" target="_blank" rel="external">pageshow</a>、 <a href="https://developer.mozilla.org/en-US/docs/Web/Events/pagehide" target="_blank" rel="external">pagehide</a>、 <a href="https://developer.mozilla.org/en-US/docs/Web/Events/beforeunload" target="_blank" rel="external">beforeunload</a>、 <a href="https://developer.mozilla.org/en-US/docs/Web/Events/unload" target="_blank" rel="external">unload</a>）也使问题变得复杂。我们到底应该使用哪个事件，什么时候用？</p>
+<a id="more"></a>
+<p><img src="https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/15/xlifecycle-events.png.pagespeed.ic.CwbcWo2upgP_fc8JwyaO.png" alt="事件流"></p>
+<p><strong>你在移动平台不能依赖 <code>pagehide</code>、 <code>beforeunload</code>、 和 <code>unload</code> 事件。</strong>因为也许在你喜欢的浏览器中使用没有 bug，但应用程序得运行在所有的移动操作系统中。活动的应用程序可以通过不同的方式进入到“后台状态”：</p>
+<ul>
+<li>用户点击了一个通知，切换到另一个应用。</li>
+<li>用户唤起了任务切换栏，去了另一个应用。</li>
+<li>用户摁了 home 键去了首屏。</li>
+<li>操作系统切换应用，例如，来了个电话。</li>
+</ul>
+<p>应用程序一旦被切换到后台，随时可能被干掉。例如，操作系统会终止该进程以回收系统资源，用户也可以在任务切换栏中将它清除。因此，你应该认为触发 <code>pagehide</code>、 <code>beforeunload</code>、 和 <code>unload</code> 事件的“正常关闭”就是个例外。</p>
+<p>为了提供可靠流畅的用户体验，无论是在 PC 端还是移动端，应用程序必须使用 <a href="http://w3c.github.io/page-visibility/#introduction" target="_blank" rel="external">Page Visibility API</a>，根据 <code>visibilityChange</code> 状态的变化保存或恢复当前会话。这是应用程序唯一可以依赖的事件。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// query current page visibility state: prerender, visible, hidden</span></div><div class="line"><span class="keyword">var</span> pageVisibility = <span class="built_in">document</span>.visibilityState;</div><div class="line"></div><div class="line"><span class="comment">// subscribe to visibility change events</span></div><div class="line"><span class="built_in">document</span>.addEventListener(<span class="string">'visibilitychange'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="comment">// fires when user switches tabs, apps, goes to homescreen, etc. </span></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.visibilityState == <span class="string">'hidden'</span>) &#123; ... &#125;</div><div class="line"></div><div class="line">    <span class="comment">// fires when app transitions from prerender, user returns to the app / tab.</span></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">document</span>.visibilityState == <span class="string">'visible'</span>) &#123; ... &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>如果你使用 <code>unload</code> 事件来保存状态，记录和报告分析数据，并执行其他相关逻辑，那你将会丢失大部分移动端会话数据，因为很多 unload 事件不会被触发。同样，如果你依赖 <code>beforeunload</code> 事件来提示用户没保存数据，那你忘记了刚才说的“正常关闭”就是一个意外。</p>
+<p><strong>使用 Page Visibility API，忘记其他事件，就当它们都不存在。</strong>将每次应用程序切换到 <code>visible</code> 都当做一个新的会话：恢复之前的状态，重置你的分析状态等等。然后，当应用程序切换至 <code>hidden</code> 时结束该会话：保存用户与应用程序状态，标记你的分析数据，以及做好所有其他必要的工作。</p>
+<p><em>如果有必要，你可以做一些额外的工作，将这些基于可见性的会话都汇聚到记录应用程序与标签切换的用户流中，例如，给服务器汇报每一个会话，在服务器端将多个会话合并在一起。</em></p>
+<h3 id="实际实现中的问题"><a href="#实际实现中的问题" class="headerlink" title="实际实现中的问题"></a>实际实现中的问题</h3><p>长期来说，你只要 Page Visibility API 就够了。但现在你必须得与另一个事件 ———— <code>pagehide</code> 一起用，目的是为了考虑“页面要被卸载了”的情况。下表记录了当前每个浏览器下哪个操作会触发哪个事件的详细数据（基于我的<a href="http://output.jsbin.com/zubiyid/latest/quiet" target="_blank" rel="external">手动测试</a>）。</p>
+<p><img src="https://1-ps.googleusercontent.com/sk/bYSmB63yuhjL_l7bPRuu4R3ENi/www.igvita.com/posts/15/xlifecycle-events-testing.png.pagespeed.ic.mLbvU6UX-AQJSwkOff9e.png" alt="测试数据"></p>
+<ul>
+<li><code>visibilityChange</code> 可靠反映移动端任务切换。</li>
+<li><code>beforeunload</code> 价值有限，只能在 PC 浏览器上被触发。</li>
+<li><code>unload</code> 在移动端和 PC 端的 Safari 中都不会被触发。</li>
+</ul>
+<p>可喜的是 Page Visibility 依赖覆盖了所有平台和浏览器厂商的任务切换场景。但是，到现在为止 Firefox 是唯一一个在页面 unloaded 的时候还会触发 <code>visibilityChange</code> 事件的浏览器，这里是<a href="https://code.google.com/p/chromium/issues/detail?id=554834" target="_blank" rel="external">Chrome</a>、 <a href="https://bugs.webkit.org/show_bug.cgi?id=151234" target="_blank" rel="external">WebKit</a>、 <a href="https://github.com/w3c/page-visibility/issues/18#issuecomment-156031906" target="_blank" rel="external">Edge</a> 有关这个问题的 bug。只要这些 bug 被修复，<code>visibilityState</code> 将是提高用户体验唯一需要的事件了。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/HTML5/" rel="tag"># HTML5</a>
+          
+            <a href="/blog/tags/Page-Visibility/" rel="tag"># Page Visibility</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2015/10/15/quick-es2015-project-setup-with-browserify-babel-hot-reloading/" rel="next" title="「译」用 Browserify， Babel & hot reloading 快速构建 ES2015 工程">
+                <i class="fa fa-chevron-left"></i> 「译」用 Browserify， Babel & hot reloading 快速构建 ES2015 工程
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2015/12/04/tc39-process/" rel="prev" title="「译」ECMAScript 2016 (ES7) 新特性一览">
+                「译」ECMAScript 2016 (ES7) 新特性一览 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/11/24/dont-lose-user-and-app-state-use-page-visibility/"
+           data-title="「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧" data-url="http://zhouweicsu.github.io/blog/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#实际实现中的问题"><span class="nav-number">1.</span> <span class="nav-text">实际实现中的问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shrimp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

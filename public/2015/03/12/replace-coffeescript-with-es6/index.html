@@ -1,0 +1,849 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,ES6,CoffeeScript," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」用 ES6 替代 CoffeeScript">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2015/03/12/replace-coffeescript-with-es6/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
+<meta property="og:updated_time" content="2017-02-23T02:38:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「译」用 ES6 替代 CoffeeScript">
+<meta name="twitter:description" content="一直以来我都在关注和研究JavaScript的下一个版本——ES6，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多CoffeeScript尝试不去大量修改语法想解决的问题。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'shrimp',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2015/03/12/replace-coffeescript-with-es6/"/>
+
+
+
+
+
+  <title> 「译」用 ES6 替代 CoffeeScript | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2015/03/12/replace-coffeescript-with-es6/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                「译」用 ES6 替代 CoffeeScript
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-03-12T00:00:00+08:00">
+                2015-03-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2015/03/12/replace-coffeescript-with-es6/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/03/12/replace-coffeescript-with-es6/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>一直以来我都在关注和研究JavaScript的下一个版本——<a href="http://en.wikipedia.org/wiki/ECMAScript#ECMAScript_Harmony_.286th_Edition.29" target="_blank" rel="external">ES6</a>，并终于在一个项目中用了它。在短暂的使用过程中，我发现ES6解决了许多<a href="http://coffeescript.org/" target="_blank" rel="external">CoffeeScript</a>尝试不去大量修改语法想解决的问题。</p>
+<a id="more"></a>
+<h3 id="如何使用ES6"><a href="#如何使用ES6" class="headerlink" title="如何使用ES6"></a>如何使用ES6</h3><p>我们可以通过6to5这个项目开始使用ES6,<a href="https://babeljs.io/" target="_blank" rel="external">6to5</a>可以将ES6代码转译成符合ES5标准的代码。6to5支持数量众多的构建工具，包括Broccoli，Grunt，Gulp，和Sprockets。我在使用<a href="https://github.com/josh/sprockets-es6" target="_blank" rel="external">sprockets-es6</a>上有许多成功的经验，并且Sprockets 4.x版本将会非常好的支持6to5。</p>
+<p>如果你使用Vim编辑器的话，那么你可以通过将如下代码加入你的<code>.vimrc</code>文件，从而将带<code>.es6</code>扩展名的文件与JavaScript关联起来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">autocmd BufRead,BufNewFile *.es6 setfiletype javascript</div></pre></td></tr></table></figure>
+<p>你也可以在浏览器中使用<a href="https://babeljs.io/repl/" target="_blank" rel="external">6to5 REPL</a>来编写ES6代码。</p>
+<p>###类###<br>CoffeeScript与ES6都支持类。让我们来看下CoffeeScript类与相同功能的ES6类的对比。</p>
+<p>CoffeeScript有可以利用的三个优势：参数列表使用实例变量，字符串插值，函数调用不需要括号。</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Person</span></span></div><div class="line">  constructor: <span class="function"><span class="params">(@firstName, @lastName)</span> -&gt;</span></div><div class="line"></div><div class="line">  name: <span class="function">-&gt;</span></div><div class="line">    <span class="string">"<span class="subst">#&#123;@first_name&#125;</span> <span class="subst">#&#123;@last_name&#125;</span>"</span></div><div class="line"></div><div class="line">  setName: <span class="function"><span class="params">(name)</span> -&gt;</span></div><div class="line">    names = name.split <span class="string">" "</span></div><div class="line"></div><div class="line">    @firstName = names[<span class="number">0</span>]</div><div class="line">    @lastName = names[<span class="number">1</span>]</div><div class="line"></div><div class="line">blake = <span class="keyword">new</span> Person <span class="string">"Blake"</span>, <span class="string">"Williams"</span></div><div class="line">blake.setName(<span class="string">"Blake Anderson"</span>)</div><div class="line"><span class="built_in">console</span>.log blake.name()</div></pre></td></tr></table></figure>
+<p>ES6我们可以使用classes、getters和setters：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">class Person &#123;</div><div class="line">  constructor(firstName, lastName) &#123;</div><div class="line">    this.firstName = firstName;</div><div class="line">    this.lastName = lastName;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  get name() &#123;</div><div class="line">    return this.firstName + &quot; &quot; + this.lastName;</div><div class="line">  &#125;</div><div class="line"></div><div class="line">  set name(name) &#123;</div><div class="line">    var names = name.split(&quot; &quot;);</div><div class="line"></div><div class="line">    this.firstName = names[0];</div><div class="line">    this.lastName = names[1];</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">var blake = new Person(&quot;Blake&quot;, &quot;Williams&quot;);</div><div class="line">blake.name = &quot;Blake Anderson&quot;</div><div class="line">console.log(blake.name);</div></pre></td></tr></table></figure>
+<p>如果你使用过任何提供类机制的javascript库或框架，你会发现ES6的语法有一点点不同之处：</p>
+<blockquote>
+<ul>
+<li>函数名之后没有分号</li>
+<li>关键字function被省略了</li>
+<li>每个定义之后都没有逗号了</li>
+</ul>
+</blockquote>
+<p>我们也可以利用getters和setters方法让使用<code>name</code>方法像属性那样方便。</p>
+<p>###字符串插值###<br>我一直希望JavaScript能够拥有更加有方便的字符串语法。幸运地是ES6新加了<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/template_strings" target="_blank" rel="external">template strings</a>。下面我们来比较一下CoffeeScript strings，JavaScript strings，和template strings，看看他们的能力。</p>
+<p>CoffeeScript:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="string">"CoffeeScript allows multi-line strings</span></div><div class="line">with</div><div class="line">interpolation like 1 + 1 = <span class="subst">#&#123;<span class="number">1</span> + <span class="number">1</span>&#125;</span></div><div class="line">"</div></pre></td></tr></table></figure>
+<p>JavaScript strings:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="string">"JavaScript strings can only span a single line "</span> +</div><div class="line">  <span class="string">"and interpolation isn't possible"</span></div></pre></td></tr></table></figure>
+<p>ES6 template strings:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">`Template strings allow strings to span</div><div class="line">multiple lines and allow interpolation like 1 + 1 = $&#123;1 + 1&#125;</div><div class="line">`</div></pre></td></tr></table></figure>
+<p>我们可以在前文给出的例子中使用template strings，将<code>name</code>的getter方法改为如下形式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">get name() &#123;</div><div class="line">  return `$&#123;this.firstName&#125; $&#123;this.lastName&#125;`;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这比之前的字符串拼接的方式看起来清爽多了，并且看起来更加像CoffeeScript。</p>
+<p>###胖箭头###<br>另一个CoffeeScript中很吸引人的特性在ES6中也有新增，那就是胖箭头。胖箭头可以将函数与当前上下文的<code>this</code>值绑定起来。首先，让我看看不使用胖箭头函数是如何处理this的。</p>
+<p>在ES5中，定义一个函数前必须用一个变量来保存当前的<code>this</code>值：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var self = this;</div><div class="line"></div><div class="line">$(&quot;button&quot;).on(&quot;click&quot;, function() &#123;</div><div class="line">  // do something with self</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>CoffeeScript中使用胖箭头，并且可以省略参数和花括号：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$(&quot;button&quot;).on&quot;click&quot;, =&gt; </div><div class="line">    # do something with this</div></pre></td></tr></table></figure>
+<p>在ES6中，花括号是必须的，但是参数可以省略：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$(&quot;button&quot;).on(&quot;click&quot;, () =&gt; &#123;</div><div class="line">  // do something with this</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>###其他特性###<br>ES6有一些其他的特性值得顺便提一下。</p>
+<p>##默认参数##</p>
+<p>CoffeeScript：</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">hello</span> = <span class="params">(name = <span class="string">"guest"</span>)</span> -&gt;</span></div><div class="line">  alert(name)</div></pre></td></tr></table></figure>
+<p>ES6:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var hello = function(name = &quot;guest&quot;)&#123;</div><div class="line">  alert(name);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##参数列表（splats）##<br><a href="http://en.wikipedia.org/wiki/Variadic_function" target="_blank" rel="external">变长参数函数</a>，CoffeeScript称之为参数列表（splats），允许收集附加参数传递给函数作为一个数组。ES6中称之为其他参数。</p>
+<p>CoffeeScript:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="title">awards</span> = <span class="params">(first, second, others...)</span> -&gt;</span></div><div class="line">  gold = first</div><div class="line">  silver = second</div><div class="line">  honorable_mention = others</div></pre></td></tr></table></figure>
+<p>ES6:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">var awards = function(first, second, ...others) &#123;</div><div class="line">  var gold = first;</div><div class="line">  var silver = second;</div><div class="line">  var honorableMention = others;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>##解构赋值##<br>解构赋值允许按照一定模式，从数组和对象中提取值，对变量进行赋值。</p>
+<p>CoffeeScript:</p>
+<figure class="highlight coffeescript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[first, _, last] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]</div></pre></td></tr></table></figure>
+<p>ES6:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var [first, , last] = [1, 2, 3]</div></pre></td></tr></table></figure>
+<p>我们可以使用解构赋值将之前定义的<code>name</code>的setter函数代码更加简洁：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">set name(name) &#123;</div><div class="line">  [this.firstName, this.lastName] = name.split(&quot; &quot;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>###结束语###<br>许多ES6转译工具已经在积极的开发中，功能上已经可以追上CoffeeScript了。本文仅仅介绍了极少数JavaScript的新特性，但是点击<a href="https://6to5.org/docs/learn-es6/" target="_blank" rel="external">这里</a>找到更多新特性。</p>
+<p>下个项目把CoffeeScript放一边，试一试ES6吧！</p>
+<p>原文链接：<a href="https://robots.thoughtbot.com/replace-coffeescript-with-es6" target="_blank" rel="external">Replace CoffeeScript with ES6</a></p>
+<p>译者 <a href="http://zhouweicsu.github.io/">@zhouweicsu</a><br>2015 年 3月 15日    </p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/ES6/" rel="tag"># ES6</a>
+          
+            <a href="/blog/tags/CoffeeScript/" rel="tag"># CoffeeScript</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2015/01/14/doT-template-SyntacError/" rel="next" title="「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier">
+                <i class="fa fa-chevron-left"></i> 「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2015/04/15/long-live-coffeescript-and-es6/" rel="prev" title="「译」CoffeeScript万岁！ES6万岁！">
+                「译」CoffeeScript万岁！ES6万岁！ <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/03/12/replace-coffeescript-with-es6/"
+           data-title="「译」用 ES6 替代 CoffeeScript" data-url="http://zhouweicsu.github.io/blog/blog/2015/03/12/replace-coffeescript-with-es6/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">36</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#如何使用ES6"><span class="nav-number">1.</span> <span class="nav-text">如何使用ES6</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shrimp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
