@@ -95,7 +95,7 @@
 <meta property="og:site_name" content="zhouweicsu">
 <meta property="og:description" content="在使用 doT 的过程中，由于项目需要，我们将电话号码拼成了以逗号分开的字符串
 1234/** 初始json对象 **/ var data = &amp;#123;    tel:&apos;4008107107,4008107106&apos; &amp;#125;">
-<meta property="og:updated_time" content="2017-03-02T10:06:14.000Z">
+<meta property="og:updated_time" content="2017-03-02T10:36:24.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier">
 <meta name="twitter:description" content="在使用 doT 的过程中，由于项目需要，我们将电话号码拼成了以逗号分开的字符串
@@ -391,8 +391,7 @@
 <p>与后一句可执行的JS代码<code>out += &#39;&#39;;</code>拼接之后变成</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">it.tel = it.tel.split(&apos;,&apos;) out += &apos;&apos;;</div></pre></td></tr></table></figure>
 <p>doT无法像Javascript解析器一样自动补全分号，这就导致了上面的错误发生。</p>
-<p>###解决方法</p>
-<p>加上分号就好了</p>
+<h3 id="解决方法"><a href="#解决方法" class="headerlink" title="解决方法"></a>解决方法</h3><p>加上分号就好了</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; &#123; it.tel = it.tel.split(&apos;,&apos;); &#125; &#125;</div></pre></td></tr></table></figure>
 <p><strong>由于doT中2个{}套在一起无法被解析，所以在两个花括号之间加入引号</strong></p>
 <p>作者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a></p>
@@ -499,8 +498,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
@@ -605,6 +613,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方法"><span class="nav-number">1.</span> <span class="nav-text">解决方法</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
