@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="template,doT,分号," />
+  <meta name="keywords" content="JavaScript,面试," />
 
 
 
@@ -87,19 +87,21 @@
 
 
 
-<meta name="description" content="在使用 doT 的过程中，由于项目需要，我们将电话号码拼成了以逗号分开的字符串
-1234/** 初始json对象 **/ var data = &amp;#123;    tel:&apos;4008107107,4008107106&apos; &amp;#125;">
+<meta name="description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
+本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier">
-<meta property="og:url" content="http://zhouweicsu.github.io/blog/2015/01/14/doT-template-SyntacError/index.html">
+<meta property="og:title" content="图解 JavaScript 中的 __proto__ 与 prototype">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/03/02/explain-proto-and-prototype-by-graph/index.html">
 <meta property="og:site_name" content="zhouweicsu">
-<meta property="og:description" content="在使用 doT 的过程中，由于项目需要，我们将电话号码拼成了以逗号分开的字符串
-1234/** 初始json对象 **/ var data = &amp;#123;    tel:&apos;4008107107,4008107106&apos; &amp;#125;">
-<meta property="og:updated_time" content="2017-02-23T02:39:27.000Z">
+<meta property="og:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
+本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
+<meta property="og:image" content="https://github.com/zhouweicsu/zhouweicsu.github.io/blog/blob/images/__proto__&prototype.pngs">
+<meta property="og:updated_time" content="2017-03-02T08:43:41.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier">
-<meta name="twitter:description" content="在使用 doT 的过程中，由于项目需要，我们将电话号码拼成了以逗号分开的字符串
-1234/** 初始json对象 **/ var data = &amp;#123;    tel:&apos;4008107107,4008107106&apos; &amp;#125;">
+<meta name="twitter:title" content="图解 JavaScript 中的 __proto__ 与 prototype">
+<meta name="twitter:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
+本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
+<meta name="twitter:image" content="https://github.com/zhouweicsu/zhouweicsu.github.io/blog/blob/images/__proto__&prototype.pngs">
 
 
 
@@ -127,13 +129,13 @@
 
 
 
-  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2015/01/14/doT-template-SyntacError/"/>
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2017/03/02/explain-proto-and-prototype-by-graph/"/>
 
 
 
 
 
-  <title> 「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier | zhouweicsu </title>
+  <title> 图解 JavaScript 中的 __proto__ 与 prototype | zhouweicsu </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -272,7 +274,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2015/01/14/doT-template-SyntacError/">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2017/03/02/explain-proto-and-prototype-by-graph/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="zhouwei">
@@ -296,7 +298,7 @@
             
             
               
-                「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier
+                图解 JavaScript 中的 __proto__ 与 prototype
               
             
           </h1>
@@ -311,8 +313,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-01-14T00:00:00+08:00">
-                2015-01-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-02T16:22:13+08:00">
+                2017-03-02
               </time>
             
 
@@ -352,8 +354,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/blog/2015/01/14/doT-template-SyntacError/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/01/14/doT-template-SyntacError/" itemprop="commentCount"></span>
+                <a href="/blog/2017/03/02/explain-proto-and-prototype-by-graph/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/03/02/explain-proto-and-prototype-by-graph/" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -379,23 +381,29 @@
       
 
       
-        <p>在使用 doT 的过程中，由于项目需要，我们将电话号码拼成了以逗号分开的字符串</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** 初始json对象 **/</span></div><div class="line"> <span class="keyword">var</span> data = &#123;</div><div class="line">    <span class="attr">tel</span>:<span class="string">'4008107107,4008107106'</span></div><div class="line"> &#125;</div></pre></td></tr></table></figure>
+        <p>正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。</p>
+<p>本文用代码结合图片的方式梳理一下 <strong><strong>proto</strong></strong> 和 <strong>prototype</strong> 之间的区别和关系。</p>
 <a id="more"></a>
-<p>而页面中需要显示独立的电话号码，这就需要在 doT 模板渲染中使用 Javascript 的 <code>split</code> 方法，将字符串解析成数组。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/** 目标json对象 **/</span></div><div class="line"> <span class="keyword">var</span> data = &#123;</div><div class="line">    <span class="attr">tel</span>:[<span class="number">4008107107</span>,<span class="number">4008107106</span>]</div><div class="line"> &#125;</div></pre></td></tr></table></figure>
-<p>我们知道，doT 的原理就是将整个的模板 html 代码放在<code>&lt;script&gt;&lt;/script&gt;</code>标签中，然后生成一段可执行的 Javascript 代码，然后将 JSON 格式的数据传入该函数，return 生成的<code>html</code>代码，而 doT 在生成可执行 Javascript 代码片段的过程中其实就是字符串的解析与拼接。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">/**doT中直接写Javascript代码**/</div><div class="line">&#123; &#123; it.tel = it.tel.split(&apos;,&apos;) &#125; &#125;</div></pre></td></tr></table></figure>
-<p>写成上面这样子，页面渲染会报错<em><code>Uncaught SyntaxError: Unexpected identifier</code></em>因为在生成Javascript代码片段时该段JS代码被解析字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">it.tel = it.tel.split(&apos;,&apos;)</div></pre></td></tr></table></figure>
-<p>与后一句可执行的JS代码<code>out += &#39;&#39;;</code>拼接之后变成</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">it.tel = it.tel.split(&apos;,&apos;) out += &apos;&apos;;</div></pre></td></tr></table></figure>
-<p>doT无法像Javascript解析器一样自动补全分号，这就导致了上面的错误发生。</p>
-<p>###解决方法</p>
-<p>加上分号就好了</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123; &#123; it.tel = it.tel.split(&apos;,&apos;); &#125; &#125;</div></pre></td></tr></table></figure>
-<p><strong>由于doT中2个{}套在一起无法被解析，所以在两个花括号之间加入引号</strong></p>
-<p>作者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a></p>
+<p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN</a> 中写到：</p>
+<blockquote>
+<p> 当谈到继承时，JavaScript 只有一种结构：对象。每个对象都有一个内部链接到另一个对象，称为它的<strong>原型 prototype</strong>。该原型对象有自己的原型，等等，直到达到一个以 null 为原型的对象。根据定义，null 没有原型，并且作为这个原型链 prototype chain 中的最终链接。</p>
+</blockquote>
+<p>《JavaScript 高级程序设计》第 6 章 6.2.3 原型模式中写到：</p>
+<blockquote>
+<p>当调用构造函数创建一个新实例后，该实例的内部将包含一个指针（内部属性），指向构造函数的原型对象。ECMA-262 第 5 版中称这个指针叫 <strong>[[Prototype]]</strong>。</p>
+</blockquote>
+<p>大多数浏览器得 ES5 实现中都支持通过属性 <strong><strong>proto</strong></strong> 来访问 [[Prototype]] 指针。</p>
+<p>先看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y)  &#123;</div><div class="line">    <span class="keyword">this</span>.x = x;</div><div class="line">    <span class="keyword">this</span>.y = y;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y,color)  &#123;</div><div class="line">    <span class="keyword">super</span>(x, y);</div><div class="line">    <span class="keyword">this</span>.color = color;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> ColorPoint(<span class="number">3</span>,<span class="number">4</span>, <span class="string">'green'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(p1.__proto__ === Point.prototype);                   <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p1.__proto__.__proto__ === <span class="built_in">Object</span>.prototype);        <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p2.__proto__ === ColorPoint.prototype);              <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p2.__proto__.__proto__ === Point.prototype);         <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(Point.__proto__ === <span class="built_in">Function</span>.prototype);             <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(ColorPoint.prototype.__proto__ === Point.prototype); <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(ColorPoint.__proto__ == Point);                      <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype === <span class="built_in">Function</span>.__proto__);          <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype);  <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__)                          <span class="comment">//null</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.prototype)                          <span class="comment">//undefined</span></div><div class="line"><span class="built_in">console</span>.log(p1.prototype)                                        <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
+<p>Class 可看作为构造函数的语法糖。</p>
+<p>根据这段代码我们可以绘制出一张关系图：<br><img src="https://github.com/zhouweicsu/zhouweicsu.github.io/blog/blob/images/__proto__&amp;prototype.pngs" alt="__proto__与prototype图解"></p>
+<p>从图中可以看到实例、函数和原型对象之间的关系，得到以下结论：</p>
+<ul>
+<li>实例、构造函数和原型对象都有 __proto__ 属性（因为 JavaScript 中一切皆对象），指向该对象的构造函数的原型对象；</li>
+<li>构造函数不仅有 __proto__ 属性，还有 prototype 属性（函数独有属性），prototype 指向该方法的原型对象（<strong>Note</strong>：通过 Function.prototype.bind 方法构造出来的函数是个例外，它没有 prototype 属性）；</li>
+<li>原型链最终指向一个以 null 为原型的对象。null 没有原型，并且作为这个原型链 prototype chain 中的最终链接；</li>
+<li>Function 的 prototype 和 __proto__ 都指向 Function.prototype；</li>
+</ul>
+<p>参考文章：<br><a href="https://www.zhihu.com/question/34183746" target="_blank" rel="external">js 中 __proto__ 和 prototype 的区别和关系？</a></p>
 
       
     </div>
@@ -419,11 +427,9 @@
       
         <div class="post-tags">
           
-            <a href="/blog/tags/template/" rel="tag"># template</a>
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/blog/tags/doT/" rel="tag"># doT</a>
-          
-            <a href="/blog/tags/分号/" rel="tag"># 分号</a>
+            <a href="/blog/tags/面试/" rel="tag"># 面试</a>
           
         </div>
       
@@ -436,8 +442,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/" rel="next" title="「译」手机浏览器下触发touchcancel事件的操作">
-                <i class="fa fa-chevron-left"></i> 「译」手机浏览器下触发touchcancel事件的操作
+              <a href="/blog/2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/" rel="next" title="「译」面试中要注意的 3 个 JavaScript 问题">
+                <i class="fa fa-chevron-left"></i> 「译」面试中要注意的 3 个 JavaScript 问题
               </a>
             
           </div>
@@ -445,10 +451,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2015/03/12/replace-coffeescript-with-es6/" rel="prev" title="「译」用 ES6 替代 CoffeeScript">
-                「译」用 ES6 替代 CoffeeScript <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -474,8 +476,8 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2015/01/14/doT-template-SyntacError/"
-           data-title="「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier" data-url="http://zhouweicsu.github.io/blog/blog/2015/01/14/doT-template-SyntacError/">
+      <div class="ds-thread" data-thread-key="2017/03/02/explain-proto-and-prototype-by-graph/"
+           data-title="图解 JavaScript 中的 __proto__ 与 prototype" data-url="http://zhouweicsu.github.io/blog/blog/2017/03/02/explain-proto-and-prototype-by-graph/">
       </div>
     
   </div>
