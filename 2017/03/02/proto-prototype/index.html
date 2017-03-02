@@ -95,13 +95,13 @@
 <meta property="og:site_name" content="zhouweicsu">
 <meta property="og:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
 本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
-<meta property="og:image" content="http://zhouweicsu.github.io/blog/proto-prototype.png">
-<meta property="og:updated_time" content="2017-03-02T09:51:36.000Z">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/blog/2017/03/02/proto-prototype/">
+<meta property="og:updated_time" content="2017-03-02T09:51:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解 JavaScript 中的 __proto__ 与 prototype">
 <meta name="twitter:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
 本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
-<meta name="twitter:image" content="http://zhouweicsu.github.io/blog/proto-prototype.png">
+<meta name="twitter:image" content="http://zhouweicsu.github.io/blog/blog/blog/2017/03/02/proto-prototype/">
 
 
 
@@ -396,8 +396,7 @@
 <p>先看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y)  &#123;</div><div class="line">    <span class="keyword">this</span>.x = x;</div><div class="line">    <span class="keyword">this</span>.y = y;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y,color)  &#123;</div><div class="line">    <span class="keyword">super</span>(x, y);</div><div class="line">    <span class="keyword">this</span>.color = color;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> ColorPoint(<span class="number">3</span>,<span class="number">4</span>, <span class="string">'green'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(p1.__proto__ === Point.prototype);                   <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p1.__proto__.__proto__ === <span class="built_in">Object</span>.prototype);        <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p2.__proto__ === ColorPoint.prototype);              <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p2.__proto__.__proto__ === Point.prototype);         <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(Point.__proto__ === <span class="built_in">Function</span>.prototype);             <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(ColorPoint.prototype.__proto__ === Point.prototype); <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(ColorPoint.__proto__ == Point);                      <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype === <span class="built_in">Function</span>.__proto__);          <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype);  <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__)                          <span class="comment">//null</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.prototype)                          <span class="comment">//undefined</span></div><div class="line"><span class="built_in">console</span>.log(p1.prototype)                                        <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
 <p>Class 可看作为构造函数的语法糖。</p>
 <p>根据这段代码我们可以绘制出一张关系图：</p>
-
-<p><img src="proto-prototype.png" alt="__proto__&amp;prototype 图解"></p>
+<p><img src="/blog/blog/2017/03/02/proto-prototype/" alt="__proto__&amp;prototype 图解"></p>
 <p>从图中可以看到实例、函数和原型对象之间的关系，得到以下结论：</p>
 <ul>
 <li>实例、构造函数和原型对象都有 __proto__ 属性（因为 JavaScript 中一切皆对象），指向该对象的构造函数的原型对象；</li>
@@ -537,7 +536,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">36</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
