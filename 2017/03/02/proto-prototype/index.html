@@ -96,7 +96,7 @@
 <meta property="og:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
 本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
 <meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/03/02/proto-prototype/proto-prototype.png">
-<meta property="og:updated_time" content="2017-03-03T02:08:17.000Z">
+<meta property="og:updated_time" content="2017-03-03T02:09:42.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「原」图解 JavaScript 中的 __proto__ 与 prototype">
 <meta name="twitter:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
@@ -399,7 +399,7 @@
 <p><img src="/blog/2017/03/02/proto-prototype/proto-prototype.png" alt="__proto__&amp;prototype 图解"></p>
 <h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>从图中可以看到实例、函数和原型对象之间的关系，得到以下结论：</p>
 <ul>
-<li>实例、构造函数和原型对象都有 __proto<strong> 属性，（JavaScript 中所有对象都有 \</strong>proto__ 属性，JavaScript 中一切皆对象），指向该对象的构造函数的原型对象；</li>
+<li>实例、构造函数和原型对象都有 __proto__ 属性，（JavaScript 中所有对象都有此属性，JavaScript 中一切皆对象），指向该对象的构造函数的原型对象；</li>
 <li>构造函数不仅有 __proto__ 属性，还有 prototype 属性（函数独有属性），prototype 指向该构造函数的原型对象（<strong>Note</strong>：通过 Function.prototype.bind 方法构造出来的函数是个例外，它没有 prototype 属性）；</li>
 <li>原型链最终指向一个以 null 为原型的对象。null 没有原型，并且作为这个原型链 prototype chain 中的最终链接；</li>
 <li>Function 的 prototype 和 __proto__ 都指向 Function.prototype；</li>
