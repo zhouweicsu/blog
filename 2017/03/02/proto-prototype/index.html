@@ -88,19 +88,19 @@
 
 
 <meta name="description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
-本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
+本文用代码结合图片的方式梳理一下 __proto__ 和 prototype 之间的区别和关系。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="图解 JavaScript 中的 __proto__ 与 prototype">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/03/02/proto-prototype/index.html">
 <meta property="og:site_name" content="zhouweicsu">
 <meta property="og:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
-本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
+本文用代码结合图片的方式梳理一下 __proto__ 和 prototype 之间的区别和关系。">
 <meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/03/02/proto-prototype/proto-prototype.png">
-<meta property="og:updated_time" content="2017-03-15T14:18:18.000Z">
+<meta property="og:updated_time" content="2017-04-12T07:37:09.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="图解 JavaScript 中的 __proto__ 与 prototype">
 <meta name="twitter:description" content="正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。
-本文用代码结合图片的方式梳理一下 proto 和 prototype 之间的区别和关系。">
+本文用代码结合图片的方式梳理一下 __proto__ 和 prototype 之间的区别和关系。">
 <meta name="twitter:image" content="http://zhouweicsu.github.io/blog/blog/2017/03/02/proto-prototype/proto-prototype.png">
 
 
@@ -382,7 +382,7 @@
 
       
         <p>正真理解 JavaScript 中的原型模式是掌握 JavaScript 基础的关键。原型模式是 JavaScript 实现面向对象和继承的基础。而原型中的 __proto__ 与 prototype 又是理解原型模式的关键。</p>
-<p>本文用代码结合图片的方式梳理一下 <strong><strong>proto</strong></strong> 和 <strong>prototype</strong> 之间的区别和关系。</p>
+<p>本文用代码结合图片的方式梳理一下 <strong>__proto__</strong> 和 <strong>prototype</strong> 之间的区别和关系。</p>
 <a id="more"></a>
 <p><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN</a> 中写到：</p>
 <blockquote>
@@ -392,7 +392,7 @@
 <blockquote>
 <p>当调用构造函数创建一个新实例后，该实例的内部将包含一个指针（内部属性），指向构造函数的原型对象。ECMA-262 第 5 版中称这个指针叫 <strong>[[Prototype]]</strong>。</p>
 </blockquote>
-<p>大多数浏览器得 ES5 实现中都支持通过属性 <strong><strong>proto</strong></strong> 来访问 [[Prototype]] 指针。</p>
+<p>大多数浏览器得 ES5 实现中都支持通过属性 __proto__ 来访问 [[Prototype]] 指针。</p>
 <p>先看一段代码：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y)  &#123;</div><div class="line">    <span class="keyword">this</span>.x = x;</div><div class="line">    <span class="keyword">this</span>.y = y;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y,color)  &#123;</div><div class="line">    <span class="keyword">super</span>(x, y);</div><div class="line">    <span class="keyword">this</span>.color = color;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> ColorPoint(<span class="number">3</span>,<span class="number">4</span>, <span class="string">'green'</span>);</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(p1.__proto__ === Point.prototype);                   <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p1.__proto__.__proto__ === <span class="built_in">Object</span>.prototype);        <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p2.__proto__ === ColorPoint.prototype);              <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(p2.__proto__.__proto__ === Point.prototype);         <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(Point.__proto__ === <span class="built_in">Function</span>.prototype);             <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(ColorPoint.prototype.__proto__ === Point.prototype); <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(ColorPoint.__proto__ == Point);                      <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype === <span class="built_in">Function</span>.__proto__);          <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Function</span>.prototype.__proto__ === <span class="built_in">Object</span>.prototype);  <span class="comment">//true</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.__proto__)                          <span class="comment">//null</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">Object</span>.prototype.prototype)                          <span class="comment">//undefined</span></div><div class="line"><span class="built_in">console</span>.log(p1.prototype)                                        <span class="comment">//undefined</span></div></pre></td></tr></table></figure></p>
 <p>Class 可看作为构造函数的语法糖。</p>
 <p>根据这段代码我们可以绘制出如下关系图：</p>

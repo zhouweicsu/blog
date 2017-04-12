@@ -87,22 +87,19 @@
 
 
 
-<meta name="description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。
-4 个概念构造函数：任何函数，只要能通过 new 操作符来调用，那它就可以作为构造函数；构造函数本质就是一个函数；原型对象：通过调用构造函数而创建的那个对象实例的原型对象；该对象包含由特定类型的所有实例共享的属性和方法；实例：通过 new 操作符调用构造函数得到的对象；原型链：每个">
+<meta name="description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="JavaScript 基础：继承">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/04/12/inherit/index.html">
 <meta property="og:site_name" content="zhouweicsu">
-<meta property="og:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。
-4 个概念构造函数：任何函数，只要能通过 new 操作符来调用，那它就可以作为构造函数；构造函数本质就是一个函数；原型对象：通过调用构造函数而创建的那个对象实例的原型对象；该对象包含由特定类型的所有实例共享的属性和方法；实例：通过 new 操作符调用构造函数得到的对象；原型链：每个">
+<meta property="og:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
 <meta property="og:image" content="http://p5.qhimg.com/t01c7eb826c4cb0e3d1.png">
 <meta property="og:image" content="http://p9.qhimg.com/t01e16f1b6ecc3f7052.png">
 <meta property="og:image" content="http://p0.qhimg.com/t0128863c171dfee7c7.png">
-<meta property="og:updated_time" content="2017-04-12T07:34:11.000Z">
+<meta property="og:updated_time" content="2017-04-12T07:38:31.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 基础：继承">
-<meta name="twitter:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。
-4 个概念构造函数：任何函数，只要能通过 new 操作符来调用，那它就可以作为构造函数；构造函数本质就是一个函数；原型对象：通过调用构造函数而创建的那个对象实例的原型对象；该对象包含由特定类型的所有实例共享的属性和方法；实例：通过 new 操作符调用构造函数得到的对象；原型链：每个">
+<meta name="twitter:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
 <meta name="twitter:image" content="http://p5.qhimg.com/t01c7eb826c4cb0e3d1.png">
 
 
@@ -384,6 +381,7 @@
 
       
         <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。</p>
+<a id="more"></a>
 <h3 id="4-个概念"><a href="#4-个概念" class="headerlink" title="4 个概念"></a>4 个概念</h3><p><strong><code>构造函数</code></strong>：任何函数，只要能通过 <code>new</code> 操作符来调用，那它就可以作为构造函数；构造函数本质就是一个函数；<br><strong><code>原型对象</code></strong>：通过调用构造函数而创建的那个对象实例的原型对象；该对象包含由特定类型的所有实例共享的属性和方法；<br><strong><code>实例</code></strong>：通过 <code>new</code> 操作符调用构造函数得到的对象；<br><strong><code>原型链</code></strong>：每个构造函数都有一个原型对象，我们如果将这个原型对象改为另一个对象的实例，就会形成原型链。</p>
 <blockquote>
 <p><em>P.S. 原型链后面会详细讲解，所以没有理解没关系。</em></p>
@@ -430,13 +428,13 @@
 </ul>
 <h2 id="继承的方法"><a href="#继承的方法" class="headerlink" title="继承的方法"></a>继承的方法</h2><p>继承的本质就是通过重写原型对象实现原型链，使得子类型可以通过原型链找到父类型中的属性和方法。有了上面的基础，我们看一下 JavaScript 中如何实现继承，讨论每种方法的优缺点。</p>
 <h3 id="基于原型链"><a href="#基于原型链" class="headerlink" title="基于原型链"></a>基于原型链</h3><p>代码实例 1 中通过重写 ColorPoint 的原型对象，形成一条原型链实现了继承。原来存在于 Point 的实例中的属性 <code>x</code>、<code>y</code> 和方法 <code>show</code> 现在也存在于 ColorPoint.prototype 中。但这种实现存在两个问题：</p>
-<ol>
+<ul>
 <li>父类中如果存在引用类型的属性（例如数组），那么子类的所有实例都会共享这个属性；<br>比如，如果 Point 中有一个数组属性 shapes，那在所有的 ColorPoint 的实例都会共享这个数组 shapes，任意一个实例修改 shapes，都会影响其他实例。</li>
-</ol>
+</ul>
 <p>代码示例 2：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.shapes = [<span class="string">'square'</span>,<span class="string">'rectangle'</span>];</div><div class="line">  </div><div class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">color</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// ColorPoint 继承了 Point</span></div><div class="line">ColorPoint.prototype = <span class="keyword">new</span> Point(); </div><div class="line"><span class="keyword">var</span> cp1 = <span class="keyword">new</span> ColorPoint();</div><div class="line">cp1.shapes.push(<span class="string">'circle'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp1.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div><div class="line"><span class="keyword">var</span> cp2 = <span class="keyword">new</span> ColorPoint();</div><div class="line"><span class="comment">// cp2 被影响了</span></div><div class="line"><span class="built_in">console</span>.log(cp2.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div></pre></td></tr></table></figure></p>
-<ol>
+<ul>
 <li>在创建子类型的实例时，不能向父类型的构造函数传递参数。<br>我们还看到，在实现继承的过程中，我们直接将 new Point() 替换了 ColorPoint 的原型。在 new 的过程中没有传入任何参数，即使我们传入参数，也把子类 ColorPoint 的 x 和 y 属性固定死了。这会导致 ColorPoint 在创建实例时，无法传递 x 和 y 属性。</li>
-</ol>
+</ul>
 <p>所以原型链这种方式只是实现了继承而已，并不能满足实际工作的需求。</p>
 <h3 id="使用-call-和-apply-——-构造函数绑定"><a href="#使用-call-和-apply-——-构造函数绑定" class="headerlink" title="使用 call 和 apply —— 构造函数绑定"></a>使用 call 和 apply —— 构造函数绑定</h3><p>为了解决上面说的两个问题，我们可以通过 call() 和 apply() 在子类的构造函数中将 <code>this</code> 和<code>参数</code>传递给父类构造函数。</p>
 <p>代码示例 3：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.shapes = [<span class="string">'square'</span>,<span class="string">'rectangle'</span>];</div><div class="line">  </div><div class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">x, y, color</span>) </span>&#123;</div><div class="line">    Point.call(<span class="keyword">this</span>, x, y);</div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> cp1 = <span class="keyword">new</span> ColorPoint();</div><div class="line">cp1.shapes.push(<span class="string">'circle'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp1.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div><div class="line">cp1.show() <span class="comment">//x: 10, y: 10</span></div><div class="line"><span class="keyword">var</span> cp2 = <span class="keyword">new</span> ColorPoint(<span class="number">100</span>, <span class="number">100</span>);</div><div class="line"><span class="built_in">console</span>.log(cp2.shapes);  <span class="comment">// ["square", "rectangle"]</span></div><div class="line">cp1.show() <span class="comment">//x: 100, y: 100</span></div></pre></td></tr></table></figure></p>
