@@ -93,14 +93,14 @@
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/04/12/inherit/index.html">
 <meta property="og:site_name" content="zhouweicsu">
 <meta property="og:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
-<meta property="og:image" content="http://p5.qhimg.com/t01c7eb826c4cb0e3d1.png">
-<meta property="og:image" content="http://p9.qhimg.com/t01e16f1b6ecc3f7052.png">
-<meta property="og:image" content="http://p0.qhimg.com/t0128863c171dfee7c7.png">
-<meta property="og:updated_time" content="2017-04-12T07:38:31.000Z">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-1.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-2.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-3.png">
+<meta property="og:updated_time" content="2017-04-12T08:11:59.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript 基础：继承">
 <meta name="twitter:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
-<meta name="twitter:image" content="http://p5.qhimg.com/t01c7eb826c4cb0e3d1.png">
+<meta name="twitter:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-1.png">
 
 
 
@@ -394,7 +394,7 @@
 <li>每个实例都包含一个指向原型对象的内部指针</li>
 </ul>
 <p>根据代码示例 1 中 Point 类的定义，我们可以得到如下关系图：</p>
-<p><img src="http://p5.qhimg.com/t01c7eb826c4cb0e3d1.png" alt="Point 类构造函数，原型对象与实例之间的关系图"></p>
+<p><img src="/blog/2017/04/12/inherit/inherit-1.png" alt="Point 类构造函数，原型对象与实例之间的关系图"></p>
 <p>图 1：Point 类构造函数，原型对象与实例之间的关系图</p>
 <blockquote>
 <p><strong><code>原型链</code></strong>：构造函数 Point 和 ColorPoint，我们知道这两个构造函数都会有默认的原型对象。上面我们说到如果我们将 ColorPoint 的原型对象改为 Point 的实例，我们就会得到原型链。那原型链是如何形成的呢？就是通过原型对象与实例之间的这个关系形成的。具体形成过程我们需要再了解一下关系中涉及到的 3 个属性。</p>
@@ -406,7 +406,7 @@
 <li>__proto__：实例中指向原型对象的内部指针</li>
 </ul>
 <p>根据代码示例 1 中 Point 与 ColorPoint 的定义，我们可以得到如下关系图：</p>
-<p><img src="http://p9.qhimg.com/t01e16f1b6ecc3f7052.png" alt="ColorPoint、Point、Object 之间的关系图"></p>
+<p><img src="/blog/2017/04/12/inherit/inherit-2.png" alt="ColorPoint、Point、Object 之间的关系图"></p>
 <p>图 2：ColorPoint、Point、Object 之间的关系图</p>
 <blockquote>
 <p><strong><code>原型链</code></strong>：本来构造函数 Point 和 ColorPoint 是两个独立的函数，之间没有关系。如果我们将 ColorPoint 的原型对象重写，即 ColorPoint.prototype = new Point()。那 prototype 属性就指向了 Point 的实例，而从上面我们已经知道了每个实例都有指向原型对象的内部指针 __proto__，到这里，我们可以得到一个原型链：</p>
@@ -442,7 +442,7 @@
 <h3 id="组合继承-——-最常用"><a href="#组合继承-——-最常用" class="headerlink" title="组合继承 —— 最常用"></a>组合继承 —— 最常用</h3><p>为了解决上一小节中函数复用的问题，我们可以借用原型对象中的属性是共享这一特性。思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。</p>
 <p>代码示例 4：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.shapes = [<span class="string">'square'</span>,<span class="string">'rectangle'</span>];</div><div class="line">&#125;</div><div class="line">Point.prototype.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">x, y, color</span>) </span>&#123;</div><div class="line">    Point.call(<span class="keyword">this</span>, x, y);   <span class="comment">// 继承属性</span></div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span>;</div><div class="line">&#125;</div><div class="line">ColorPoint.prototype = <span class="keyword">new</span> Point(); <span class="comment">// 继承方法</span></div><div class="line">ColorPoint.prototype.showColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'color: '</span> + <span class="keyword">this</span>.color);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> cp1 = <span class="keyword">new</span> ColorPoint();</div><div class="line">cp1.shapes.push(<span class="string">'circle'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp1.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div><div class="line">cp1.show();   <span class="comment">//x: 10, y:10</span></div><div class="line">cp1.showColor(); <span class="comment">//color: red</span></div><div class="line"><span class="keyword">var</span> cp2 = <span class="keyword">new</span> ColorPoint(<span class="number">100</span>, <span class="number">100</span>, <span class="string">'yellow'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp2.shapes);  <span class="comment">// ["square", "rectangle"]</span></div><div class="line">cp2.show();   <span class="comment">//x: 100, y:100</span></div><div class="line">cp2.showColor(); <span class="comment">//color: yellow</span></div></pre></td></tr></table></figure></p>
 <p>根据代码示例 4 ，我们可以得到如下关系图：</p>
-<p><img src="http://p0.qhimg.com/t0128863c171dfee7c7.png" alt="ColorPoint、Point、Object 之间新的关系图"></p>
+<p><img src="/blog/2017/04/12/inherit/inherit-3.png" alt="ColorPoint、Point、Object 之间新的关系图"></p>
 <p>图 3：ColorPoint、Point、Object 之间新的关系图</p>
 <p>这种继承的实现方式，解决了前两个小节中出现的问题，但也有一些小瑕疵，就是<strong>父类的构造函数会被调用两次</strong>：一次是创建子类型的原型对象， 还有一次是子类型的构造函数中的 call。虽然存在这个问题，但影响不是特别大，所以这种方式还是 JavaScript 最常用的继承模式。</p>
 <h3 id="Class-extends"><a href="#Class-extends" class="headerlink" title="Class extends"></a>Class extends</h3><p>ES6 提供了更接近传统面向对象语言的继承写法，引入了 Class 的概念， Class 之间可以通过 extends 继承。</p>
