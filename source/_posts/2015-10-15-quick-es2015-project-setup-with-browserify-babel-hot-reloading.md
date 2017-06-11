@@ -12,7 +12,7 @@ tags : [JavaScript, ES6, Browserify, Babel, hot reloading]
 
 <!-- more -->
 
-新建一个 ```package.json``` 并且安装下面的 packages：
+新建一个 `package.json` 并且安装下面的 packages：
 
 ```
 $ npm i -D browserify babelify watchify serve

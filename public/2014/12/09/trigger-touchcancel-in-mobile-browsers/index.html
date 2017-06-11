@@ -93,7 +93,7 @@
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2014/12/09/trigger-touchcancel-in-mobile-browsers/index.html">
 <meta property="og:site_name" content="zhouweicsu">
 <meta property="og:description" content="Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。">
-<meta property="og:updated_time" content="2017-03-02T10:06:14.000Z">
+<meta property="og:updated_time" content="2017-03-02T10:37:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="「译」手机浏览器下触发touchcancel事件的操作">
 <meta name="twitter:description" content="Touchcancel事件在Javascript创建touch-interfaces时常常被忽视。而浏览器厂商也从未正式发布详细说明touchcancel事件何时会被触发的文档，因此，对于许多开发者而言touchcancel事件一直默默无闻。本贴希望能揭开touchcancel的神秘面纱，助你清楚地了解touchcancel事件。">
@@ -389,7 +389,7 @@
 <p>从上一段描述中我们可以进一步理解touchcancel事件与浏览器行为的关系。这不仅能帮助浏览器精确地引用TouchList中的Touch对象，而且也能被开发者用来实现特定的UI操作，例如在touchstart和touchmove事件处理函数中重置正在使用的变量。当系统取消了跟踪touch事件但touchend事件没有被触发时，touchcancel将会拯救你。</p>
 <p>那浏览器什么时候触发这个事件？开始研究之前有必要构建一个简单的事件日志来跟踪所有的touch事件。测试主要记录在touch区域滑动时最后一个被触发的touch事件，这些日志将使我们更加直观地分析到底是哪种交互操作触发了touchcancel事件。</p>
 <p>以下是我们在多种手机浏览器上的发现。值得指出的是touchcancel事件很不可预测的，尤其在安卓（2.3.5）上。甚至在iOS5上有时也不能准确预测什么操作会触发touchcancel事件。</p>
-<p>###iOS Safari 5.0.1（iPhone 4 &amp; iPad 1）###<br>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
+<h3 id="iOS-Safari-5-0-1（iPhone-4-amp-iPad-1）"><a href="#iOS-Safari-5-0-1（iPhone-4-amp-iPad-1）" class="headerlink" title="iOS Safari 5.0.1（iPhone 4 &amp; iPad 1）"></a>iOS Safari 5.0.1（iPhone 4 &amp; iPad 1）</h3><p>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
 <blockquote>
 <ul>
 <li>用户按下home键</li>
@@ -424,7 +424,7 @@
 <li>用户无法打开屏幕上方出现的iOS5风格的通知</li>
 </ul>
 </blockquote>
-<p>###安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器###<br>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
+<h3 id="安卓2-3-5（Samsung-Galaxy-Y-GT-S5363）内置浏览器"><a href="#安卓2-3-5（Samsung-Galaxy-Y-GT-S5363）内置浏览器" class="headerlink" title="安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器"></a>安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器</h3><p>在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：</p>
 <blockquote>
 <ul>
 <li>用户按下锁屏键</li>
@@ -450,9 +450,8 @@
 </blockquote>
 <h3 id="Opera-Mobile"><a href="#Opera-Mobile" class="headerlink" title="Opera Mobile"></a>Opera Mobile</h3><p>安卓版Opera Mobile 11.50 </p>
 <p>也测试了。然而浏览器似乎支持touchcancel事件，实际上他并未触发这个事件。例如在按下home键的时候，Opera Mobile似乎直接触发了touchend事件。</p>
-<p>###黑莓平板电脑 (1.0.8.6067)###<br>尽管浏览器声称支持touchcancel事件，但该事件似乎并未被触发。即使按下电源键使设备待机，touchcancel事件也未被触发。同样的，按下浏览器工具条的按钮或聚焦在地址栏都未触发此事件。另外值得注意的是，当触发touchstart或touchmove事件后，平板电脑不会响应任何滑动的手势。</p>
-<p>##结论##</p>
-<p>从测试结果看，touchcancel事件仍然是不可预测的。然而确定在哪种情况下事件会被触发还是很容易的，在哪种情况下不被触发也几乎能确定。那么这个事件的作用也无需出现在本次研究中，因为在所有可预期的情况下，开发者目前似乎无法依赖这个事件的触发。</p>
+<h3 id="黑莓平板电脑-1-0-8-6067"><a href="#黑莓平板电脑-1-0-8-6067" class="headerlink" title="黑莓平板电脑 (1.0.8.6067)"></a>黑莓平板电脑 (1.0.8.6067)</h3><p>尽管浏览器声称支持touchcancel事件，但该事件似乎并未被触发。即使按下电源键使设备待机，touchcancel事件也未被触发。同样的，按下浏览器工具条的按钮或聚焦在地址栏都未触发此事件。另外值得注意的是，当触发touchstart或touchmove事件后，平板电脑不会响应任何滑动的手势。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>从测试结果看，touchcancel事件仍然是不可预测的。然而确定在哪种情况下事件会被触发还是很容易的，在哪种情况下不被触发也几乎能确定。那么这个事件的作用也无需出现在本次研究中，因为在所有可预期的情况下，开发者目前似乎无法依赖这个事件的触发。</p>
 <p>然而可以肯定的是，你无法在每台设备上都仅仅只依赖touchend事件被的触发。你需要编写处理touchcancel事件的代码。例如在iPad上尤其如此，假如你写了个多点触控的app或联机的HTML5游戏。由于程序没有办法辨别用户是否启用了多任务手势，这时你的app就需要优雅地处理touchcancel事件。安卓浏览器不可预测的特性也是使得处理这个事件变得尤为重要，不这么做将会导致你的UI出现bug。</p>
 <p>所以，当你下次处理touch事件时，别忘记处理touchcancel事件。尽管许多浏览器支持此事件，但在处理某些意想不到的用户交互时还是非常方便的。</p>
 <p>原文链接：<a href="http://alxgbsn.co.uk/2011/12/23/different-ways-to-trigger-touchcancel-in-mobile-browsers/" target="_blank" rel="external">Different ways to trigger touchcancel in mobile browsers</a><br>译者 <a href="https://github.com/zhouweicsu" target="_blank" rel="external">@zhouweicsu</a><br>2014 年 12月 09日    </p>
@@ -504,8 +503,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/blog/2015/01/14/doT-template-SyntacError/" rel="prev" title="「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier">
-                「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier <i class="fa fa-chevron-right"></i>
+              <a href="/blog/2015/01/14/doT-template-SyntacError/" rel="prev" title="doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier">
+                doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -582,7 +581,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">17</span>
+                <span class="site-state-item-count">20</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -600,7 +599,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">39</span>
+                <span class="site-state-item-count">41</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -682,7 +681,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Opera-Mobile"><span class="nav-number">1.</span> <span class="nav-text">Opera Mobile</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#iOS-Safari-5-0-1（iPhone-4-amp-iPad-1）"><span class="nav-number">1.</span> <span class="nav-text">iOS Safari 5.0.1（iPhone 4 & iPad 1）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安卓2-3-5（Samsung-Galaxy-Y-GT-S5363）内置浏览器"><span class="nav-number">2.</span> <span class="nav-text">安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Opera-Mobile"><span class="nav-number">3.</span> <span class="nav-text">Opera Mobile</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#黑莓平板电脑-1-0-8-6067"><span class="nav-number">4.</span> <span class="nav-text">黑莓平板电脑 (1.0.8.6067)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结论"><span class="nav-number"></span> <span class="nav-text">结论</span></a></div>
             
 
           </div>

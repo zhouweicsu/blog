@@ -66,7 +66,7 @@ console.log(blake.name());
 虽然我能理解为什么ES6允许你调用父对象的一种不同的方法，但是我还是得说我更喜欢CoffeeScript中`super`的实现。
 
 ---
-##字符串插值
+## 字符串插值
 
 很显然ES6与CoffeeScript中的字符串插值非常相似；CoffeeScript的字符串插值使用常规的“strings”，ES6使用<code>\`</code>包裹字符串（吐槽：这导致在写Markdown的时候相当烦人）。CoffeeScript使用`#{var}`，ES6使用`${var}`。这些点都大同小异。
 
@@ -117,12 +117,12 @@ var str2 = "This is quite a long first line\nso I wrap it to a second line and t
 我实在想不出一个能让我选择6to5的理由。
 
 ---
-##胖箭头，默认参数
+## 胖箭头，默认参数
 
 这两项是对JS语法的杰出扩展，ES6的表现与CoffeeScript大致相同，只有少量语法不同。
 
 ---
-##参数列表（splats）
+## 参数列表（splats）
 
 另一个杰出扩展，我发现参数列表(splats)这个技能在参数列的中间非常 有用，尤其是在Node.js风格的回调函数的情况下，回调函数可以自动弹出然后退出。举个栗子：
 
@@ -154,14 +154,14 @@ middleNames = rest;
 ```
 
 ---
-##构造/解构函数
+## 构造/解构函数
 
 我必须承认我很喜欢ES6的一个特性，就是在你写`var [first, , last] = [1, 2, 3]`赋值语句时可以使用真正的空格，但是用下划线或其他类似字符也可以是一种解决方案。
 
 ES6中对象的构造/解构函数与CoffeeScript几乎一样（`var {a, b} = {a: 1, c:3}`， `var {foo: a, bar: b} = {foo: 1, baz: 3}`， 还有`var c = {a, b}`），但当引用当前对象的属性时，CoffeeScript的做法更好，如`c = {@a, @b}`（`var c = {a: this.a, b: this.b}`）。
 
 ---
-##一些我希望CoffeeScript拥有的ES6特性
+## 一些我希望CoffeeScript拥有的ES6特性
 
 尝试将CoffeeScript描绘成一个完美的语言是不明智的，它显然不是，它也有缺点，下面给出一个CoffeeScript中没有但ES6（甚至ES3）中有的特性列表：
 
@@ -170,13 +170,13 @@ ES6中对象的构造/解构函数与CoffeeScript几乎一样（`var {a, b} = {a
 
 
 ---
-##结束语
+## 结束语
 
 总的来说ES6对JavaScript来说是一个伟大的飞跃，非常感谢所有让这些成为可能的开发者。以上未提及的许多ES6新增的特性都没有涉及语法变化，因此CoffeeScript也可以直接使用，例如Proxies，WeakMaps等。（我们现在甚至还有`yield`）。
 
 我还是会坚持选择使用CoffeeScript的语法，因为它简明易读，大大提高了我的工作效率。我也很难放弃各种CoffeeScript的语法糖，例如：`object?.property`，当object是null或者undefined的时候不会报错；`a ?= b`，`a ||= b`等；隐式返回；`unless`；升级版`switch`；范围缩写`[a..b]`;array/string利用范围`arr[2..6]`来切割；`for own k, v of obj`；链式比较 `a < b < c`；块级正则表达式；还有更多！
 
-##CoffeeScript万岁！ES6万岁！
+## CoffeeScript万岁！ES6万岁！
 
 
 

@@ -25,7 +25,7 @@ touch事件最初是Apple为Safari浏览器创建的，现在已经被纳入了[
 
 以下是我们在多种手机浏览器上的发现。值得指出的是touchcancel事件很不可预测的，尤其在安卓（2.3.5）上。甚至在iOS5上有时也不能准确预测什么操作会触发touchcancel事件。
 
-###iOS Safari 5.0.1（iPhone 4 & iPad 1）###
+### iOS Safari 5.0.1（iPhone 4 & iPad 1）
 在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：
 
 > * 用户按下home键
@@ -56,7 +56,7 @@ touch事件最初是Apple为Safari浏览器创建的，现在已经被纳入了[
 > * 用户不能从屏幕上方往下滑动打开通知中心
 > * 用户无法打开屏幕上方出现的iOS5风格的通知
 
-###安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器###
+### 安卓2.3.5（Samsung Galaxy Y GT-S5363）内置浏览器 
 在touchstart或touchmove事件被触发时，会触发touchcancel事件的操作：
 
 > * 用户按下锁屏键
@@ -75,16 +75,16 @@ touch事件最初是Apple为Safari浏览器创建的，现在已经被纳入了[
 > * 用户无法聚焦到浏览器地址栏
 > * 用户无法点击书签按钮
 
-### Opera Mobile ###
+### Opera Mobile
 
 安卓版Opera Mobile 11.50 
 
 也测试了。然而浏览器似乎支持touchcancel事件，实际上他并未触发这个事件。例如在按下home键的时候，Opera Mobile似乎直接触发了touchend事件。
 
-###黑莓平板电脑 (1.0.8.6067)###
+### 黑莓平板电脑 (1.0.8.6067) 
 尽管浏览器声称支持touchcancel事件，但该事件似乎并未被触发。即使按下电源键使设备待机，touchcancel事件也未被触发。同样的，按下浏览器工具条的按钮或聚焦在地址栏都未触发此事件。另外值得注意的是，当触发touchstart或touchmove事件后，平板电脑不会响应任何滑动的手势。
 
-##结论##
+## 结论
 
 从测试结果看，touchcancel事件仍然是不可预测的。然而确定在哪种情况下事件会被触发还是很容易的，在哪种情况下不被触发也几乎能确定。那么这个事件的作用也无需出现在本次研究中，因为在所有可预期的情况下，开发者目前似乎无法依赖这个事件的触发。
 

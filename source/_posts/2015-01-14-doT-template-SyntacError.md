@@ -1,7 +1,7 @@
 ---
 layout: post
 category : JavaScript
-title: 「原」doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier
+title: doT 模板中直接写 Javascript 代码导致 Uncaught SyntaxError Unexpected identifier
 tagline: "一个分号的故事"
 tags : [template, doT, 分号]
 ---
@@ -49,7 +49,7 @@ it.tel = it.tel.split(',') out += '';
 
 doT无法像Javascript解析器一样自动补全分号，这就导致了上面的错误发生。
 
-###解决方法
+### 解决方法
 
 加上分号就好了
 

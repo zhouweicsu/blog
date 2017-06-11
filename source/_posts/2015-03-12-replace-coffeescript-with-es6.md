@@ -23,7 +23,7 @@ autocmd BufRead,BufNewFile *.es6 setfiletype javascript
 
 你也可以在浏览器中使用[6to5 REPL][6]来编写ES6代码。
 
-###类###
+### 类
 CoffeeScript与ES6都支持类。让我们来看下CoffeeScript类与相同功能的ES6类的对比。
 
 CoffeeScript有可以利用的三个优势：参数列表使用实例变量，字符串插值，函数调用不需要括号。
@@ -81,7 +81,7 @@ console.log(blake.name);
 我们也可以利用getters和setters方法让使用`name`方法像属性那样方便。
 
 
-###字符串插值###
+### 字符串插值
 我一直希望JavaScript能够拥有更加有方便的字符串语法。幸运地是ES6新加了[template strings][7]。下面我们来比较一下CoffeeScript strings，JavaScript strings，和template strings，看看他们的能力。
 
 CoffeeScript:
@@ -118,7 +118,7 @@ get name() {
 
 这比之前的字符串拼接的方式看起来清爽多了，并且看起来更加像CoffeeScript。
 
-###胖箭头###
+### 胖箭头
 另一个CoffeeScript中很吸引人的特性在ES6中也有新增，那就是胖箭头。胖箭头可以将函数与当前上下文的`this`值绑定起来。首先，让我看看不使用胖箭头函数是如何处理this的。
 
 在ES5中，定义一个函数前必须用一个变量来保存当前的`this`值：
@@ -145,10 +145,10 @@ $("button").on("click", () => {
   // do something with this
 });
 ```
-###其他特性###
+### 其他特性
 ES6有一些其他的特性值得顺便提一下。
 
-##默认参数##
+## 默认参数
 
 CoffeeScript：
 
@@ -165,7 +165,7 @@ var hello = function(name = "guest"){
 }
 ```
 
-##参数列表（splats）##
+## 参数列表（splats）
 [变长参数函数][8]，CoffeeScript称之为参数列表（splats），允许收集附加参数传递给函数作为一个数组。ES6中称之为其他参数。
 
 CoffeeScript:
@@ -186,7 +186,7 @@ var awards = function(first, second, ...others) {
   var honorableMention = others;
 }
 ```
-##解构赋值##
+## 解构赋值
 解构赋值允许按照一定模式，从数组和对象中提取值，对变量进行赋值。
 
 CoffeeScript:
@@ -209,7 +209,7 @@ set name(name) {
 }
 ```
 
-###结束语###
+### 结束语
 许多ES6转译工具已经在积极的开发中，功能上已经可以追上CoffeeScript了。本文仅仅介绍了极少数JavaScript的新特性，但是点击[这里][9]找到更多新特性。
 
 下个项目把CoffeeScript放一边，试一试ES6吧！
