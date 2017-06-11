@@ -1,0 +1,945 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,ECMAScript,ES7,ES 2016,TC39,设计过程," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="本文回答了关于下一版 JavaScript（ECMAScript 2016）的以下几个问题：
+
+谁在设计？
+如何设计？
+会有什么特性？
+
+本文会持续更新以及时反馈最新进展。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」ECMAScript 2016 (ES7) 新特性一览">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2015/12/04/tc39-process/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="本文回答了关于下一版 JavaScript（ECMAScript 2016）的以下几个问题：
+
+谁在设计？
+如何设计？
+会有什么特性？
+
+本文会持续更新以及时反馈最新进展。">
+<meta property="og:updated_time" content="2017-03-02T10:42:08.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「译」ECMAScript 2016 (ES7) 新特性一览">
+<meta name="twitter:description" content="本文回答了关于下一版 JavaScript（ECMAScript 2016）的以下几个问题：
+
+谁在设计？
+如何设计？
+会有什么特性？
+
+本文会持续更新以及时反馈最新进展。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'shrimp',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2015/12/04/tc39-process/"/>
+
+
+
+
+
+  <title> 「译」ECMAScript 2016 (ES7) 新特性一览 | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2015/12/04/tc39-process/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                「译」ECMAScript 2016 (ES7) 新特性一览
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-12-04T00:00:00+08:00">
+                2015-12-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2015/12/04/tc39-process/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2015/12/04/tc39-process/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本文回答了关于下一版 JavaScript（ECMAScript 2016）的以下几个问题：</p>
+<ul>
+<li>谁在设计？</li>
+<li>如何设计？</li>
+<li>会有什么特性？</li>
+</ul>
+<p>本文会持续更新以及时反馈最新进展。</p>
+<a id="more"></a>
+<h2 id="1、谁在设计-ECMAScript？"><a href="#1、谁在设计-ECMAScript？" class="headerlink" title="1、谁在设计 ECMAScript？"></a>1、谁在设计 ECMAScript？</h2><p>答：TC39 (Technical Committee 39)。</p>
+<p><a href="http://www.ecma-international.org/memento/TC39.htm" target="_blank" rel="external">TC39</a> 是推进 JavaScript 发展的委员会。其会员都是公司（其中主要是浏览器厂商）。<a href="http://www.ecma-international.org/memento/TC39-M.htm" target="_blank" rel="external">TC39 定期召开会议</a>，会议由会员公司的代表与特邀专家出席。会议纪录都可在<a href="https://github.com/tc39/tc39-notes" target="_blank" rel="external">网上查看</a>，可以让你对 TC39 如何工作有一个清晰的概念。</p>
+<p>有时候（实际上本文就如此），你会发现 <em>TC39 会员</em>这个词被用来指代一个人，其实指的是 TC39 会员公司派出的代表。</p>
+<p>很有意思的是，TC39 实行的是协商一致的原则：通过一项决议必须得到每一位会员（公司代表）的赞成。</p>
+<h2 id="2、如何设计-ECMAScript？"><a href="#2、如何设计-ECMAScript？" class="headerlink" title="2、如何设计 ECMAScript？"></a>2、如何设计 ECMAScript？</h2><h3 id="2-1-问题：ECMAScript-2015-ES6-这个版本太大了"><a href="#2-1-问题：ECMAScript-2015-ES6-这个版本太大了" class="headerlink" title="2.1 问题：ECMAScript 2015 (ES6) 这个版本太大了"></a>2.1 问题：ECMAScript 2015 (ES6) 这个版本太大了</h3><p>最近发布的 ECMAScript（ES6）新增内容很多，在 ES5 发布近 6 年（2009-11 至 2015-6）之后才将其标准化。两个发布版本之间时间跨度如此之大主要有两大原因：</p>
+<ul>
+<li>比新版率先完成的特性，必须等待新版的完成才能发布。</li>
+<li>那些需要花长时间完成的特性，也顶着很大的压力被纳入这一版本，因为如果推迟到下一版本发布意味着又要等很久，这种特性也会推迟新的发布版本。</li>
+</ul>
+<p>因此，从 ECMAScript 2016（ES7）开始，版本发布将会变得更加频繁，每年发布一个新版本，这么一来新增内容也会更小。新版本将会包含每年截止时间之前完成的所有特性。</p>
+<h3 id="2-2-解决方案：-TC39-设计过程"><a href="#2-2-解决方案：-TC39-设计过程" class="headerlink" title="2.2 解决方案： TC39 设计过程"></a>2.2 解决方案： TC39 设计过程</h3><p>每个 ECMAScript 特性的建议将会从阶段 0 开始， 然后经过下列几个成熟阶段。其中从一个阶段到下一个阶段必须经过 TC39 的批准。</p>
+<h4 id="阶段-0：-Strawman-初稿"><a href="#阶段-0：-Strawman-初稿" class="headerlink" title="阶段 0： Strawman 初稿"></a>阶段 0： Strawman 初稿</h4><p><strong>什么是 Strawman？</strong>一个推进 ECMAScript 发展的自由形式的想法。该想法必须由 TC39 的会员提交，如果是非会员则必须<a href="http://www.ecma-international.org/memento/contribute_TC39_Royalty_Free_Task_Group.php" target="_blank" rel="external">注册成为 TC39 贡献者</a>才能提交。</p>
+<p><strong>必备条件：</strong>文件必须在 TC39 的会议上通过审议<a href="https://github.com/tc39/ecma262/blob/master/FAQ.md" target="_blank" rel="external">（原文）</a>，然后才能加入<a href="https://github.com/tc39/ecma262/blob/master/stage0.md" target="_blank" rel="external">阶段 0 的建议页面</a>。</p>
+<h4 id="阶段-1：Proposal-建议"><a href="#阶段-1：Proposal-建议" class="headerlink" title="阶段 1：Proposal 建议"></a>阶段 1：Proposal 建议</h4><p><strong>什么是 Proposal？</strong>一份新特性的正式建议文档。</p>
+<p><strong>必备条件：</strong>必须确定一位<em>带头人</em>来为负责这份建议。无论是带头人或者联合带头人都必须是 TC39 的会员<a href="https://github.com/tc39/ecma262/blob/master/FAQ.md" target="_blank" rel="external">（原文）</a>。建议要解决的问题必须以简明的文字描述，而解决方案则要给出相应的实例和 API，并详细描述语义及算法。最后，必须指明此建议的潜在问题，例如与其他特性之间的关联，实现难点等。实现方式，polyfills 和 demo 也是需要的。</p>
+<p><strong>下一步：</strong>通过一个阶段 1 的建议，表明 TC39 愿意研究、讨论并促成该建议。接下来，我们就可以期待该建议的重大改变了。</p>
+<h4 id="阶段-2：Draft-草案"><a href="#阶段-2：Draft-草案" class="headerlink" title="阶段 2：Draft 草案"></a>阶段 2：Draft 草案</h4><p><strong>什么是 Draft？</strong>草案是规范的第一个版本。其与最终标准中包含的特性不会有太大差别。</p>
+<p><strong>必备条件：</strong>建议此时必须要附加该特性的语法和语义的正式说明（使用 ECMAScript 标准的形式语言）。说明应该尽可能完善，但可以包含待办事项和占位符。该特性需要两个实验性的实现，其中一个可以在类似 Babel 的转译器（transpiler）中实现。</p>
+<p><strong>下一步：</strong>从该阶段开始只接受增量调整。</p>
+<h4 id="阶段-3：Candidate-候选"><a href="#阶段-3：Candidate-候选" class="headerlink" title="阶段 3：Candidate 候选"></a>阶段 3：Candidate 候选</h4><p><strong>什么是 Candidate？</strong>候选阶段，建议基本完成，此时将从实现过程和用户使用两方面获取反馈来进一步完善建议。</p>
+<p><strong>必备条件：</strong>规范文档必须是完整的。指定的评审人（由 TC39 而不是带头人指定）和 ECMAScript 规范的编辑须在规范上签字。还有至少要两个符合规范的实现（不必指定默认实现）。</p>
+<p><strong>下一步：</strong>此后，只有在实现和使用过程中出现了重大问题才会修改建议。</p>
+<h4 id="阶段-4：Finished-完成"><a href="#阶段-4：Finished-完成" class="headerlink" title="阶段 4：Finished 完成"></a>阶段 4：Finished 完成</h4><p><strong>什么是 Finished？</strong>建议已经准备就绪，可以添加到标准之中。</p>
+<p><strong>必备条件：</strong>建议进入完成阶段之前需要满足以下几点：</p>
+<ul>
+<li><a href="http://test262.ecmascript.org/" target="_blank" rel="external">Test 262</a> 的验收测试（基本上都是 JavaScript 写的用来验证语言特性的单元测试）。</li>
+<li>两个通过测试的符合规范的实现。</li>
+<li>特性实现相关的重要实践经验。</li>
+<li>ECMAScript 规范的编辑在规范文本上的签字。</li>
+</ul>
+<p><strong>下一步：</strong> 建议将会尽快加入 ECMAScript 规范之中。当规范通过年度审核成为标准，该建议也正式成为标准的一部分。</p>
+<h2 id="3、别把它们称做-ECMASript-20xx-特性"><a href="#3、别把它们称做-ECMASript-20xx-特性" class="headerlink" title="3、别把它们称做 ECMASript 20xx 特性"></a>3、别把它们称做 ECMASript 20xx 特性</h2><p>综上所述，只有建议进入阶段 4，你才能确定这个特性会被纳入标准之中。因为此时它很有可能被加入到下一版本的 ECMAScript，但也不是 100% 确定（因为有可能会花更长时间）。因此，你不能称这个建议为“ES7 特性”或“ES2016 特性”。所以我喜欢把文章或博客的标题写成这样：</p>
+<ul>
+<li>“ECMAScript 建议：某特性”。在文章开头说明建议所处的阶段。</li>
+<li>“ES.阶段 2：某特性”。</li>
+</ul>
+<p>如果建议处于阶段 4，我觉得称它 ES20xx 特性是 OK 的，但还是等规范的编辑确认该特性将会加入哪个版本之后才最保险。例如 <code>Object.observe</code> 就是一个已经进入阶段 2 ，却最终被撤回的 ECMAScript 建议。</p>
+<h2 id="4、ECMAScript-2016-将会有什么特性？"><a href="#4、ECMAScript-2016-将会有什么特性？" class="headerlink" title="4、ECMAScript 2016 将会有什么特性？"></a>4、ECMAScript 2016 将会有什么特性？</h2><p>已被纳入 ES2016 的特性：</p>
+<ul>
+<li><a href="">Array.prototype.includes (Domenic Denicola, Rick Waldron)</a></li>
+</ul>
+<p>以下处于阶段 4 的特性将可能会纳入 ES2016：</p>
+<ul>
+<li>（暂时没有。）</li>
+</ul>
+<p>以下处于阶段 3 的特性也许会纳入 ES2016：</p>
+<ul>
+<li><a href="">指数运算符（Rick Waldron）</a></li>
+<li><a href="">SIMD.JS – SIMD APIs + polyfill（John McCutchan, Peter Jensen, Dan Gohman, Daniel Ehrenberg）</a></li>
+<li><a href="">异步函数（Brian Terlson）</a></li>
+<li><a href="http://www.2ality.com/2015/11/stage3-object-entries.html" target="_blank" rel="external">Object.values/Object.entries（Jordan Harband）</a></li>
+<li><a href="http://www.2ality.com/2015/11/string-padding.html" target="_blank" rel="external">字符串填充（Jordan Harband &amp; Rick Waldron）</a></li>
+<li><a href="http://www.2ality.com/2015/11/trailing-comma-parameters.html" target="_blank" rel="external">函数参数列表与调用中的尾逗号（Jeff Morrison）</a></li>
+</ul>
+<p>如果你不知道某个建议特性处于哪个阶段，你可以在 <a href="https://github.com/tc39/ecma262/blob/master/README.md" target="_blank" rel="external">ECMA-262 GitHub 库的 readme </a>中查阅。</p>
+<h2 id="5、Array-prototype-includes-Domenic-Denicola-Rick-Waldron"><a href="#5、Array-prototype-includes-Domenic-Denicola-Rick-Waldron" class="headerlink" title="5、Array.prototype.includes (Domenic Denicola, Rick Waldron)"></a>5、Array.prototype.includes (Domenic Denicola, Rick Waldron)</h2><p>数组的 <code>includes</code> 方法有如下签名：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Array</span>.prototype.includes（value：任意值）： boolean</div></pre></td></tr></table></figure></p>
+<p>如果传入的值在当前数组（this）中则返回 true，否则返回 false：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>].includes(<span class="string">'a'</span>)</div><div class="line"><span class="literal">true</span></div><div class="line">&gt; [<span class="string">'a'</span>, <span class="string">'b'</span>, <span class="string">'c'</span>].includes(<span class="string">'d'</span>)</div><div class="line"><span class="literal">false</span></div></pre></td></tr></table></figure></p>
+<p><code>includes</code> 方法与 <code>indexOf</code> 方法很相似——下面两个表达式是等价的：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">arr.includes(x)</div><div class="line">arr.indexOf(x) &gt;= <span class="number">0</span></div></pre></td></tr></table></figure></p>
+<p>唯一的区别是 <code>includes()</code> 方法能找到 <code>NaN</code>，而 <code>indexOf()</code> 不行：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&gt; [<span class="literal">NaN</span>].includes(<span class="literal">NaN</span>)</div><div class="line"><span class="literal">true</span></div><div class="line">&gt; [<span class="literal">NaN</span>].indexOf(<span class="literal">NaN</span>)</div><div class="line"><span class="number">-1</span></div></pre></td></tr></table></figure></p>
+<p><code>includes</code> 不会区分 <code>+0</code> 和 <code>-0</code> （这也与其他 JavaScript 特性表现一致）：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">&gt; [<span class="number">-0</span>].includes(+<span class="number">0</span>)</div><div class="line"><span class="literal">true</span></div></pre></td></tr></table></figure></p>
+<p>类型数组也有 <code>includes()</code> 方法：</p>
+<p>Typed Arrays will also have a method includes():<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> tarr = <span class="built_in">Uint8Array</span>.of(<span class="number">12</span>, <span class="number">5</span>, <span class="number">3</span>);</div><div class="line"><span class="built_in">console</span>.log(tarr.includes(<span class="number">5</span>)); <span class="comment">// true</span></div></pre></td></tr></table></figure></p>
+<h3 id="5-1-常见问题"><a href="#5-1-常见问题" class="headerlink" title="5.1 常见问题"></a>5.1 常见问题</h3><ul>
+<li><p>为什么方法取名 <code>includes</code> 而不是 <code>contains</code>？<br>后者是最初的选择，但在 web 上将会破坏已有的代码（<a href="https://esdiscuss.org/topic/having-a-non-enumerable-array-prototype-contains-may-not-be-web-compatible" target="_blank" rel="external">MooTools  在 <code>Array.prototype</code> 上添加了 contains 方法</a>）。</p>
+</li>
+<li><p>为什么方法取名 <code>includes</code> 而不是 <code>has</code>？<br>has 通常用于键（Map.prototype.has），includes 通常用于元素（String.prototype.includes）。集合中的元素既可以被看当做 <em>键</em> 也可被当做 <em>值</em>，所以才有 Set.prototype.has （而不是 includes）。</p>
+</li>
+<li><p><a href="http://exploringjs.com/es6/ch_strings.html#_checking-for-containment-and-repeating-strings" target="_blank" rel="external">ES6 的 <code>String.prototype.includes</code></a> 方法可用于字符串，而不能用于字符。这是否和 <code>Array.prototype.includes</code> 不一致？<br>如果数组和字符串的 includes 方法是相同的工作机制，那么数组的 includes 方法就应该接受数组，而不是数组元素了。不过这两个 includes 方法都参考了 indexOf 方法；字符一般是特殊情况，而任意长度的字符串则更常见。</p>
+</li>
+</ul>
+<h3 id="5-2-扩展阅读"><a href="#5-2-扩展阅读" class="headerlink" title="5.2 扩展阅读"></a>5.2 扩展阅读</h3><ul>
+<li><a href="https://github.com/tc39/Array.prototype.includes/" target="_blank" rel="external">Array.prototype.includes</a> (Domenic Denicola, Rick Waldron)</li>
+</ul>
+<h2 id="6、指数运算符（Rick-Waldron）"><a href="#6、指数运算符（Rick-Waldron）" class="headerlink" title="6、指数运算符（Rick Waldron）"></a>6、指数运算符（Rick Waldron）</h2><p>新提出来的特性是将 <code>**</code> 作为指数操作的中缀运算符：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">x ** y</div></pre></td></tr></table></figure></p>
+<p>与以下表达式运算结果相同：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Math</span>.pow(x, y)</div></pre></td></tr></table></figure></p>
+<p>示例：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> squared = <span class="number">3</span> ** <span class="number">2</span>; <span class="comment">// 9</span></div><div class="line">    </div><div class="line"><span class="keyword">let</span> num = <span class="number">3</span>;</div><div class="line">num **= <span class="number">2</span>;</div><div class="line"><span class="built_in">console</span>.log(num); <span class="comment">// 9</span></div></pre></td></tr></table></figure></p>
+<p>扩展阅读：</p>
+<ul>
+<li><a href="https://github.com/rwaldron/exponentiation-operator" target="_blank" rel="external">指数运算符</a> (Rick Waldron)</li>
+</ul>
+<h2 id="7、SIMD-JS-–-SIMD-APIs-polyfill-John-McCutchan-Peter-Jensen-Dan-Gohman-Daniel-Ehrenberg"><a href="#7、SIMD-JS-–-SIMD-APIs-polyfill-John-McCutchan-Peter-Jensen-Dan-Gohman-Daniel-Ehrenberg" class="headerlink" title="7、SIMD.JS – SIMD APIs + polyfill (John McCutchan, Peter Jensen, Dan Gohman, Daniel Ehrenberg)"></a>7、SIMD.JS – SIMD APIs + polyfill (John McCutchan, Peter Jensen, Dan Gohman, Daniel Ehrenberg)</h2><p>SIMD 意思是“single instruction, multiple data（单指令流多数据流）”，CPU 可以通过单条指令操作一组数据（而不是仅操作单一值），SIMD 指令集最有名的一个例子就是由 Intel 处理器的 <a href="https://en.wikipedia.org/wiki/Streaming_SIMD_Extensions" target="_blank" rel="external">SSE（Streaming SIMD Extensions）</a>。</p>
+<p>下面是简短的示例代码，请参考后面源码获取更多信息。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> a = SIMD.float32x4(<span class="number">1.0</span>, <span class="number">2.0</span>, <span class="number">3.0</span>, <span class="number">4.0</span>);</div><div class="line"><span class="keyword">var</span> b = SIMD.float32x4(<span class="number">5.0</span>, <span class="number">6.0</span>, <span class="number">7.0</span>, <span class="number">8.0</span>);</div><div class="line"><span class="keyword">var</span> c = SIMD.float32x4.add(a,b);</div></pre></td></tr></table></figure>
+<p>扩展阅读：</p>
+<ul>
+<li><a href="http://tc39.github.io/ecmascript_simd/" target="_blank" rel="external">SIMD.JS – SIMD APIs + polyfill</a> (John McCutchan, Peter Jensen, Dan Gohman, Daniel Ehrenberg)</li>
+<li><a href="http://www.2ality.com/2013/12/simd-js.html" target="_blank" rel="external">JavaScript 可支持 SIMD</a> (2ality)</li>
+</ul>
+<h2 id="8、异步函数（Brian-Terlson）"><a href="#8、异步函数（Brian-Terlson）" class="headerlink" title="8、异步函数（Brian Terlson）"></a>8、异步函数（Brian Terlson）</h2><p>在我介绍异步函数之前，我会先介绍如何通过 Promises 和 generators 来使用看起来同步的代码去执行异步操作。</p>
+<h3 id="8-1-用-Promises-和-generators-编写异步代码"><a href="#8-1-用-Promises-和-generators-编写异步代码" class="headerlink" title="8.1 用 Promises 和 generators 编写异步代码"></a>8.1 用 Promises 和 generators 编写异步代码</h3><p>对于需要异步地计算一次性结果的函数来说，Promises（ES6 的一部分）现在越来越流行。一个例子就是<a href="https://fetch.spec.whatwg.org/#concept-request" target="_blank" rel="external">客户端 <code>fetch</code> API</a>，它是一种替代 XMLHttpRequest 检索文件的方案。代码如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">fetchJson</span>(<span class="params">url</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> fetch(url)</div><div class="line">    .then(<span class="function"><span class="params">request</span> =&gt;</span> request.text())</div><div class="line">    .then(<span class="function"><span class="params">text</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(text);</div><div class="line">    &#125;)</div><div class="line">    .catch(<span class="function"><span class="params">error</span> =&gt;</span> &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">`ERROR: <span class="subst">$&#123;error.stack&#125;</span>`</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line">fetchJson(<span class="string">'http://example.com/some_file.json'</span>)</div><div class="line">.then(<span class="function"><span class="params">obj</span> =&gt;</span> <span class="built_in">console</span>.log(obj));</div></pre></td></tr></table></figure>
+<p>co 是一个使用了 Promises 和 generators 让编程风格看起来更像异步的库，但也需要使用类似于前一个例子的风格去编码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fetchJson = co(<span class="function"><span class="keyword">function</span>* (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">let</span> request = <span class="keyword">yield</span> fetch(url);</div><div class="line">        <span class="keyword">let</span> text = <span class="keyword">yield</span> request.text();</div><div class="line">        <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(text);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span> (error) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">`ERROR: <span class="subst">$&#123;error.stack&#125;</span>`</span>);</div><div class="line">    &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>每次回调函数（一个 generator 函数！）产生一个 Promise 给 co，回调函数就会被挂起。一旦这个 Promise 完成，co 就会恢复该回调函数：如果 Promise 被实现，<code>yield</code> 会返回这个实现的值，如果被拒绝，则 <code>yield</code> 会抛出异常。另外，co 能处理回调函数返回的结果（与 <code>then()</code> 相似）。</p>
+<h3 id="8-2-异步函数"><a href="#8-2-异步函数" class="headerlink" title="8.2 异步函数"></a>8.2 异步函数</h3><p>异步函数的语法基本上可以说是实现了 co 所做的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">async</span> <span class="function"><span class="keyword">function</span> <span class="title">fetchJson</span>(<span class="params">url</span>) </span>&#123;</div><div class="line">    <span class="keyword">try</span> &#123;</div><div class="line">        <span class="keyword">let</span> request = <span class="keyword">await</span> fetch(url);</div><div class="line">        <span class="keyword">let</span> text = <span class="keyword">await</span> request.text();</div><div class="line">        <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(text);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">catch</span> (error) &#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">`ERROR: <span class="subst">$&#123;error.stack&#125;</span>`</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在内部，异步函数的工作非常类似于 generators，但它并不会被翻译为 generator 函数。</p>
+<h3 id="8-3-变体"><a href="#8-3-变体" class="headerlink" title="8.3 变体"></a>8.3 变体</h3><p>异步函数有以下几种变体：</p>
+<p>函数声明： async function foo() { }<br>函数表达式：const foo = async function () {};<br>方法定义：let obj = { async foo() {} }<br>箭头函数：const foo = async () =&gt; {}</p>
+<h3 id="8-4-扩展阅读"><a href="#8-4-扩展阅读" class="headerlink" title="8.4.扩展阅读"></a>8.4.扩展阅读</h3><ul>
+<li><a href="https://github.com/tc39/ecmascript-asyncawait" target="_blank" rel="external">异步函数</a> (Brian Terlson)</li>
+<li><a href="http://exploringjs.com/es6/ch_generators.html#sec_co-library" target="_blank" rel="external">通过 generators 简化异步计算</a> (“探索 ES6”章节)</li>
+</ul>
+<h2 id="9、扩展阅读"><a href="#9、扩展阅读" class="headerlink" title="9、扩展阅读"></a>9、扩展阅读</h2><p>下面是本篇博客的重要参考资料：</p>
+<ul>
+<li><p><a href="https://github.com/tc39/ecma262" target="_blank" rel="external">ecma262（ECMA-262 是 ECMAScript 标准的一个ID）GitHub 库</a>，它包括：</p>
+<ul>
+<li><a href="https://github.com/tc39/ecma262/blob/master/README.md" target="_blank" rel="external">所有处于阶段 1 及以上阶段建议的 readme 文件。</a></li>
+<li><a href="https://github.com/tc39/ecma262/blob/master/stage0.md" target="_blank" rel="external">处于阶段 0 的建议列表。</a></li>
+<li><a href="https://github.com/tc39/ecma262/blob/master/FAQ.md" target="_blank" rel="external">ECMA-262 的常见问题。</a></li>
+</ul>
+</li>
+<li><p><a href="https://tc39.github.io/process-document/" target="_blank" rel="external">TC39 的进度文档</a></p>
+</li>
+</ul>
+<p>其他资料：</p>
+<ul>
+<li><a href="https://kangax.github.io/compat-table/es7/" target="_blank" rel="external">Kangax 的 ES7 兼容性表格</a> 会告诉你哪些建议在哪些浏览器中已经得到支持，并将建议根据所处阶段进行了分类。</li>
+<li>更多关于 ES6 设计过程的信息： “<a href="http://exploringjs.com/es6/ch_about-es6.html#_how-ecmascript-6-was-designed" target="_blank" rel="external">ECMAScript 6 是如何被设计出来的</a>”———“探索 ES6”中的章节。</li>
+</ul>
+<p>作者：<a href="http://rauschma.de/" target="_blank" rel="external">Dr. Axel Rauschmayer</a>，时间：2015-11-15</p>
+<p><a href="http://www.2ality.com/2015/11/tc39-process.html" target="_blank" rel="external">原文链接: http://www.2ality.com/2015/11/tc39-process.html</a></p>
+<p>译者：<a href="http://zhouweicsu.github.io/">zhouweicsu</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/ECMAScript/" rel="tag"># ECMAScript</a>
+          
+            <a href="/blog/tags/ES7/" rel="tag"># ES7</a>
+          
+            <a href="/blog/tags/ES-2016/" rel="tag"># ES 2016</a>
+          
+            <a href="/blog/tags/TC39/" rel="tag"># TC39</a>
+          
+            <a href="/blog/tags/设计过程/" rel="tag"># 设计过程</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/" rel="next" title="「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧">
+                <i class="fa fa-chevron-left"></i> 「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2015/12/17/javascript-developer-survey-results/" rel="prev" title="「译」2015 年度 JavaScript 开发者调查结果">
+                「译」2015 年度 JavaScript 开发者调查结果 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2015/12/04/tc39-process/"
+           data-title="「译」ECMAScript 2016 (ES7) 新特性一览" data-url="http://zhouweicsu.github.io/blog/blog/2015/12/04/tc39-process/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1、谁在设计-ECMAScript？"><span class="nav-number">1.</span> <span class="nav-text">1、谁在设计 ECMAScript？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2、如何设计-ECMAScript？"><span class="nav-number">2.</span> <span class="nav-text">2、如何设计 ECMAScript？</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-问题：ECMAScript-2015-ES6-这个版本太大了"><span class="nav-number">2.1.</span> <span class="nav-text">2.1 问题：ECMAScript 2015 (ES6) 这个版本太大了</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-解决方案：-TC39-设计过程"><span class="nav-number">2.2.</span> <span class="nav-text">2.2 解决方案： TC39 设计过程</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段-0：-Strawman-初稿"><span class="nav-number">2.2.1.</span> <span class="nav-text">阶段 0： Strawman 初稿</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段-1：Proposal-建议"><span class="nav-number">2.2.2.</span> <span class="nav-text">阶段 1：Proposal 建议</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段-2：Draft-草案"><span class="nav-number">2.2.3.</span> <span class="nav-text">阶段 2：Draft 草案</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段-3：Candidate-候选"><span class="nav-number">2.2.4.</span> <span class="nav-text">阶段 3：Candidate 候选</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#阶段-4：Finished-完成"><span class="nav-number">2.2.5.</span> <span class="nav-text">阶段 4：Finished 完成</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3、别把它们称做-ECMASript-20xx-特性"><span class="nav-number">3.</span> <span class="nav-text">3、别把它们称做 ECMASript 20xx 特性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4、ECMAScript-2016-将会有什么特性？"><span class="nav-number">4.</span> <span class="nav-text">4、ECMAScript 2016 将会有什么特性？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5、Array-prototype-includes-Domenic-Denicola-Rick-Waldron"><span class="nav-number">5.</span> <span class="nav-text">5、Array.prototype.includes (Domenic Denicola, Rick Waldron)</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#5-1-常见问题"><span class="nav-number">5.1.</span> <span class="nav-text">5.1 常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-2-扩展阅读"><span class="nav-number">5.2.</span> <span class="nav-text">5.2 扩展阅读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6、指数运算符（Rick-Waldron）"><span class="nav-number">6.</span> <span class="nav-text">6、指数运算符（Rick Waldron）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7、SIMD-JS-–-SIMD-APIs-polyfill-John-McCutchan-Peter-Jensen-Dan-Gohman-Daniel-Ehrenberg"><span class="nav-number">7.</span> <span class="nav-text">7、SIMD.JS – SIMD APIs + polyfill (John McCutchan, Peter Jensen, Dan Gohman, Daniel Ehrenberg)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8、异步函数（Brian-Terlson）"><span class="nav-number">8.</span> <span class="nav-text">8、异步函数（Brian Terlson）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#8-1-用-Promises-和-generators-编写异步代码"><span class="nav-number">8.1.</span> <span class="nav-text">8.1 用 Promises 和 generators 编写异步代码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-2-异步函数"><span class="nav-number">8.2.</span> <span class="nav-text">8.2 异步函数</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-3-变体"><span class="nav-number">8.3.</span> <span class="nav-text">8.3 变体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-4-扩展阅读"><span class="nav-number">8.4.</span> <span class="nav-text">8.4.扩展阅读</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#9、扩展阅读"><span class="nav-number">9.</span> <span class="nav-text">9、扩展阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shrimp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

@@ -1,0 +1,843 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,翻译,面试," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="JavaScript 是所有现代浏览器的官方语言。因此，各种语言的开发者面试中都会遇到 JavaScript 问题。
+本文不讲最新的 JavaScript 库，通用开发实践，或任何新的 ES6 函数。而是讲讲面试中经常出现的 3 个 JavaScript 问题。我问过这些问题，我的朋友说他们也问。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="「译」面试中要注意的 3 个 JavaScript 问题">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="JavaScript 是所有现代浏览器的官方语言。因此，各种语言的开发者面试中都会遇到 JavaScript 问题。
+本文不讲最新的 JavaScript 库，通用开发实践，或任何新的 ES6 函数。而是讲讲面试中经常出现的 3 个 JavaScript 问题。我问过这些问题，我的朋友说他们也问。">
+<meta property="og:updated_time" content="2017-03-02T10:06:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="「译」面试中要注意的 3 个 JavaScript 问题">
+<meta name="twitter:description" content="JavaScript 是所有现代浏览器的官方语言。因此，各种语言的开发者面试中都会遇到 JavaScript 问题。
+本文不讲最新的 JavaScript 库，通用开发实践，或任何新的 ES6 函数。而是讲讲面试中经常出现的 3 个 JavaScript 问题。我问过这些问题，我的朋友说他们也问。">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'shrimp',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/"/>
+
+
+
+
+
+  <title> 「译」面试中要注意的 3 个 JavaScript 问题 | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                「译」面试中要注意的 3 个 JavaScript 问题
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-02-22T00:00:00+08:00">
+                2017-02-22
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/翻译/" itemprop="url" rel="index">
+                    <span itemprop="name">翻译</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>JavaScript 是<a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="external">所有现代浏览器</a>的官方语言。因此，各种语言的开发者面试中都会遇到 JavaScript 问题。</p>
+<p>本文不讲最新的 JavaScript 库，通用开发实践，或任何新的 <a href="https://hackernoon.com/es6-features-you-need-to-know-now-b525e2b0755e#.seo0weyr4" target="_blank" rel="external">ES6 函数</a>。而是讲讲面试中经常出现的 3 个 JavaScript 问题。我问过这些问题，我的朋友说他们也问。</p>
+<a id="more"></a>
+<p>当然不是说你在准备 JavaScript 面试时只要学习这 3 个问题 —— 你还<a href="http://www.thatjsdude.com/interview/js2.html" target="_blank" rel="external">有</a><a href="http://jstherightway.org/#getting-started" target="_blank" rel="external">很多</a><a href="https://medium.com/javascript-scene/10-interview-questions-every-javascript-developer-should-know-6fa6bdf5ad95#.7fty5p61c" target="_blank" rel="external">途径</a>去更好的准备即将到来的面试 —— 但面试官很有可能通过下面 3 个问题来判断你了解和掌握 JavaScript 和 DOM 的情况。</p>
+<p>让我们开始吧！注意下面的例子中我们使用原生 JavaScript， 因为面试官通常想考查你在不借助库（例如 jQuery）的帮助时掌握 JavaScript 和 DOM 的情况。</p>
+<h2 id="问题-1：-事件代理"><a href="#问题-1：-事件代理" class="headerlink" title="问题 #1： 事件代理"></a>问题 #1： 事件代理</h2><p>创建应用时，有时需要给页面中的按钮，文字，或图片添加事件监听器，当用户与这些元素交互时触发某些操作。</p>
+<p>我们以一个简单的代办事项列表为例，面试官会告诉你，他们希望在用户点击列表中某一项时触发一个动作。并让你用 JavaScript 根据下面的 HTML 代码实现这个功能：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;ul id="todo-app"&gt;</div><div class="line">  &lt;li class="item"&gt;Walk the dog&lt;/li&gt;</div><div class="line">  &lt;li class="item"&gt;Pay bills&lt;/li&gt;</div><div class="line">  &lt;li class="item"&gt;Make dinner&lt;/li&gt;</div><div class="line">  &lt;li class="item"&gt;Code for one hour&lt;/li&gt;</div><div class="line">&lt;/ul&gt;</div></pre></td></tr></table></figure>
+<p>你可能会像下面的代码一样给元素添加事件监听器：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">document.addEventListener(&apos;DOMContentLoaded&apos;, function() &#123;</div><div class="line">  </div><div class="line">  let app = document.getElementById(&apos;todo-app&apos;);</div><div class="line">  let items = app.getElementsByClassName(&apos;item&apos;);</div><div class="line">  </div><div class="line">  // 给每个列表项添加事件监听器</div><div class="line">  for (let item of items) &#123;</div><div class="line">    item.addEventListener(&apos;click&apos;, function() &#123;</div><div class="line">      alert(&apos;you clicked on item: &apos; + item.innerHTML);</div><div class="line">    &#125;);</div><div class="line">  &#125;</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>当然上面的代码能完成面试官的需求，问题是每个列表项都会加上一个事件监听器。当列表只有 4 项时没有问题，但如果有人给代办事项列表新增了 10,000 个事项呢（他们也许有一大堆事情要做）？那时函数会创建 10,000 个事件监听器，然后把它们都添加到 DOM 上。这样<a href="https://www.kirupa.com/html5/handling_events_for_many_elements.htm" target="_blank" rel="external">效率</a>非常低。</p>
+<p>面试中最好首先问一下面试官用户最多可以添加多少个代办事项。如果永远不会超过 10 个，那上面的代码运行起来就没有问题。但如果用户输入待办事项的数量没有上限，那你就得换一个更高效的解决方案。</p>
+<p>如果应用有上百个事件监听器，更高效的解决方案是给最外层的容器添加<strong>一个</strong>事件监听器，当用户真正点击的时候再去获取实际被点击的代办事项。这被称为<a href="https://davidwalsh.name/event-delegate" target="_blank" rel="external">事件代理</a>，这比给每个代办事项都单独添加事件监听器更高效。</p>
+<p>下面是事件代理的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">document.addEventListener(&apos;DOMContentLoaded&apos;, function() &#123;</div><div class="line">  </div><div class="line">  let app = document.getElementById(&apos;todo-app&apos;);</div><div class="line">  </div><div class="line">  // 给容器添加事件监听器</div><div class="line">  app.addEventListener(&apos;click&apos;, function(e) &#123;</div><div class="line">    if (e.target &amp;&amp; e.target.nodeName === &apos;LI&apos;) &#123;</div><div class="line">      let item = e.target;</div><div class="line">      alert(&apos;you clicked on item: &apos; + item.innerHTML);</div><div class="line">    &#125;</div><div class="line">  &#125;);</div><div class="line">  </div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h2 id="问题-2-在循环中使用闭包"><a href="#问题-2-在循环中使用闭包" class="headerlink" title="问题 #2: 在循环中使用闭包"></a>问题 #2: 在循环中使用闭包</h2><p>面试中经常会问到闭包，因为面试官能通过这个问题的回答判断你对语言的熟悉程度，以及考察你是否知道什么时候使用闭包。</p>
+<p>闭包就是能访问作用域外部变量的<a href="https://medium.com/javascript-scene/master-the-javascript-interview-what-is-a-closure-b2f0d2152b36#.44xk49tyt" target="_blank" rel="external">内部函数</a> 。闭包能用来实现<a href="https://medium.com/written-in-code/practical-uses-for-closures-c65640ae7304#.70gp35hbn" target="_blank" rel="external">私有化</a>和创建<a href="https://medium.com/javascript-scene/javascript-factory-functions-vs-constructor-functions-vs-classes-2f22ceddf33e#.1817w0lmb" target="_blank" rel="external">工厂函数</a>等作用。关于闭包的常见面试题是这样的：</p>
+<p><em>写一个函数，循环一个整数数组，延迟 3 秒打印这个数组中每个元素的索引。</em></p>
+<p>这个问题常见（不正确）的实现是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> arr = [<span class="number">10</span>, <span class="number">12</span>, <span class="number">15</span>, <span class="number">21</span>];</div><div class="line"><span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</div><div class="line">  setTimeout(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'The index of this number is: '</span> + i);</div><div class="line">  &#125;, <span class="number">3000</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>如果你运行这段函数，你会发现 3 秒之后每次都打印的是 <strong>4</strong>，而不是预期的 <strong>0, 1, 2, 3</strong>。</p>
+<p>为了正确的找到出现这种情况的原因，你需要理解 JavaScript 是如何运行这段代码的，这也是面试官想要考察你的地方。</p>
+<p>原因是 <code>setTimeout</code> 函数创建了一个访问外部作用域的函数（闭包），就是包含索引 <code>i</code> 的那个循环。3 秒之后，函数开始执行打印 <code>i</code> 的值，而此时循环也结束了，<code>i</code> 的值已经是 4。因为循环遍历 0, 1, 2, 3, 4 后最终停在了 4。</p>
+<p>实际上有<a href="http://stackoverflow.com/questions/3572480/please-explain-the-use-of-javascript-closures-in-loops" target="_blank" rel="external">好几种方法</a>能<a href="https://coderbyte.com/algorithm/3-common-javascript-closure-questions" target="_blank" rel="external">正确</a>解决这个问题。这里有两个：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">const arr = [10, 12, 15, 21];</div><div class="line">for (var i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">  // 给每个函数传入变量 i 让其能访问正确的索引</div><div class="line">  setTimeout(function(i_local) &#123;</div><div class="line">    return function() &#123;</div><div class="line">      console.log(&apos;The index of this number is: &apos; + i_local);</div><div class="line">    &#125;</div><div class="line">  &#125;(i), 3000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">const arr = [10, 12, 15, 21];</div><div class="line">for (let i = 0; i &lt; arr.length; i++) &#123;</div><div class="line">  // 使用 ES6 中的 let 关键字，它会在函数调用时创建一个新的绑定</div><div class="line">  // 了解更多：http://exploringjs.com/es6/ch_variables.html#sec_let-const-loop-heads</div><div class="line">  setTimeout(function() &#123;</div><div class="line">    console.log(&apos;The index of this number is: &apos; + i);</div><div class="line">  &#125;, 3000);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="问题-3：-Debouncing（防抖动）"><a href="#问题-3：-Debouncing（防抖动）" class="headerlink" title="问题 #3： Debouncing（防抖动）"></a>问题 #3： Debouncing（防抖动）</h2><p>有些浏览器事件能在很短的时间内被触发多次，例如调整窗口大小或滚动页面。如果你给窗口滚动事件添加一个事件监听器，然后用户不停地快速向下滚动页面，那你的事件可能在 3 秒之内被触发数千次。这会导致非常严重的性能问题。</p>
+<p>如果在面试中讨论到构建应用程序，以及滚动事件，窗口调整事件，或者键盘事件等，请务必提及 debouncing 或者 throttling，作为提高页面速度与性能的方法。来一个 <a href="https://css-tricks.com/debouncing-throttling-explained-examples/" target="_blank" rel="external">css-tricks</a> 的实例：</p>
+<blockquote>
+<p>2011 年，Twitter 出了一个问题：当滚动 Twitter 摘要时，页面变的很卡甚至无响应。John Resig 写了<a href="http://ejohn.org/blog/learning-from-twitter" target="_blank" rel="external">一篇关于这个问题的博客</a>，解释了直接将耗时的函数绑定在 <code>scroll</code> 事件上是一个多么糟糕的想法。</p>
+</blockquote>
+<p>Debouncing 是解决这个问题的一种方法，它的做法是限制下次函数调用之前必须等待的时间间隔。正确实现 debouncing 的方法是将若干个函数调用 <em>合成</em> 一次，并在给定时间过去之后仅被调用一次。下面是一个原生 JavaScript 的实现，用到了<a href="https://toddmotto.com/everything-you-wanted-to-know-about-javascript-scope/" target="_blank" rel="external">作用域</a>, 闭包, <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/this" target="_blank" rel="external">this</a>, 和 <a href="http://www.w3schools.com/jsref/met_win_settimeout.asp" target="_blank" rel="external">计时事件</a>：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">// 将会包装事件的 debounce 函数</div><div class="line">function debounce(fn, delay) &#123;</div><div class="line">  // 维护一个 timer</div><div class="line">  let timer = null;</div><div class="line">  // 能访问 timer 的闭包</div><div class="line">  return function() &#123;</div><div class="line">    // 通过 ‘this’ 和 ‘arguments’ 获取函数的作用域和变量</div><div class="line">    let context = this;</div><div class="line">    let args = arguments;</div><div class="line">    // 如果事件被调用，清除 timer 然后重新设置 timer</div><div class="line">    clearTimeout(timer);</div><div class="line">    timer = setTimeout(function() &#123;</div><div class="line">      fn.apply(context, args);</div><div class="line">    &#125;, delay);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这个函数 — 当传入一个事件（fn）时 — 会在经过给定的时间（delay）后执行。</p>
+<p>函数这样用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">// 当用户滚动时被调用的函数</div><div class="line">function foo() &#123;</div><div class="line">  console.log(&apos;You are scrolling!&apos;);</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 在 debounce 中包装我们的函数，过 2 秒触发一次</div><div class="line">let elem = document.getElementById(&apos;container&apos;);</div><div class="line">elem.addEventListener(&apos;scroll&apos;, debounce(foo, 2000));</div></pre></td></tr></table></figure>
+<p>Throttling 是与 debouncing 类似的一种技术，但它不是在调用函数之前等待一段时间，throttling 是在较长的时间间隔内调用函数。所以如果一个事件每 100 毫秒被触发 10 次，throttling 会在每隔 2 秒时执行一次这个函数，而不是在 100 毫秒内执行 10 次事件。</p>
+<p>更多关于 debouncing 和 throttling 的信息请参考以下文章和教程：</p>
+<ul>
+<li><p><a href="https://medium.com/@_jh3y/throttling-and-debouncing-in-javascript-b01cad5c8edf#.ly8uqz8v4" target="_blank" rel="external">JavaScript 中的 Throttling 和 Debouncing</a></p>
+</li>
+<li><p><a href="https://css-tricks.com/the-difference-between-throttling-and-debouncing/" target="_blank" rel="external">Throttling 与 Debouncing 的区别</a></p>
+</li>
+<li><p><a href="https://css-tricks.com/debouncing-throttling-explained-examples/" target="_blank" rel="external">实例解析 Throttling 和 Debouncing</a></p>
+</li>
+<li><p><a href="https://remysharp.com/2010/07/21/throttling-function-calls" target="_blank" rel="external">Throttling 函数调用 —— Remy Sharp</a></p>
+</li>
+</ul>
+<hr>
+<p>如果你喜欢阅读这篇文章，那你或许也喜欢阅读 JavaScript 教程，参与我在 <a href="https://coderbyte.com/" target="_blank" rel="external">Coderbyte</a> 上主持的 JavaScript 编码挑战。期待你的想法！</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/翻译/" rel="tag"># 翻译</a>
+          
+            <a href="/blog/tags/面试/" rel="tag"># 面试</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/02/13/the-extensible-web-manifesto/" rel="next" title="「译」可扩展 Web 宣言">
+                <i class="fa fa-chevron-left"></i> 「译」可扩展 Web 宣言
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/03/02/proto-prototype/" rel="prev" title="图解 JavaScript 中的 __proto__ 与 prototype">
+                图解 JavaScript 中的 __proto__ 与 prototype <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/"
+           data-title="「译」面试中要注意的 3 个 JavaScript 问题" data-url="http://zhouweicsu.github.io/blog/blog/2017/02/22/3-javascript-questions-to-watch-out-for-during-coding-interviews/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-1：-事件代理"><span class="nav-number">1.</span> <span class="nav-text">问题 #1： 事件代理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-2-在循环中使用闭包"><span class="nav-number">2.</span> <span class="nav-text">问题 #2: 在循环中使用闭包</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题-3：-Debouncing（防抖动）"><span class="nav-number">3.</span> <span class="nav-text">问题 #3： Debouncing（防抖动）</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shrimp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

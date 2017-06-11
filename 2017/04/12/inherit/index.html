@@ -1,0 +1,869 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,基础,继承," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JavaScript 基础：继承">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/04/12/inherit/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-1.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-2.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-3.png">
+<meta property="og:updated_time" content="2017-04-12T08:11:59.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JavaScript 基础：继承">
+<meta name="twitter:description" content="基础概念要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。">
+<meta name="twitter:image" content="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/inherit-1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'shrimp',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2017/04/12/inherit/"/>
+
+
+
+
+
+  <title> JavaScript 基础：继承 | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                JavaScript 基础：继承
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-12T15:24:46+08:00">
+                2017-04-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/blog/2017/04/12/inherit/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="2017/04/12/inherit/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="基础概念"><a href="#基础概念" class="headerlink" title="基础概念"></a>基础概念</h2><p>要了解 JavaScript 继承，需要先弄明白相关的4 个概念，3 个关系，3 个属性以及 1 个操作符。</p>
+<a id="more"></a>
+<h3 id="4-个概念"><a href="#4-个概念" class="headerlink" title="4 个概念"></a>4 个概念</h3><p><strong><code>构造函数</code></strong>：任何函数，只要能通过 <code>new</code> 操作符来调用，那它就可以作为构造函数；构造函数本质就是一个函数；<br><strong><code>原型对象</code></strong>：通过调用构造函数而创建的那个对象实例的原型对象；该对象包含由特定类型的所有实例共享的属性和方法；<br><strong><code>实例</code></strong>：通过 <code>new</code> 操作符调用构造函数得到的对象；<br><strong><code>原型链</code></strong>：每个构造函数都有一个原型对象，我们如果将这个原型对象改为另一个对象的实例，就会形成原型链。</p>
+<blockquote>
+<p><em>P.S. 原型链后面会详细讲解，所以没有理解没关系。</em></p>
+</blockquote>
+<p>代码示例 1：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  </div><div class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">color</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// ColorPoint 继承了 Point</span></div><div class="line"><span class="comment">// ColorPoint.prototype 原型对象</span></div><div class="line"><span class="comment">// new Point() 实例</span></div><div class="line">ColorPoint.prototype = <span class="keyword">new</span> Point();</div></pre></td></tr></table></figure></p>
+<h3 id="3-个关系"><a href="#3-个关系" class="headerlink" title="3 个关系"></a>3 个关系</h3><p>3 个关系是构造函数，原型对象与实例之间的关系：</p>
+<ul>
+<li>每个构造函数都有一个原型对象</li>
+<li>原型对象都包含一个指向构造函数的指针</li>
+<li>每个实例都包含一个指向原型对象的内部指针</li>
+</ul>
+<p>根据代码示例 1 中 Point 类的定义，我们可以得到如下关系图：</p>
+<p><img src="/blog/2017/04/12/inherit/inherit-1.png" alt="Point 类构造函数，原型对象与实例之间的关系图"></p>
+<p>图 1：Point 类构造函数，原型对象与实例之间的关系图</p>
+<blockquote>
+<p><strong><code>原型链</code></strong>：构造函数 Point 和 ColorPoint，我们知道这两个构造函数都会有默认的原型对象。上面我们说到如果我们将 ColorPoint 的原型对象改为 Point 的实例，我们就会得到原型链。那原型链是如何形成的呢？就是通过原型对象与实例之间的这个关系形成的。具体形成过程我们需要再了解一下关系中涉及到的 3 个属性。</p>
+</blockquote>
+<h3 id="3-个属性"><a href="#3-个属性" class="headerlink" title="3 个属性"></a>3 个属性</h3><p>3 个属性与 3 个关系相关联：<code>prototype</code>，<code>constructor</code>，<code>__proto__</code>：</p>
+<ul>
+<li>prototype：构造函数中指向原型对象的指针</li>
+<li>constructor：原型对象中指向构造函数的指针</li>
+<li>__proto__：实例中指向原型对象的内部指针</li>
+</ul>
+<p>根据代码示例 1 中 Point 与 ColorPoint 的定义，我们可以得到如下关系图：</p>
+<p><img src="/blog/2017/04/12/inherit/inherit-2.png" alt="ColorPoint、Point、Object 之间的关系图"></p>
+<p>图 2：ColorPoint、Point、Object 之间的关系图</p>
+<blockquote>
+<p><strong><code>原型链</code></strong>：本来构造函数 Point 和 ColorPoint 是两个独立的函数，之间没有关系。如果我们将 ColorPoint 的原型对象重写，即 ColorPoint.prototype = new Point()。那 prototype 属性就指向了 Point 的实例，而从上面我们已经知道了每个实例都有指向原型对象的内部指针 __proto__，到这里，我们可以得到一个原型链：</p>
+<ol>
+<li>ColorPoint 的实例中 __proto__ 指向 ColorPoint 的原型对象，即 Point 的实例；</li>
+<li>而 Point 的实例也有一个 __proto__ 指向 Point 的原型对象;</li>
+<li>而 JavaScript 中任何对象都是继承自 Object，所以 Point 的原型对象也有一个 __proto__ 指针指向 Object 的原型对象;</li>
+<li>直到 Object 的原型对象的 __proto__ 被指向 null；</li>
+<li>根据定义，null没有原型，并且作为这个原型链 prototype chain 中的最终链接。</li>
+</ol>
+</blockquote>
+<p>通过 __proto__ 指针所形成这个实例与原型的链条就是原型链，即图 2 中蓝色链条，基于原型链的属性和方法查找就是按照这个蓝色链条层层往上的。</p>
+<h3 id="1-个操作符"><a href="#1-个操作符" class="headerlink" title="1 个操作符"></a>1 个操作符</h3><p>前面说过，<code>new</code> 操作符是区别构造函数与普通函数的关键，我们看一下<code>new</code> 操作符执行的步骤：</p>
+<ul>
+<li>创建一个新对象；</li>
+<li>将构造函数的作用域赋给新对象（因此 this 就指向了这个新对象）；</li>
+<li>执行构造函数中的代码（为这个新对象添加属性）；</li>
+<li>返回新对象。</li>
+</ul>
+<h2 id="继承的方法"><a href="#继承的方法" class="headerlink" title="继承的方法"></a>继承的方法</h2><p>继承的本质就是通过重写原型对象实现原型链，使得子类型可以通过原型链找到父类型中的属性和方法。有了上面的基础，我们看一下 JavaScript 中如何实现继承，讨论每种方法的优缺点。</p>
+<h3 id="基于原型链"><a href="#基于原型链" class="headerlink" title="基于原型链"></a>基于原型链</h3><p>代码实例 1 中通过重写 ColorPoint 的原型对象，形成一条原型链实现了继承。原来存在于 Point 的实例中的属性 <code>x</code>、<code>y</code> 和方法 <code>show</code> 现在也存在于 ColorPoint.prototype 中。但这种实现存在两个问题：</p>
+<ul>
+<li>父类中如果存在引用类型的属性（例如数组），那么子类的所有实例都会共享这个属性；<br>比如，如果 Point 中有一个数组属性 shapes，那在所有的 ColorPoint 的实例都会共享这个数组 shapes，任意一个实例修改 shapes，都会影响其他实例。</li>
+</ul>
+<p>代码示例 2：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.shapes = [<span class="string">'square'</span>,<span class="string">'rectangle'</span>];</div><div class="line">  </div><div class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">color</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// ColorPoint 继承了 Point</span></div><div class="line">ColorPoint.prototype = <span class="keyword">new</span> Point(); </div><div class="line"><span class="keyword">var</span> cp1 = <span class="keyword">new</span> ColorPoint();</div><div class="line">cp1.shapes.push(<span class="string">'circle'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp1.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div><div class="line"><span class="keyword">var</span> cp2 = <span class="keyword">new</span> ColorPoint();</div><div class="line"><span class="comment">// cp2 被影响了</span></div><div class="line"><span class="built_in">console</span>.log(cp2.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div></pre></td></tr></table></figure></p>
+<ul>
+<li>在创建子类型的实例时，不能向父类型的构造函数传递参数。<br>我们还看到，在实现继承的过程中，我们直接将 new Point() 替换了 ColorPoint 的原型。在 new 的过程中没有传入任何参数，即使我们传入参数，也把子类 ColorPoint 的 x 和 y 属性固定死了。这会导致 ColorPoint 在创建实例时，无法传递 x 和 y 属性。</li>
+</ul>
+<p>所以原型链这种方式只是实现了继承而已，并不能满足实际工作的需求。</p>
+<h3 id="使用-call-和-apply-——-构造函数绑定"><a href="#使用-call-和-apply-——-构造函数绑定" class="headerlink" title="使用 call 和 apply —— 构造函数绑定"></a>使用 call 和 apply —— 构造函数绑定</h3><p>为了解决上面说的两个问题，我们可以通过 call() 和 apply() 在子类的构造函数中将 <code>this</code> 和<code>参数</code>传递给父类构造函数。</p>
+<p>代码示例 3：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.shapes = [<span class="string">'square'</span>,<span class="string">'rectangle'</span>];</div><div class="line">  </div><div class="line">  <span class="keyword">this</span>.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">x, y, color</span>) </span>&#123;</div><div class="line">    Point.call(<span class="keyword">this</span>, x, y);</div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span>;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> cp1 = <span class="keyword">new</span> ColorPoint();</div><div class="line">cp1.shapes.push(<span class="string">'circle'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp1.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div><div class="line">cp1.show() <span class="comment">//x: 10, y: 10</span></div><div class="line"><span class="keyword">var</span> cp2 = <span class="keyword">new</span> ColorPoint(<span class="number">100</span>, <span class="number">100</span>);</div><div class="line"><span class="built_in">console</span>.log(cp2.shapes);  <span class="comment">// ["square", "rectangle"]</span></div><div class="line">cp1.show() <span class="comment">//x: 100, y: 100</span></div></pre></td></tr></table></figure></p>
+<p>虽然解决了原型链中的两个问题，但这种借用构造函数的方法还是存在其他问题，就是<strong>函数复用的问题</strong>。父类 Point 中的 show 方法无法复用，子类 ColorPoint 的所有实例都会重新创建 show 方法。所以这种继承方式在实际工作中也是很少用的。</p>
+<h3 id="组合继承-——-最常用"><a href="#组合继承-——-最常用" class="headerlink" title="组合继承 —— 最常用"></a>组合继承 —— 最常用</h3><p>为了解决上一小节中函数复用的问题，我们可以借用原型对象中的属性是共享这一特性。思路是使用原型链实现对原型属性和方法的继承，而通过借用构造函数来实现对实例属性的继承。</p>
+<p>代码示例 4：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Point</span>(<span class="params">x, y</span>) </span>&#123; <span class="comment">//构造函数</span></div><div class="line">  <span class="keyword">this</span>.x = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.y = x || <span class="number">10</span>;</div><div class="line">  <span class="keyword">this</span>.shapes = [<span class="string">'square'</span>,<span class="string">'rectangle'</span>];</div><div class="line">&#125;</div><div class="line">Point.prototype.show = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'x: '</span> + <span class="keyword">this</span>.x + <span class="string">', y:'</span> + <span class="keyword">this</span>.y);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">ColorPoint</span>(<span class="params">x, y, color</span>) </span>&#123;</div><div class="line">    Point.call(<span class="keyword">this</span>, x, y);   <span class="comment">// 继承属性</span></div><div class="line">    <span class="keyword">this</span>.color = color || <span class="string">'red'</span>;</div><div class="line">&#125;</div><div class="line">ColorPoint.prototype = <span class="keyword">new</span> Point(); <span class="comment">// 继承方法</span></div><div class="line">ColorPoint.prototype.showColor = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="built_in">console</span>.log(<span class="string">'color: '</span> + <span class="keyword">this</span>.color);</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> cp1 = <span class="keyword">new</span> ColorPoint();</div><div class="line">cp1.shapes.push(<span class="string">'circle'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp1.shapes);  <span class="comment">// ["square", "rectangle", "circle"]</span></div><div class="line">cp1.show();   <span class="comment">//x: 10, y:10</span></div><div class="line">cp1.showColor(); <span class="comment">//color: red</span></div><div class="line"><span class="keyword">var</span> cp2 = <span class="keyword">new</span> ColorPoint(<span class="number">100</span>, <span class="number">100</span>, <span class="string">'yellow'</span>);</div><div class="line"><span class="built_in">console</span>.log(cp2.shapes);  <span class="comment">// ["square", "rectangle"]</span></div><div class="line">cp2.show();   <span class="comment">//x: 100, y:100</span></div><div class="line">cp2.showColor(); <span class="comment">//color: yellow</span></div></pre></td></tr></table></figure></p>
+<p>根据代码示例 4 ，我们可以得到如下关系图：</p>
+<p><img src="/blog/2017/04/12/inherit/inherit-3.png" alt="ColorPoint、Point、Object 之间新的关系图"></p>
+<p>图 3：ColorPoint、Point、Object 之间新的关系图</p>
+<p>这种继承的实现方式，解决了前两个小节中出现的问题，但也有一些小瑕疵，就是<strong>父类的构造函数会被调用两次</strong>：一次是创建子类型的原型对象， 还有一次是子类型的构造函数中的 call。虽然存在这个问题，但影响不是特别大，所以这种方式还是 JavaScript 最常用的继承模式。</p>
+<h3 id="Class-extends"><a href="#Class-extends" class="headerlink" title="Class extends"></a>Class extends</h3><p>ES6 提供了更接近传统面向对象语言的继承写法，引入了 Class 的概念， Class 之间可以通过 extends 继承。</p>
+<p>代码示例 5：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Point</span></span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y)  &#123;</div><div class="line">    <span class="keyword">this</span>.x = x;</div><div class="line">    <span class="keyword">this</span>.y = y;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">ColorPoint</span> <span class="keyword">extends</span> <span class="title">Point</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>(x,y,color)  &#123;</div><div class="line">    <span class="keyword">super</span>(x, y);</div><div class="line">    <span class="keyword">this</span>.color = color;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> p1 = <span class="keyword">new</span> Point(<span class="number">2</span>,<span class="number">3</span>);</div><div class="line"><span class="keyword">var</span> p2 = <span class="keyword">new</span> ColorPoint(<span class="number">3</span>,<span class="number">4</span>, <span class="string">'green'</span>);</div></pre></td></tr></table></figure></p>
+<p>这段代码中各个类之间的原型链图可以参考另一篇博客<a href="http://zhouweicsu.github.io/blog/2017/03/02/proto-prototype/#more">《图解 JavaScript 中的 __proto__ 与 prototype》</a>。</p>
+<p>ES6 虽然有 Class 的概念，但是其本质还是基于原型链的，我们可以把 Class 看作一个语法糖。ES6 中关于 Class 的关键字除了 class 和 extends，还新增了 constructor, static 和 super。关于 Class 的详细知识可以参考阮一峰老师的<a href="http://es6.ruanyifeng.com/#docs/class" target="_blank" rel="external">《ES6 标准入门》中的 Class 章节</a>。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>除了上面提到的继承方法，大神 Douglas Crockford 还推荐了两种实现继承的方法： <strong>原型式继承</strong> 和 <strong>寄生式继承</strong>。还有 YUI 的 YAHOO.lang.extend() 采用的基于寄生式继承和组合继承的 <strong>寄生组合式继承</strong>，该继承方法可以解决组合继承中父类构造函数被调用两次的问题。这三种继承方法在红宝书<a href="https://item.jd.com/10951037.html" target="_blank" rel="external">《JavaScript 高级程序设计》</a>第 6 章中都有详细介绍。</p>
+<p>书该读还是得读，常读常新，需要了解的基础都在里面。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><ul>
+<li><a href="http://es6.ruanyifeng.com/#docs/class" target="_blank" rel="external">ES6 标准入门 —— Class</a></li>
+<li><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Inheritance_and_the_prototype_chain" target="_blank" rel="external">MDN —— 继承与原型链</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/基础/" rel="tag"># 基础</a>
+          
+            <a href="/blog/tags/继承/" rel="tag"># 继承</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/03/07/vue-2-0-reactivity/" rel="next" title="Vue2.0 源码阅读：响应式原理">
+                <i class="fa fa-chevron-left"></i> Vue2.0 源码阅读：响应式原理
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/04/21/vue-2-0-template/" rel="prev" title="Vue2.0 源码阅读：模板渲染">
+                Vue2.0 源码阅读：模板渲染 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="2017/04/12/inherit/"
+           data-title="JavaScript 基础：继承" data-url="http://zhouweicsu.github.io/blog/blog/2017/04/12/inherit/">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#基础概念"><span class="nav-number">1.</span> <span class="nav-text">基础概念</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-个概念"><span class="nav-number">1.1.</span> <span class="nav-text">4 个概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-个关系"><span class="nav-number">1.2.</span> <span class="nav-text">3 个关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-个属性"><span class="nav-number">1.3.</span> <span class="nav-text">3 个属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-个操作符"><span class="nav-number">1.4.</span> <span class="nav-text">1 个操作符</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#继承的方法"><span class="nav-number">2.</span> <span class="nav-text">继承的方法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#基于原型链"><span class="nav-number">2.1.</span> <span class="nav-text">基于原型链</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用-call-和-apply-——-构造函数绑定"><span class="nav-number">2.2.</span> <span class="nav-text">使用 call 和 apply —— 构造函数绑定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#组合继承-——-最常用"><span class="nav-number">2.3.</span> <span class="nav-text">组合继承 —— 最常用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-extends"><span class="nav-number">2.4.</span> <span class="nav-text">Class extends</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#参考文章"><span class="nav-number">4.</span> <span class="nav-text">参考文章</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"shrimp"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/blog/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
