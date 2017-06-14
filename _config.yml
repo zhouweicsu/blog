@@ -90,3 +90,5 @@ deploy:
     type: git
     repo: https://github.com/zhouweicsu/blog.git
     branch: gh-pages
+
+google_analytics: UA-100341819-1
