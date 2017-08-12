@@ -185,7 +185,7 @@ th {
 }
 body {
   position: relative;
-  font-family: 'Lato', "PingFang SC", "Microsoft YaHei", sans-serif;
+  font-family: 'Titillium Web', 'Helvetica Neue', Helvetica, Arial, 'Hiragino Sans GB', STHeiti, 'Microsoft YaHei', 'WenQuanYi Micro Hei', sans-serif;
   font-size: 14px;
   line-height: 2;
   color: #555;
@@ -1702,7 +1702,7 @@ pre .javascript .function {
   width: 4px;
   height: 4px;
   border-radius: 50%;
-  background: #ff881d;
+  background: #b97cf5;
 }
 .links-of-blogroll {
   font-size: 13px;
