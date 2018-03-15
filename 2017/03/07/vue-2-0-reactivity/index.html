@@ -100,7 +100,7 @@
 <meta property="og:image" content="https://cn.vuejs.org/images/lifecycle.png">
 <meta property="og:image" content="http://static.galileo.xiaojukeji.com/static/tms/shield/vue-reactive.jpg">
 <meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2017/03/07/vue-2-0-reactivity/Vue Reactivity.svg">
-<meta property="og:updated_time" content="2018-03-15T03:56:52.000Z">
+<meta property="og:updated_time" content="2018-03-15T03:59:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue2.0 源码阅读：响应式原理">
 <meta name="twitter:description" content="本文基于 Vue.js 2.1.10
@@ -484,7 +484,7 @@
 <p><img src="/blog/2017/03/07/vue-2-0-reactivity/Vue Reactivity.svg" alt="Vue 2.0 响应式原理"></p>
 <p>总结来说就是：</p>
 <ul>
-<li><p>在生命周期的 <code>initState</code> 方法中将 <code>data</code>、<code>prop</code>、<code>method</code>、<code>computed</code>、<code>watch</code> 中的数据劫持，通过 <code>observe</code> 方法与 <code>defineReactive</code> 方法将相关对象转换为 <code>Observer</code> 对象；</p>
+<li><p>在生命周期的 <code>initState</code> 方法中将 <code>data</code>、<code>prop</code> 中的数据劫持，通过 <code>observe</code> 方法与 <code>defineReactive</code> 方法将相关对象转换为 <code>Observer</code> 对象；</p>
 </li>
 <li><p>然后在 <code>initRender</code> 方法中解析模板，通过 <code>Watcher</code> 对象，<code>Dep</code> 对象与观察者模式将模板中的指令与对应的数据建立依赖关系，在这个依赖收集的过程中，使用了全局对象 <code>Dep.target</code> ；</p>
 </li>
