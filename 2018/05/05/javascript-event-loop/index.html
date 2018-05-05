@@ -87,19 +87,16 @@
 
 
 
-<meta name="description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
-在">
+<meta name="description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 Vue.nextTick 源码看 JavaScript 事件循环">
 <meta property="og:url" content="http://zhouweicsu.github.io/blog/2018/05/05/javascript-event-loop/index.html">
 <meta property="og:site_name" content="zhouweicsu">
-<meta property="og:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
-在">
-<meta property="og:updated_time" content="2018-05-05T14:02:05.000Z">
+<meta property="og:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。">
+<meta property="og:updated_time" content="2018-05-05T14:04:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 Vue.nextTick 源码看 JavaScript 事件循环">
-<meta name="twitter:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
-在">
+<meta name="twitter:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。">
 
 
 
@@ -379,6 +376,7 @@
 
       
         <h2 id="Vue-nextTick"><a href="#Vue-nextTick" class="headerlink" title="Vue.nextTick"></a>Vue.nextTick</h2><p>虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是<a href="https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97" target="_blank" rel="external">异步执行 DOM 更新</a>，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。</p>
+<a id="more"></a>
 <p>在 Vue 源码 2.1.10 版本中 nextTick 的实现采用优雅降级的 3 种方式：Promise、MutationObserver 和 setTimeout。到最新的一个版本的 2.5.16 改为了 setImmediate、MessageChannel、Promise 和 setTimeout。</p>
 <p>作者在源码中给出了如下的<a href="https://github.com/vuejs/vue/blob/v2.5.16/src/core/util/next-tick.js#L20~L27" target="_blank" rel="external">注释</a>：</p>
 <blockquote>
