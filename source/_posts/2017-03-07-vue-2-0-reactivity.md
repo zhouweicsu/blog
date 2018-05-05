@@ -95,7 +95,7 @@ Vue.js 也是通过这个模式来实现数据驱动视图。上一个小节讲�
 
 Observer、Watcher、Dep 是响应式原理中涉及到的 3 个重要的对象。
 
-> 代码中的英文注释均为源码中自带，中文注释是我添加的。
+> 代码中的英文注释均为源码中自带，中文注释为作者添加。
 
 **Observer**
 
@@ -121,11 +121,11 @@ Vue 中的数据对象都会在初始化过程中转化为 Observer 对象。
 ```
 Observer 对象的标志就是 \__ob__ 这个属性，这个属性保存了 Observer 对象自己本身。对象在转化为 Observer 对象的过程中是一个递归的过程，对象的子元素如果是对象或数组的话，也会转化为 Observer 对象。
 
-> Note: 由于 JavaScript 的限制， Vue 不能检测数组的变化，于是作者在数组增强方法中对 Array 的  'push',  'pop',  'shift',  'unshift',  'splice',  'sort',  'reverse' 方法做了增强实现，具体实现可以看[源码](https://github.com/vuejs/vue/blob/v2.1.10/src/core/observer/array.js)，这也是 Vue.js 中数组操作只能使用这几个方法的原因。
+> Note: 由于 JavaScript 的限制， Vue 不能检测数组的变化，于是作者在数组增强方法中对 Array 的  'push',  'pop',  'shift',  'unshift',  'splice',  'sort',  'reverse' 方法做了增强实现，具体实现可以看[源码](https://github.com/vuejs/vue/blob/v2.1.10/src/core/observer/array.js)，这也是 Vue.js 中数组操作只能使用这 7 个方法的原因。
 
 **Watcher**
 
-Watcher 是将模板和 Observer 对象结合在一起的纽带。Watcher 是订阅者模式中的订阅者。
+Watcher 是将模板和 Observer 对象结合在一起的纽带。Watcher 是订阅者模式中的订阅者。Watcher 的来源有 3 种，代码中的 computed 属性（Tips：若该 computed 属性未再模板中使用，则不会生成 Watcher 实例）、watch 函数以及模板编译过程中的指令和数据绑定。
 
 我们看一下源码中 Watcher 的 constructor 函数（[src/core/observer/watcher.js](https://github.com/vuejs/vue/blob/v2.1.10/src/core/observer/watcher.js#L39-L85)）：
 
@@ -204,7 +204,7 @@ notify () {
 
 ## 源码解析
 
-了解上面三个重要的类之后，我们接下来通过源码学习数据双向绑定的过程。
+了解上面三个重要的类之后，我们接下来通过源码深入了解数据双向绑定的过程。
 
 ### 源码目录结构
 
@@ -227,22 +227,22 @@ src
 
 ![生命周期图](https://cn.vuejs.org/images/lifecycle.png)
 
-> 这个图与目前的版本代码稍有差异，主要是一些初始化的顺序。不影响对响应式原理的理解。
+> 这个图与目前的版本（2.1.10）代码稍有差异，主要是一些初始化的顺序。不影响对响应式原理的理解。
 
 
 我们看一下生命周期源码（[src/core/instance/init.js](https://github.com/vuejs/vue/blob/v2.1.10/src/core/instance/init.js#L40-L48)）：
 ```javascript
 initLifecycle(vm)   //vm 的生命周期相关变量初始化
 initEvents(vm)    // vm 的事件监控初始化
-initRender(vm)  // 模板解析变量初始化
+initRender(vm)  // 模板解析
 callHook(vm, 'beforeCreate')
 initState(vm) //vm 的状态初始化，prop/data/computed/method/watch 都在这里完成初始化，是响应式的关键步！
 callHook(vm, 'created')
 if (vm.$options.el) {
-  vm.$mount(vm.$options.el) //模板编译入口
+  vm.$mount(vm.$options.el)
 }
 ```
-initLifecycle 主要是初始化 vm 实例上的一些参数；initEvents 是事件监控的初始化；initRender 是模板解析，值得一提的是在 2.0 的版本中这一块有很大的改动，1.0 的版本中 Vue 使用的是 [DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) 来进行模板解析，而 2.0 中作者采用的 John Resig 的 [HTML Parser](https://github.com/vuejs/vue/blob/v2.1.10/src/compiler/parser/html-parser.js) 将模板解析成可直接执行的 render 函数，这是模板预编译和服务端渲染（SSR）的前提；callHook(vm, 'beforeCreate')是执行钩子函数，就是你在 new Vue 实例的时候写的 beforeCreate 方法；initState 是本文的重点，我们下一节会详细讲到；callHook(vm, 'created')也是执行钩子函数；最后是是执行 mount 函数。
+initLifecycle 主要是初始化 vm 实例上的一些参数；initEvents 是事件监控的初始化；initRender 是模板解析，值得一提的是在 2.0 的版本中这一块有很大的改动，1.0 的版本中 Vue 使用的是 [DocumentFragment](https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment) 来进行模板解析，而 2.0 之后作者采用 John Resig 的 [HTML Parser](https://github.com/vuejs/vue/blob/v2.1.10/src/compiler/parser/html-parser.js) 将模板解析成可直接执行的 render 函数，这是模板预编译和服务端渲染（SSR）的前提；callHook(vm, 'beforeCreate')是执行钩子函数，就是你在 new Vue 实例的时候写的 beforeCreate 方法；initState 是本文的重点，我们下一节会详细讲到；callHook(vm, 'created')也是执行钩子函数；最后是是执行 mount 函数。
 
 ### initState
 
@@ -400,19 +400,23 @@ defineReactive 是对 Object.defineProperty 方法的包装，结合 observe 方
 ![依赖收集](http://static.galileo.xiaojukeji.com/static/tms/shield/vue-reactive.jpg)
 
 总结依赖关系建立的步骤：
- > 1. 模板编译过程中的指令和数据绑定都会生成 Watcher 实例，watch 函数中的对象也会生成 Watcher 实例，在实例化的过程中，会调用 watcher.js 中的 get 函数 `touch` 这个 Watcher 的表达式或函数涉及的所有属性；
- > 2. touch 开始之前，Watcher 会设置 Dep 的静态属性 Dep.target 指向其自身，然后开始依赖收集；
- > 3. touch 属性的过程中，属性的 getter 函数会被访问；
+ > 1. 模板编译过程中的指令和数据绑定都会生成 Watcher 实例，computed 属性和 watch 函数中的对象也会生成 Watcher 实例，在模板编译的过程中，会执行 Watcher 实例的 expOrFn（初始化 Watcher 实例时传入的参数），进入 watcher.js 中的 get 函数 `访问` expOrFn 涉及的所有属性；
+ > 2. 访问属性之前，Watcher 会设置 Dep 的静态属性 Dep.target 指向其自身，然后开始依赖收集；
+ > 3. 访问属性的过程中，属性的 getter 函数会被访问；
  > 4. 属性 getter 函数中会判断 Dep.target（target 中保存的是第 2 步中设置的 Watcher 实例）是否存在，若存在则将 getter 函数所在的 Observer 实例的 Dep 实例保存到 Watcher 的列表中，并在此 Dep 实例中添加 Watcher 为订阅者；
- > 5. 重复上述过程直至 Watcher 的表达式或函数涉及的所有属性均 touch 结束（即表达式或函数中所有的数据的 getter 函数都已被触发），Dep.target 被置为 null，依赖收集完成；
+ > 5. 重复上述过程直至 Watcher 的 expOrFn 涉及的所有属性均访问结束（即 expOrFn 数中所有的数据的 getter 函数都已被触发），Dep.target 被置为 null，依赖收集完成；
 
 以上就是模板中的指令与数据关联起来的步骤。当数据发生改变后，相应的 setter 函数被触发，然后执行 notify 函数通知订阅者（Watcher）去更新相关视图，也会对新的数据重新 observe，更新相关的依赖关系。
 
 ## 总结
 
-以上就是响应式原理的源码介绍，总结来说就是：
+以上就是响应式原理的源码介绍，一图胜千言，我们看一下下面这张图：
 
-* 在生命周期的 `initState` 方法中将 `data`、`prop`、`method`、`computed`、`watch` 中的数据劫持，通过 `observe` 方法与 `defineReactive` 方法将相关对象转换为 `Observer` 对象；
+![Vue 2.0 响应式原理](Vue Reactivity.svg)
+
+总结来说就是：
+
+* 在生命周期的 `initState` 方法中将 `data`、`prop` 中的数据劫持，通过 `observe` 方法与 `defineReactive` 方法将相关对象转换为 `Observer` 对象；
 
 * 然后在 `initRender` 方法中解析模板，通过 `Watcher` 对象，`Dep` 对象与观察者模式将模板中的指令与对应的数据建立依赖关系，在这个依赖收集的过程中，使用了全局对象 `Dep.target` ；
 

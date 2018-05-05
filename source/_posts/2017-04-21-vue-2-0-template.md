@@ -16,6 +16,7 @@ Vue 2.0 中模板渲染与 Vue 1.0 完全不同，1.0 中采用的 [DocumentFrag
 
 <!-- more -->
 
+
 ### AST 数据结构
 
 [AST](https://zh.wikipedia.org/wiki/%E6%8A%BD%E8%B1%A1%E8%AA%9E%E6%B3%95%E6%A8%B9) 的全称是 Abstract Syntax Tree（抽象语法树），是源代码的抽象语法结构的树状表现形式，计算机学科中编译原理的概念。Vue 源码中借鉴 jQuery 作者 [John Resig](https://zh.wikipedia.org/wiki/%E7%B4%84%E7%BF%B0%C2%B7%E9%9B%B7%E8%A5%BF%E6%A0%BC)  的 [HTML Parser](http://ejohn.org/blog/pure-javascript-html-parser/) 对模板进行解析，得到的就是 AST 代码。
@@ -82,16 +83,7 @@ VNode 是 VDOM 中的概念，是真实 DOM 元素的简化版，与真实 DOM �
 
 ### document.createElement 的问题
 
-我们为什么不直接使用原生 DOM 元素，而是使用真实 DOM 元素的简化版 VNode，最大的原因就是 `document.createElement` 这个方法创建的真实 DOM 元素会带来性能上的损失。我们来看一个 document.createElement 方法的例子：
-
-```javascript
-let div = document.createElement('div');
-for(let k in div) {
-	console.log(k);
-}
-```
-
-打开 console 运行一下上面的代码，你会发现打印出来的属性多达 228 个，而这些属性有 90% 多对我们来说都是无用的。VNode 就是简化版的真实 DOM 元素，只将我们需要的属性拿过来，并新增了一些在 diff  过程中需要使用的属性，例如 isStatic。
+我们为什么不直接使用原生 DOM 元素，而是使用真实 DOM 元素的简化版 VNode，最大的原因就是 `document.createElement` 这个方法创建的真实 DOM 元素会带来性能上的损失。document.createElement 创建的元素其属性多达 200 个（包含原型链上的属性），而这些属性有 90% 多对我们来说都是无用的。VNode 就是简化版的真实 DOM 元素，只将我们需要的属性拿过来，新增一些在 diff 过程中需要使用的属性，例如 isStatic，就可以用来对比新旧 DOM。
 
 ### render function
 
@@ -154,17 +146,24 @@ src
 
 本文中涉及到模板渲染的代码以上目录中都有分布，其中我们重点讲解的 compile 和 patch 分别在 src/compile 和 src/core/vdom 目录中。
 
-### 核心函数介绍
+本文结合 Vue 官网给出的生命周期图，重点讲模板解析的两个部分：`DOM 初始化`和 `DOM update`。
 
-在上一篇博客[《Vue2.0 源码阅读：响应式原理》](http://zhouweicsu.github.io/blog/2017/03/07/vue-2-0-reactivity)中我们简单讲了 Vue 的生命周期，在 _init 函数的最后一步就是 $mount 方法。这个方法就是模板渲染的入口。我们看一下下面这张图：
+![Vue 生命周期图](template with flow.png)
 
-![](http://zhouweicsu.github.io/sharing/content/imgs/vue-template.svg)
+本文将模板的`DOM 初始化`部分概括为将 `el`/`template`/`render function` 通过一系列函数转换为 `render function` 并最终生成真实 DOM 的过程。`DOM update` 很好理解，即数据发生变化后，DOM 进行更新的过程。
 
-上图中展示了模板渲染过程中涉及到的核心函数。我们可以通过 WebStrom 查看源码（按住 control 键单击方法名可以直接跳转，源码阅读神器），或者在浏览器中打断点一步一步查看代码运行的过程。
+### DOM 初始化核心函数介绍
+
+在上一篇博客[《Vue2.0 源码阅读：响应式原理》](http://docs.sankuai.com/doc/wm/wm_art/article/vue-2-1-10-reactivity-zw/)中我们讲了 Vue 的生命周期，在 _init 函数的最后一步就是 $mount 方法。这个方法就是模板渲染的入口。结合上一小节生命周期图中的两个虚线框，我们看一下下面这张图，本文会重点讲解下图中的两个部分：
+
+![](template-2-parts.svg)
+
+上图中展示了模板渲染过程中的两大部分，以及涉及到的核心函数以及关键输出。我们可以通过 WebStrom 查看源码（按住 control 键单击方法名可以直接跳转，源码阅读神器），或者在浏览器中打断点一步一步查看代码运行的过程。
 
 [**$mount**](https://github.com/vuejs/vue/blob/v2.1.10/src/entries/web-runtime-with-compiler.js#L14-L67) 函数（src/entries/web-runtime-with-compiler.js），主要是获取 template，然后进入 **compileToFunctions** 函数。
 
 [**compileToFunctions**](https://github.com/vuejs/vue/blob/v2.1.10/src/platforms/web/compiler/index.js#L36-L84) 函数（src/platforms/web/compiler/index.js），主要将 template 编译成 render 函数。首先读缓存，没有缓存就调用 **compile** 方法拿到 render function 的字符串形式，在通过 new Function 的方式生成 render function（基础概念中的 render function）：
+
 ```javascript
 // 有缓存的话就直接在缓存里面拿
 const key = options && options.delimiters
@@ -186,7 +185,7 @@ for (let i = 0; i < l; i++) {
 return (cache[key] = res)
 ```
 
-[**compile**](https://github.com/vuejs/vue/blob/v2.1.10/src/compiler/index.js) 函数（src/compiler/index.js）就是将 template 编译成 render 函数的字符串形式，后面一小节我们会详细讲到。
+compileToFunctions 函数中重要的一步就是 **compile** 函数，[**compile**](https://github.com/vuejs/vue/blob/v2.1.10/src/compiler/index.js) 函数（src/compiler/index.js）的主要工作是将 template 编译成 render 函数的字符串形式，这一部分后面一小节我们会详细讲到。
 
 回到上面的 **$mount** 方法，源码最后又调用了 [**_mount**](https://github.com/vuejs/vue/blob/v2.1.10/src/core/instance/lifecycle.js#L38-L75) 函数（src/core/instance/lifecycle.js）：
 ```javascript
@@ -208,13 +207,16 @@ if (vm.$vnode == null) {
 }
 return vm
 ```
+
+> 代码中的英文注释均为源码中自带，中文注释为作者添加。
+
 在这个函数中出现了熟悉的 `new Watcher`，这一部分在上一篇博客[《Vue2.0 源码阅读：响应式原理》](http://zhouweicsu.github.io/blog/2017/03/07/vue-2-0-reactivity)中详细介绍过，主要是将模板与数据建立联系，所以说 Watcher 是模板渲染和数据之间的纽带。
 
 至此，模板解析完成，拿到了 render function，也通过 Watcher 与将之数据联系在一起。
 
-### compile
+#### compile
 
-上文中提到 [**compile**](https://github.com/vuejs/vue/blob/v2.1.10/src/compiler/index.js) 函数（src/compiler/index.js）就是将 template 编译成 render function 的字符串形式。这一小节我们就详细讲解这个函数：
+上一小节中提到 [**compile**](https://github.com/vuejs/vue/blob/v2.1.10/src/compiler/index.js) 函数（src/compiler/index.js）就是将 template 编译成 render function 的字符串形式。接下来就详细讲解这个函数：
 ```javascript
 export function compile (
   template: string,
@@ -283,10 +285,24 @@ function genElement (el: ASTElement): string {
 }
 ```
 
-以上就是 compile 函数中三个核心步骤的介绍，compile 之后我们得到了 render function 的字符串形式，后面通过 new Function 得到真正的渲染函数。数据发现变化后，会执行 Watcher 中的 [**\_update**](https://github.com/vuejs/vue/blob/v2.1.10/src/core/instance/lifecycle.js#L77-L114) 函数（src/core/instance/lifecycle.js），\_update 函数会执行这个渲染函数，输出一个新的 VNode 树形结构的数据。然后在调用 \__patch__ 函数，拿这个新的 VNode 与旧的 VNode 进行对比，只有发生了变化的节点才会被更新到真实 DOM 树上。
+以上就是 compile 函数中三个核心步骤的介绍，compile 之后我们得到了 render function 的字符串形式，后面通过 new Function 得到真正的渲染函数。
+
+DOM 初始化过程最后一步是根据渲染函数生成 Vnode，根据此 Vnode 生成真实 DOM，插入 DOM 树中，并将该 Vnode 记录为 preVnode。
+
+#### 小结
+
+DOM 初始化过程将 `el`/`template`/`render function` 通过一系列函数转换为 `render function` 并最终生成真实 DOM 插入 DOM 树中，所以，在 Vue 实例的生命周期走到这一步时，我们已经可以看到实际的页面效果。同时也备份了一个 preVnode，用于后面数据变化产生新的 Vnode 时进行对比更新。 
+
+### DOM update 核心方法介绍
+
+前面 DOM 初始化之后，页面会等着数据更新，此时 Vue 实例会进入上面给出的生命周期图中的圆形循环，这就是 DOM 根据数据变化执行 update 的过程。
+
+#### update 
+
+当数据发生变化之后，执行 Watcher 中的 [**\_update**](https://github.com/vuejs/vue/blob/v2.1.10/src/core/instance/lifecycle.js#L77-L114) 函数（src/core/instance/lifecycle.js），\_update 函数会执行这个渲染函数，输出一个新的 VNode 树形结构的数据。然后再调用 \__patch__ 函数，拿这个新的 VNode 与 preVnode 进行对比，只有发生了变化的节点才会被更新到真实 DOM 树上。对比之后 VNode 再保存为 preVnode 用于下一次更新对比。
 
 ```javascript
-//更新dom的方法，主要是调用 __patch__ 方法
+//更新 dom 的方法，主要是调用 __patch__ 方法
 Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
     const vm: Component = this
     if (vm._isMounted) {
@@ -309,7 +325,7 @@ Vue.prototype._update = function (vnode: VNode, hydrating?: boolean) {
 }
 ```
 
-### patch
+#### patch
 
 上一节我们提到了 \__patch__ 函数最终会进入 [src/core/vdom/patch.js](https://github.com/vuejs/vue/blob/v2.1.10/src/core/vdom/patch.js)。patch.js 就是新旧 VNode 对比的 diff 函数，diff 算法来源于 [snabbdom](https://github.com/snabbdom/snabbdom)，是 VDOM 思想的核心。对两个树结构进行完整的 diff 和 patch，复杂度增长为 O(n^3)，而 snabbdom 的算法根据 DOM 操作跨层级增删节点较少的特点进行调整，将代码复杂度降到 O(n)，算法比较如下图，它只会在同层级进行, 不会跨层级比较。
 
@@ -364,88 +380,25 @@ if (isUndef(vnode.text)) { //isUndef 就是判断参数是否未定义
 }
 ```
 
-updateChildren 函数是 diff 算法高效的核心，代码较长且密集，但是算法简单。遍历两个节点数组，维护四个变量 `oldStartIdx`，`oldEndIdx`，`newStartIdx`，`newEndIdx`。算法步骤如下：
+updateChildren 函数是 diff 算法高效的核心，代码较长且密集。遍历两个节点数组，维护四个变量 `oldStartIdx`，`oldEndIdx`，`newStartIdx`，`newEndIdx`。本文限于篇幅问题，就不展开详细讲解此算法，若读者感兴趣，可以查看文章[《解析 Vue2.0 的 diff 算法》](https://github.com/aooy/blog/issues/2)。
 
-> 1. 对比 oldStartVnode 和 newStartVnode，两者 elm 相对位置不变，若值得比较，则 patchVnode；
-2. 否则对比 oldEndVnode 和 newEndVnode，两者 elm 相对位置不变，若值得比较，则 patchVnode；
-3. 否则对比 oldStartVnode 和 newEndVnode，若值得比较说明 oldStartVnode.elm 向右移动了，那么 patchVnode，然后执行 api.insertBefore() 调整它的位置；
-4. 否则对比 oldEndVnode 和 newStartVnode，若值得比较说明 oldVnode.elm 向左移动了，那么 patchVnode，然后执行 api.insertBefore() 调整它的位置；
-5. 如果上面四种条件都不满足，则利用 vnode.key。先使用 createKeyToOldIdx 生成一个旧节点数组的索引表，如果新节点的 key 不存在这个表中说明是新节点，则添加；如果在则 patchVnode，然后在做一些调整免得影响后面的遍历；
-6. oldStartIdx > oldEndIdx 或者 newStartIdx > newOldStartIdx 的时候停止遍历；
-7. 如果 oldStartIdx > oldEndIdx 说明旧节点数组先遍历完，这时将剩余的新节点直接新建添加；
-8. 否则如果 newStartIdx > newEndIdx 说明新节点数组先遍历完，这时将剩余的旧节点直接删除。
+#### 小结
 
-核心代码：
-```javascript
-while (oldStartIdx <= oldEndIdx && newStartIdx <= newEndIdx) {
-      if (isUndef(oldStartVnode)) {
-        oldStartVnode = oldCh[++oldStartIdx] // Vnode has been moved left
-      } else if (isUndef(oldEndVnode)) {
-        oldEndVnode = oldCh[--oldEndIdx]
-      } else if (sameVnode(oldStartVnode, newStartVnode)) {//新旧 VNode 四种比较
-        patchVnode(oldStartVnode, newStartVnode, insertedVnodeQueue)
-        oldStartVnode = oldCh[++oldStartIdx]
-        newStartVnode = newCh[++newStartIdx]
-      } else if (sameVnode(oldEndVnode, newEndVnode)) {
-        patchVnode(oldEndVnode, newEndVnode, insertedVnodeQueue)
-        oldEndVnode = oldCh[--oldEndIdx]
-        newEndVnode = newCh[--newEndIdx]
-      } else if (sameVnode(oldStartVnode, newEndVnode)) { // Vnode moved right
-        patchVnode(oldStartVnode, newEndVnode, insertedVnodeQueue)
-        canMove && nodeOps.insertBefore(parentElm, oldStartVnode.elm, nodeOps.nextSibling(oldEndVnode.elm))
-        oldStartVnode = oldCh[++oldStartIdx]
-        newEndVnode = newCh[--newEndIdx]
-      } else if (sameVnode(oldEndVnode, newStartVnode)) { // Vnode moved left
-        patchVnode(oldEndVnode, newStartVnode, insertedVnodeQueue)
-        canMove && nodeOps.insertBefore(parentElm, oldEndVnode.elm, oldStartVnode.elm)
-        oldEndVnode = oldCh[--oldEndIdx]
-        newStartVnode = newCh[++newStartIdx]
-      } else {
-        //如果4个条件都不满足，则利用 vnode.key 比较
-        if (isUndef(oldKeyToIdx)) oldKeyToIdx = createKeyToOldIdx(oldCh, oldStartIdx, oldEndIdx)
-        //先使用 createKeyToOldIdx 生成一个 index-key 表，然后根据这个表来进行更改。
-        idxInOld = isDef(newStartVnode.key) ? oldKeyToIdx[newStartVnode.key] : null
-        if (isUndef(idxInOld)) { // 如果 newVnode.key 不在表中，那么这个 newVnode 就是新的 vnode，将其插入
-          createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm)
-          newStartVnode = newCh[++newStartIdx]
-        } else {
-           // 如果 newVnode.key 在表中,那么对应的 oldVnode 存在，则 patchVnode,
-           // 并在 patch 之后,将这个 oldVnode 置为 undefined(oldCh[idxInOld] = undefined),
-           // 同时将 oldVnode.elm 位置变换到当前 oldStartIdx 之前,以免影响接下来的遍历
-          elmToMove = oldCh[idxInOld]
-          if (sameVnode(elmToMove, newStartVnode)) {
-            patchVnode(elmToMove, newStartVnode, insertedVnodeQueue)
-            oldCh[idxInOld] = undefined
-            canMove && nodeOps.insertBefore(parentElm, newStartVnode.elm, oldStartVnode.elm)
-            newStartVnode = newCh[++newStartIdx]
-          } else {
-            // same key but different element. treat as new element
-            createElm(newStartVnode, insertedVnodeQueue, parentElm, oldStartVnode.elm)
-            newStartVnode = newCh[++newStartIdx]
-          }
-        }
-      }
-    }
-    if (oldStartIdx > oldEndIdx) {//说明旧节点数组先遍历完，这时将剩余的新节点直接新建添加
-      refElm = isUndef(newCh[newEndIdx + 1]) ? null : newCh[newEndIdx + 1].elm
-      addVnodes(parentElm, refElm, newCh, newStartIdx, newEndIdx, insertedVnodeQueue)
-    } else if (newStartIdx > newEndIdx) {//说明新节点数组先遍历完，这时将剩余的旧节点直接删除
-      removeVnodes(parentElm, oldCh, oldStartIdx, oldEndIdx)
-    }
-```
+DOM update 的过程是从数据发生变化开始，以真实 DOM 更新为结束。该过程涉及响应式一文提到的 setter 函数中的 notify 函数，会执行 render 函数生成新的 VNode，再进入 update 中的 patch 函数进行对比，最终完成 DOM 更新。
+
 
 ## 总结
 
-模板渲染是 Vue 2.0 与 1.0 最大的不同。本文梳理了模板渲染的过程，重点讲解了其中的 `compile` 和 `patch` 函数
-> compile 函数主要是将 template 转换为 AST，优化 AST，再将 AST 转换为 render function；
-> render function 与数据通过 Watcher 产生关联；
-> 在数据发生变化时调用 patch 函数，执行此 render 函数，生成新 VNode，与旧 VNode 进行 diff，最终更新 DOM 树。
+模板渲染是 Vue 2.0 与 1.0 最大的不同。本文梳理了 Vue 生命周期中涉及到模板渲染的两个部分：`初始化`和 `update`，其中重点讲解了其中的 `compile` 和 `patch` 函数：
+
+* compile 函数主要是将 template 转换为 AST，优化 AST，再将 AST 转换为 render function；render function 与数据通过 Watcher 产生关联；
+* 在数据发生变化时调用 update 函数，然后进入 patch 函数，执行此 render 函数，生成新 VNode，与 preNode 进行 diff，最终更新 DOM 树。
 
 
 ## 扩展阅读
 
 * [简洁清晰的 virtual dom 实现：snabbdom 源码阅读](http://www.jianshu.com/p/b461657e49c0)
-* [解析 vue 2.0 的 diff 算法](https://github.com/aooy/blog/issues/2)
+* [解析 Vue2.0 的 diff 算法](https://github.com/aooy/blog/issues/2)
 * [React’s diff algorithm](https://calendar.perfplanet.com/2013/diff/)
 
 

@@ -1,0 +1,817 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="JavaScript,Vue,computed,响应式," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="问题描述最近在项目中遇到一个问题，后端返回一个如下格式的数据 list：12345678910111213141516[  &amp;#123;    &amp;quot;status&amp;quot;: 1,    &amp;quot;detail&amp;quot;: [        &amp;#123;&amp;quot;startDate&amp;quot;: &amp;quot;2017-05-12&amp;quot;&amp;#125;,        &amp;#123;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vue：记一次诡异无效的点击 toggle 效果">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2017/07/01/vue-new-params-not-update-dom/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="问题描述最近在项目中遇到一个问题，后端返回一个如下格式的数据 list：12345678910111213141516[  &amp;#123;    &amp;quot;status&amp;quot;: 1,    &amp;quot;detail&amp;quot;: [        &amp;#123;&amp;quot;startDate&amp;quot;: &amp;quot;2017-05-12&amp;quot;&amp;#125;,        &amp;#123;&amp;">
+<meta property="og:updated_time" content="2017-07-01T13:09:04.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vue：记一次诡异无效的点击 toggle 效果">
+<meta name="twitter:description" content="问题描述最近在项目中遇到一个问题，后端返回一个如下格式的数据 list：12345678910111213141516[  &amp;#123;    &amp;quot;status&amp;quot;: 1,    &amp;quot;detail&amp;quot;: [        &amp;#123;&amp;quot;startDate&amp;quot;: &amp;quot;2017-05-12&amp;quot;&amp;#125;,        &amp;#123;&amp;">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2017/07/01/vue-new-params-not-update-dom/"/>
+
+
+
+
+
+  <title> Vue：记一次诡异无效的点击 toggle 效果 | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-100341819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2017/07/01/vue-new-params-not-update-dom/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                Vue：记一次诡异无效的点击 toggle 效果
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-07-01T19:55:59+08:00">
+                2017-07-01
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h3 id="问题描述"><a href="#问题描述" class="headerlink" title="问题描述"></a>问题描述</h3><p>最近在项目中遇到一个问题，后端返回一个如下格式的数据 <code>list</code>：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">[</div><div class="line">  &#123;</div><div class="line">    &quot;status&quot;: 1,</div><div class="line">    &quot;detail&quot;: [</div><div class="line">        &#123;&quot;startDate&quot;: &quot;2017-05-12&quot;&#125;,</div><div class="line">        &#123;&quot;startDate&quot;: &quot;2017-05-12&quot;&#125;</div><div class="line">    ]</div><div class="line">  &#125;,</div><div class="line">  &#123;</div><div class="line">    &quot;status&quot;: 1,</div><div class="line">    &quot;detail&quot;: [</div><div class="line">        &#123;&quot;startDate&quot;: &quot;2017-05-12&quot;&#125;,</div><div class="line">        &#123;&quot;startDate&quot;: &quot;2017-05-12&quot;&#125;</div><div class="line">    ]</div><div class="line">  &#125;</div><div class="line">]</div></pre></td></tr></table></figure></p>
+<a id="more"></a>
+<p>前端做数据展现，因为数据量很大，所以需要将二级数据隐藏，即 <code>detail</code> 数组字段中的列表数据默认不展示，需要一个 toggle 效果，用户点击之后展示，再点击则隐藏，根据 Vue 数据驱动的思想，给 <code>list</code> 中每个对象新增一个属性 <code>isShow</code>，默认为 false。用该属性控制 <code>detail</code> 属性中数据的展现与隐藏，点击将 <code>isShow</code> 置为 true，再点击置为 false。但是问题出来了，点击之后 <code>isShow</code> 属性的值改过来了，但是页面的却没有展示 <code>detail</code> 数组中的数据。</p>
+<h3 id="问题分析"><a href="#问题分析" class="headerlink" title="问题分析"></a>问题分析</h3><p>为了分析以上出现的问题，简化一个 demo1：<br><figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">ul</span> <span class="attr">id</span>=<span class="string">"app1"</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">li</span> <span class="attr">v-for</span>=<span class="string">"item in list"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span> @<span class="attr">click</span>=<span class="string">"toggle(item)"</span>&gt;</span>&#123;&#123;item.startDate&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;item.isShow&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">v-show</span>=<span class="string">"item.isShow"</span>&gt;</span>I'm show<span class="tag">&lt;/<span class="name">div</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">li</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123;</div><div class="line">  el: &apos;#app1&apos;,</div><div class="line">  data: &#123;</div><div class="line">    olist: [&#123;startDate: &apos;click me&apos;&#125;, &#123;startDate: &apos;click me&apos;&#125;]</div><div class="line">  &#125;,</div><div class="line">  computed: &#123;</div><div class="line">    list() &#123;</div><div class="line">      const list = []</div><div class="line">      this.olist.forEach(item =&gt; &#123;</div><div class="line">        item.isShow = false</div><div class="line">        list.push(item)</div><div class="line">      &#125;)</div><div class="line">      return list</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    toggle(item)&#123;</div><div class="line">      item.isShow = !item.isShow</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><a href="http://jsbin.com/tehikihaxi/edit?html,js,output" target="_blank" rel="external">demo1 地址</a><br>我们发现点击页面的 <code>click me</code>，<code>I&#39;m show</code> 没有显示。用 Chrome 的 Vue 插件工具调试，发现 isShow 属性已经变为 true，即 isShow 的变化未触发界面的更新。</p>
+<p>进一步调试，发现在点击同时修改 <code>startDate</code>，isShow 的效果会生效。demo2：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app2'</span>,</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">olist</span>: [&#123;<span class="attr">startDate</span>: <span class="string">'click me'</span>&#125;, &#123;<span class="attr">startDate</span>: <span class="string">'click me'</span>&#125;]</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">computed</span>: &#123;</div><div class="line">    list() &#123;</div><div class="line">      <span class="keyword">const</span> list = []</div><div class="line">      <span class="keyword">this</span>.olist.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">        item.isShow = <span class="literal">false</span></div><div class="line">        list.push(item)</div><div class="line">      &#125;)</div><div class="line">      <span class="keyword">return</span> list</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    toggle(item)&#123;</div><div class="line">      item.startDate = <span class="built_in">Math</span>.random()  <span class="comment">//新增这一行 isShow 会生效</span></div><div class="line">      item.isShow = !item.isShow</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><a href="http://jsbin.com/naqofakaja/edit?html,js,output" target="_blank" rel="external">demo2 地址</a><br>到这一步，猜测 computed 中的新对象 list 只监控了 startDate 属性，未监控 isShow 属性。即只监控 olist 中已有的属性，新增属性未加入响应式列表，因为 olist 是响应式的，而  在生成 list 的过程中直接 push 的 item 是一个对象，那么 list 中的对象指针与 olist 中的对象指针指向同一个对象，那么 olist 中的对象是 Observer 对象，那 list 中也是，而新增的 isShow 属性未执行 defineProperty 过程。为了验证上面的猜测，再来看看 demo3：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app3'</span>,</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">olist</span>: [&#123;<span class="attr">startDate</span>: <span class="string">'click me'</span>,<span class="attr">isShow</span>: <span class="literal">false</span>&#125;, &#123;<span class="attr">startDate</span>: <span class="string">'click me'</span>, <span class="attr">isShow</span>: <span class="literal">false</span>&#125;]  <span class="comment">//将 isShow 加入 olist 中</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">computed</span>: &#123;</div><div class="line">    list() &#123;</div><div class="line">      <span class="keyword">const</span> list = []</div><div class="line">      <span class="keyword">this</span>.olist.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">        <span class="comment">//item.isShow = false  // 去掉这一行，将 isShow 直接放入 olist 中</span></div><div class="line">        list.push(item)</div><div class="line">      &#125;)</div><div class="line">      <span class="keyword">return</span> list</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    toggle(item)&#123;</div><div class="line">      <span class="comment">//item.startDate = Math.random()</span></div><div class="line">      item.isShow = !item.isShow</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><a href="http://jsbin.com/lakefopedu/edit?html,js,output" target="_blank" rel="external">demo3 地址</a><br>我们看到将 isShow 直接放入 olist 中，toggle 效果是有的。</p>
+<h3 id="问题原因"><a href="#问题原因" class="headerlink" title="问题原因"></a>问题原因</h3><p>通过以上分析，我们知道 toggle 效果未生效的原因就是<strong>新增的 isShow 属性未被监控</strong>，没有触发响应式，找到原因就可以给出解决办法。</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>查看 Vue 的官方文档<a href="http://vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external">深入响应式原理</a>一节中关于“向已有对象上添加一些属性”的介绍，我们可以通过以下的方案一和方案二解决上述问题。而 Vue 2.0 中提供的一个新方法也可以解决 DOM 未更新的问题。</p>
+<h4 id="方案一：splice-Object-assign"><a href="#方案一：splice-Object-assign" class="headerlink" title="方案一：splice + Object.assign"></a>方案一：splice + Object.assign</h4><p>利用 Vue 中重写数组的 splice 方法，与 Object 的 assign 方法，可以将 olist 中的数据重新变成 Observer 对象。demo4：<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Vue(&#123;</div><div class="line">  <span class="attr">el</span>: <span class="string">'#app4'</span>,</div><div class="line">  <span class="attr">data</span>: &#123;</div><div class="line">    <span class="attr">olist</span>: [&#123;<span class="attr">startDate</span>: <span class="string">'click me'</span>&#125;, &#123;<span class="attr">startDate</span>: <span class="string">'click me'</span>&#125;]</div><div class="line">  &#125;,</div><div class="line">  mounted() &#123;</div><div class="line">    <span class="keyword">this</span>.dealData()</div><div class="line">  &#125;,</div><div class="line">  <span class="attr">methods</span>: &#123;</div><div class="line">    toggle(item)&#123;</div><div class="line">      <span class="comment">//item.startDate = Math.random()</span></div><div class="line">      item.isShow = !item.isShow</div><div class="line">    &#125;,</div><div class="line">    dealData() &#123;</div><div class="line">      <span class="keyword">this</span>.olist.forEach(<span class="function">(<span class="params">item,index</span>) =&gt;</span> &#123;</div><div class="line">        <span class="comment">// item.isShow = false</span></div><div class="line">        <span class="comment">// this.olist.splice(index,1,item)</span></div><div class="line">        <span class="keyword">this</span>.olist.splice(index,<span class="number">1</span>,<span class="built_in">Object</span>.assign(&#123;<span class="attr">isShow</span>: <span class="literal">false</span>&#125;, item))</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><a href="http://jsbin.com/kataliwawa/edit?html,js,output" target="_blank" rel="external">demo4 地址</a><br>在实现的过程中我发现，同样使用 splice + Object.assign 方法去 computed 一个新的 list 无法达到同样的效果。具体查看 <a href="http://jsbin.com/lezunudoja/1/edit?html,js,output" target="_blank" rel="external">demo5 地址</a>。读者可以想想为什么。其实很简单.jpg</p>
+<p>本次业务场景中，只需要展示该数据，不需要处理返回，就不用 computed 一个新数组，而直接使用服务端返回来的对象。</p>
+<h4 id="方案二：-set"><a href="#方案二：-set" class="headerlink" title="方案二：$set"></a>方案二：$set</h4><p>Vue 官方文档的<a href="http://vuejs.org/v2/guide/reactivity.html" target="_blank" rel="external">深入响应式原理</a>一节中提到，我们可以使用 Vue.set 或者 vm.$set 方法将响应属性添加到嵌套的对象上，看一下 demo6：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123;</div><div class="line">  el: &apos;#app6&apos;,</div><div class="line">  data: &#123;</div><div class="line">    olist: [&#123;startDate: &apos;click me&apos;&#125;, &#123;startDate: &apos;click me&apos;&#125;]</div><div class="line">  &#125;,</div><div class="line">  mounted() &#123;</div><div class="line">    this.dealData()</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    toggle(item)&#123;</div><div class="line">      item.isShow = !item.isShow</div><div class="line">    &#125;,</div><div class="line">    dealData() &#123;</div><div class="line">      this.olist.forEach((item,index) =&gt; &#123;</div><div class="line">         this.$set(this.olist,index, Object.assign(&#123;isShow: false&#125;, item))</div><div class="line">      &#125;)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><a href="http://jsbin.com/cisetupuxa/edit?html,js,output" target="_blank" rel="external">demo6 地址</a></p>
+<h4 id="方案三：-forceUpdate"><a href="#方案三：-forceUpdate" class="headerlink" title="方案三：$forceUpdate()"></a>方案三：$forceUpdate()</h4><p>Vue 在 2.0 的版本中新增了 \$forceUpdate() 方法，迫使 Vue 实例重新渲染。类似于 Angular 中的 $scope.$apply()。看一下 demo7：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123;</div><div class="line">  el: &apos;#app7&apos;,</div><div class="line">  data: &#123;</div><div class="line">    olist: [&#123;startDate: &apos;click me&apos;&#125;, &#123;startDate: &apos;click me&apos;&#125;]</div><div class="line">  &#125;,</div><div class="line">  computed: &#123;</div><div class="line">    list() &#123;</div><div class="line">      const list = []</div><div class="line">      this.olist.forEach(item =&gt; &#123;</div><div class="line">        item.isShow = false</div><div class="line">        list.push(item)</div><div class="line">      &#125;)</div><div class="line">      return list</div><div class="line">    &#125;</div><div class="line">  &#125;,</div><div class="line">  methods: &#123;</div><div class="line">    toggle(item)&#123;</div><div class="line">      item.isShow = !item.isShow</div><div class="line">      this.$forceUpdate() // 强制刷新，类似于 Angular 的 $scope.$apply() 方法</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure></p>
+<p><a href="http://jsbin.com/lofuheheho/edit?html,js,output" target="_blank" rel="external">demo7 地址</a></p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>以上就是这个问题的解决方案，我给所有的 demo 做了一个合集<a href="http://jsbin.com/kigizowiju/7/edit?html,js,output" target="_blank" rel="external">地址</a>。其中 $forceUpdate() 是同事分享的新方法，如果还有别的解决方案，记得留言告诉我。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
+          
+            <a href="/blog/tags/Vue/" rel="tag"># Vue</a>
+          
+            <a href="/blog/tags/computed/" rel="tag"># computed</a>
+          
+            <a href="/blog/tags/响应式/" rel="tag"># 响应式</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/04/21/vue-2-0-template/" rel="next" title="Vue2.0 源码阅读：模板渲染">
+                <i class="fa fa-chevron-left"></i> Vue2.0 源码阅读：模板渲染
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2017/07/13/facebooks-prepack-the-next-killer/" rel="prev" title="「译」Facebook Prepack -- JavaScript 的下一个杀手级工具">
+                「译」Facebook Prepack -- JavaScript 的下一个杀手级工具 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    owner: 'zhouweicsu',
+    repo: 'blog',
+    oauth: {
+      client_id: 'a29352de46f83b6ce546',
+      client_secret: 'bbfa72af36b54910c56dbb51b0639a85634ca705',
+    },
+  })
+  gitment.render('container')
+  </script>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">23</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">47</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wemlion.com" title="文蔺" target="_blank">文蔺</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#问题描述"><span class="nav-number">1.</span> <span class="nav-text">问题描述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题分析"><span class="nav-number">2.</span> <span class="nav-text">问题分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#问题原因"><span class="nav-number">3.</span> <span class="nav-text">问题原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解决方案"><span class="nav-number">4.</span> <span class="nav-text">解决方案</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#方案一：splice-Object-assign"><span class="nav-number">4.1.</span> <span class="nav-text">方案一：splice + Object.assign</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案二：-set"><span class="nav-number">4.2.</span> <span class="nav-text">方案二：$set</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#方案三：-forceUpdate"><span class="nav-number">4.3.</span> <span class="nav-text">方案三：$forceUpdate()</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>

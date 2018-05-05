@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="CSS,fluid,Typography," />
+  <meta name="keywords" content="CSS,Typography,fluid," />
 
 
 
@@ -117,7 +117,7 @@
     fancybox: true,
     motion: true,
     duoshuo: {
-      userId: 'shrimp',
+      userId: 'undefined',
       author: '博主'
     },
     algolia: {
@@ -147,6 +147,15 @@
 
 
 
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-100341819-1', 'auto');
+  ga('send', 'pageview');
+</script>
 
 
 
@@ -351,16 +360,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/blog/2016/06/29/fluid-typography/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="2016/06/29/fluid-typography/" itemprop="commentCount"></span>
-                </a>
-              </span>
             
           
 
@@ -662,9 +661,9 @@
           
             <a href="/blog/tags/CSS/" rel="tag"># CSS</a>
           
-            <a href="/blog/tags/fluid/" rel="tag"># fluid</a>
-          
             <a href="/blog/tags/Typography/" rel="tag"># Typography</a>
+          
+            <a href="/blog/tags/fluid/" rel="tag"># fluid</a>
           
         </div>
       
@@ -715,11 +714,21 @@
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="2016/06/29/fluid-typography/"
-           data-title="「译」使用 vh 和 vw 实现正真的流式文字排版" data-url="http://zhouweicsu.github.io/blog/blog/2016/06/29/fluid-typography/">
-      </div>
-    
   </div>
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    owner: 'zhouweicsu',
+    repo: 'blog',
+    oauth: {
+      client_id: 'a29352de46f83b6ce546',
+      client_secret: 'bbfa72af36b54910c56dbb51b0639a85634ca705',
+    },
+  })
+  gitment.render('container')
+  </script>
 
 
         </div>
@@ -765,7 +774,7 @@
           
             <div class="site-state-item site-state-posts">
               <a href="/blog/archives">
-                <span class="site-state-item-count">20</span>
+                <span class="site-state-item-count">23</span>
                 <span class="site-state-item-name">日志</span>
               </a>
             </div>
@@ -783,7 +792,7 @@
           
             <div class="site-state-item site-state-tags">
               <a href="/blog/tags">
-                <span class="site-state-item-count">41</span>
+                <span class="site-state-item-count">47</span>
                 <span class="site-state-item-name">标签</span>
               </a>
             </div>
@@ -846,6 +855,10 @@
                   <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
                 </li>
               
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wemlion.com" title="文蔺" target="_blank">文蔺</a>
+                </li>
+              
             </ul>
           </div>
         
@@ -888,7 +901,7 @@
         <div class="copyright" >
   
   &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -997,39 +1010,32 @@
 
   
 
-  
-    
-  
 
-  <script type="text/javascript">
-    var duoshuoQuery = {short_name:"shrimp"};
-    (function() {
-      var ds = document.createElement('script');
-      ds.type = 'text/javascript';ds.async = true;
-      ds.id = 'duoshuo-script';
-      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-      ds.charset = 'UTF-8';
-      (document.getElementsByTagName('head')[0]
-      || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-  </script>
 
   
-    
-    
-    <script src="/blog/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
-    <script src="/blog/js/src/hook-duoshuo.js"></script>
+
+
+
+
+	
+
+
+
+
+
   
 
 
 
 
 
+  
 
 
 
 
 
+  
 
 
 
