@@ -1,0 +1,980 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/blog/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/blog/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="证书,HTTPS,密码学,RSA," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/blog/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="前端一般说到证书，大部分情况下指的是 HTTPS 证书，本文我们会介绍证书的相关知识及原理，以及 HTTPS 的工作过程。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="证书知识扫盲">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2019/06/16/certificate-knowledge-you-should-know/index.html">
+<meta property="og:site_name" content="zhouweicsu">
+<meta property="og:description" content="前端一般说到证书，大部分情况下指的是 HTTPS 证书，本文我们会介绍证书的相关知识及原理，以及 HTTPS 的工作过程。">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/warning.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/unsafe.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/windows-cert.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/mac-cert.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/certificate.png">
+<meta property="og:image" content="http://zhouweicsu.github.io/blog/https-process.jpeg">
+<meta property="og:updated_time" content="2019-07-06T08:00:24.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="证书知识扫盲">
+<meta name="twitter:description" content="前端一般说到证书，大部分情况下指的是 HTTPS 证书，本文我们会介绍证书的相关知识及原理，以及 HTTPS 的工作过程。">
+<meta name="twitter:image" content="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/warning.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/blog/',
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2019/06/16/certificate-knowledge-you-should-know/"/>
+
+
+
+
+
+  <title> 证书知识扫盲 | zhouweicsu </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-100341819-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/blog/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">zhouweicsu</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">Be confident, Asking Questions and Make a Change everyday.</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/blog/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/blog/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/blog/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/blog/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/blog/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2019/06/16/certificate-knowledge-you-should-know/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="zhouwei">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="zhouweicsu">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="zhouweicsu" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                证书知识扫盲
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-16T19:03:49+08:00">
+                2019-06-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/blog/categories/JavaScript/" itemprop="url" rel="index">
+                    <span itemprop="name">JavaScript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>前端一般说到证书，大部分情况下指的是 HTTPS 证书，本文我们会介绍证书的相关知识及原理，以及 HTTPS 的工作过程。</p>
+<a id="more"></a>
+<h3 id="日常工作中，哪些与证书相关？"><a href="#日常工作中，哪些与证书相关？" class="headerlink" title="日常工作中，哪些与证书相关？"></a>日常工作中，哪些与证书相关？</h3><h4 id="网页-HTTPS，SSL-证书"><a href="#网页-HTTPS，SSL-证书" class="headerlink" title="网页 HTTPS，SSL 证书"></a>网页 HTTPS，SSL 证书</h4><p>在使用 Chrome 访问网页时，我们常常见到如下图所示界面，这是因为该网站使用的 HTTPS 证书不可信任，可能是发行方可信度降低，也可能是证书过期等原因导致的，一般情况下，大部分用户会选择关闭网页，这对网站来说是致命的。</p>
+<p><img src="/blog/2019/06/16/certificate-knowledge-you-should-know/warning.png" alt="HTTPS 证书"></p>
+<h4 id="Windows-代码签名证书"><a href="#Windows-代码签名证书" class="headerlink" title="Windows 代码签名证书"></a>Windows 代码签名证书</h4><p>在 Windows 安装软件时，我们常常见到如下图所示界面，这是因为我们下载的软件包没有经过 Windows 证书代码签名，没有经过第三方认证，Windows 认为是未知来源，会给出图示警告：</p>
+<p><img src="/blog/2019/06/16/certificate-knowledge-you-should-know/unsafe.png" alt="未签名的 Windows 软件安装包"></p>
+<p>在 Windows 开始中输入 certmgr.msc，打开证书管理器，我们可以查看系统中安装的所有证书：</p>
+<p><img src="/blog/2019/06/16/certificate-knowledge-you-should-know/windows-cert.png" alt="Windows 证书"></p>
+<h4 id="Mac-中的证书"><a href="#Mac-中的证书" class="headerlink" title="Mac 中的证书"></a>Mac 中的证书</h4><p>在 Mac 中，打开<code>launchpad-其他-钥匙串访问-证书</code>可以查看系统中安装的所有证书：</p>
+<p><img src="/blog/2019/06/16/certificate-knowledge-you-should-know/mac-cert.png" alt="Mac 证书"></p>
+<h4 id="不使用证书的后果"><a href="#不使用证书的后果" class="headerlink" title="不使用证书的后果"></a>不使用证书的后果</h4><p>从上面我们可以看到，网站和软件包未正确携带证书的后果：</p>
+<blockquote>
+<p>不受 Windows 信任，安装软件的时候 Windows 提示该软件不安全</p>
+<p>不受杀毒软件信任，软件下载下来就被杀毒软件告知该软件不安全</p>
+<p>不受浏览器信任，浏览器告知“隐私设置错误，您的链接不是私密连接”</p>
+</blockquote>
+<p>这些系统和浏览器的告警，会直接导致用户的流失，影响产品生命力。</p>
+<h3 id="证书的组成"><a href="#证书的组成" class="headerlink" title="证书的组成"></a>证书的组成</h3><p>上一章节讲了日常见到的证书，接下来讲一下证书的组成。</p>
+<p><img src="/blog/2019/06/16/certificate-knowledge-you-should-know/certificate.png" alt="证书详情"></p>
+<p>打开一个证书查看详情，我们见到如上图所示，可以看到证书的组成有以下几个部分：</p>
+<blockquote>
+<p>1、公钥</p>
+<p>2、证书拥有者身份信息</p>
+<p>3、数字证书认证机构（发行者）信息</p>
+<p>4、发行者对这份文件的数字签名及使用的算法</p>
+<p>5、有效期</p>
+<p>6、指纹以及指纹算法【hash算法】</p>
+<p>7、Version Number，版本号</p>
+<p>8、Serial Number，序列号</p>
+<p>9、根证书：根证书是CA（国际公认的数字证书认证机构）自己的证书（自己给自己签名的证书），是证书验证链的开头，内置在各大通用的系统和浏览器里面。（自签发的数字证书，要被各软件信任是不容易的，<a href="https://blog.myssl.com/ca-blacklist/" target="_blank" rel="external">违规被浏览器列入黑名单的CA、SSL证书</a>，荷兰有一家 CA 因为被黑客入侵后来破产倒闭了）</p>
+</blockquote>
+<h3 id="HTTPS-中证书的工作过程"><a href="#HTTPS-中证书的工作过程" class="headerlink" title="HTTPS 中证书的工作过程"></a>HTTPS 中证书的工作过程</h3><p>在介绍证书的工作原理之前，我们首先简单介绍一下 HTTPS 中证书的工作过程：</p>
+<p><img src="https-process.jpeg" alt="HTTPS 工作过程"></p>
+<p>1、<strong>客户端发起HTTPS请求</strong>  用户在浏览器里输入一个HTTPS网址，然后连接到服务端的 443 端口。</p>
+<p>2、<strong>服务端的配置</strong>  数字证书，由公钥和私钥组成。如果对公钥和私钥不太理解，可以想象成 1 把钥匙和 N 个锁头，全世界只有服务器有这把钥匙，任何访问服务器的客户端都可以获得一把锁头，然后用这个锁把重要的东西（比如：登录密码）锁起来传给服务器，因为只有服务器有这把钥匙，所以只有服务器才能看到被这把锁锁起来的东西。</p>
+<p>3、<strong>传送证书</strong>  证书 = 公钥（锁头）+ 其他信息（证书的颁发机构，有效期等）。</p>
+<p>4、<strong>客户端解析证书</strong>  由客户端的SSL/TLS来完成的，首先会验证公钥是否有效，比如颁发机构，过期时间等等，如果发现异常，则会弹出一个警示框，提示证书存在的问题。如果证书没有问题，那么就生成一个随机值（后面通信用的私钥）。然后用证书（也就是公钥）对这个随机值进行加密。就好像上面说的，把随机值用锁头锁起来，这样除非有钥匙，不然看不到被锁住的内容。</p>
+<p>5、<strong>传送加密信息</strong> 这部分传送的是用证书加密后的随机值，目的是让服务端得到这个随机值，以后客户端和服务端的通信就可以通过这个随机值来进行加密解密了。</p>
+<p>6、<strong>服务端解密信息</strong> 服务端用私钥解密后，得到了客户端传过来的随机值，然后把内容通过该随机值进行对称加密，将信息和私钥（被加密的随机值）通过某种算法混合在一起，这样除非将私钥解密，不然无法获取内容，而正好客户端和服务端都知道解密这个私钥，所以只要加密这个随机值的算法（后面会讲的非对称加密）够彪悍，数据就够安全。</p>
+<p>7、<strong>传输加密后的信息</strong> 这部分信息就是服务端用私钥加密后的信息，可以在客户端用随机值解密还原。</p>
+<p>8、<strong>客户端解密信息</strong> 客户端用之前生产的私钥解密服务端传过来的信息，于是获取了解密后的内容。整个过程第三方即使监听到了数据，也束手无策。</p>
+<h3 id="证书的原理"><a href="#证书的原理" class="headerlink" title="证书的原理"></a>证书的原理</h3><p>接下来我们讲一下证书的工作原理，而其原理的核心就是——<code>加密算法</code>。随着密码学的发展，加密算法可分为两类：<code>不可逆加密</code>和<code>可逆加密</code>。</p>
+<h4 id="不可逆加密"><a href="#不可逆加密" class="headerlink" title="不可逆加密"></a>不可逆加密</h4><p>不可逆加密分为两种：<code>信息摘要（Message Digest）</code>和<code>安全散列（Secure Hash）</code>算法。</p>
+<blockquote>
+<p>常见算法：MD5、SHA1、PBKDF2、bcrypt等，此类算法可将任意大小的原始数据变换成规定长度的输出，即获取内容的数字指纹，常用于校验原始内容是否被篡改。</p>
+</blockquote>
+<h4 id="可逆加密"><a href="#可逆加密" class="headerlink" title="可逆加密"></a>可逆加密</h4><p>可逆加密分为三种：<code>古典加密算法</code>、<code>对称加密算法</code>、<code>非对称加密算法</code>。</p>
+<h5 id="古典加密算法"><a href="#古典加密算法" class="headerlink" title="古典加密算法"></a>古典加密算法</h5><p>基于算法的加密算法，也被称为古典加密算法</p>
+<blockquote>
+<p>如 http 认证中的 base64，比特币生成地址用的 base58（公开的算法也可称作编码方式）</p>
+</blockquote>
+<h5 id="对称加密算法"><a href="#对称加密算法" class="headerlink" title="对称加密算法"></a>对称加密算法</h5><p>对称加密算法，加密和解密使用同一个密钥（密钥越大，加密越强，但加密与解密的过程越慢）</p>
+<blockquote>
+<p>常见算法：DES、3DES、AES</p>
+<p>优点：速度快效率高，适合对大量数据进行加密</p>
+<p>缺点：密钥管理困难、安全性不高</p>
+</blockquote>
+<h5 id="非对称加密算法"><a href="#非对称加密算法" class="headerlink" title="非对称加密算法"></a>非对称加密算法</h5><p>非对称加密算法，加密和解密使用不同的密钥<strong>【现代密码学最伟大的发明】</strong></p>
+<blockquote>
+<p>常见算法：RSA（1977年，三位数学家Rivest、Shamir 和 Adleman 设计的一种算法，<a href="https://zhuanlan.zhihu.com/p/44185847" target="_blank" rel="external">一文搞懂 RSA 算法</a>）、DH（Diffie-Hellman 1976年，两位美国计算机学家Whitfield Diffie 和 Martin Hellman）、椭圆曲线算法（Elliptic curve cryptography，ECC）</p>
+<p>缺点：效率低、能处理的数据大小有限制（对比“对称加密”来说，需要花费更长的时间来完成加解密的工作，所以一般非对称加密都是配合对称加密一起用的）</p>
+<p>优点：高全性高（加密的核心要义）</p>
+</blockquote>
+<h5 id="RSA-的数学原理"><a href="#RSA-的数学原理" class="headerlink" title="RSA 的数学原理"></a>RSA 的数学原理</h5><p>简单实例讲解<code>非对称加密算法 RSA 的数学原理</code>，理解简单的数学原理，就可以理解非对称加密是怎么做到的，为什么会是安全的：</p>
+<ul>
+<li><p>1、选两个<a href="https://baike.baidu.com/item/%E4%BA%92%E8%B4%A8%E6%95%B0" target="_blank" rel="external">互质数</a> p 和 q（越大越安全，p和q不能告诉别人），相乘得出一个大整数n，例如 p=61，q=53，n=pq=3233（这个数转为二进制有多少位，密钥的大小就是多少位，目前常用的 1024 位和 2048 位）</p>
+</li>
+<li><p>2、选 1-(p-1)(q-1) 间的随机选择一个质数 e = 17（e 必须和(p-1)(q-1)互质）</p>
+</li>
+<li><p>3、计算数学公式 ex+(p−1)(q−1)y=1，算出一个数字 d=2753，就可以满足：</p>
+<blockquote>
+<p>3.1. 通过 n 和 e 这两个数据一组数据进行数学运算后，可以通过 n 和 d 去反解运算，反过来也可以。<br>3.2. 如果只知道 n 和 e，要推导出 d，需要知道 p 和 q，也就是要需要把 n 因数分解。</p>
+</blockquote>
+</li>
+<li><p>4、上面的<code>(n=3233, e=17)</code> 这两个数据在一起就是<code>公钥</code>，<code>(n=3233, d=2753)</code>这两个数据就是<code>私钥</code></p>
+</li>
+<li><p>5、加密：需要加密的 m = 65，公钥 (n=3233, e=17)</p>
+</li>
+<li><p>6、加密公式：me ≡ c(mod n)          6517 ≡ c (mod 3233)    （备注：mod 就是模运算，10 mod 3 = 1, 26 mod 6 = 2，就是 JavaScript 里面的 %）</p>
+</li>
+<li><p>7、得到密文：c = 2790</p>
+</li>
+<li><p>8、解密：需要解密的 c = 2790，私钥 (n=3233, d=2753)</p>
+<blockquote>
+<p>8.1 解密公式：cd ≡ m(mod n)          27902753 ≡ m (mod 3233)<br>8.2 得到原文： m = 65</p>
+</blockquote>
+</li>
+</ul>
+<p>以上的推演步骤：满足用<code>公钥加密</code>，<code>私钥解密</code>（或反过来公钥加密，私钥解密），满足在只暴露公钥（只知道 n 和 e）的情况下，要推导出私钥 (n,d)，需要把大整数 n 因数分解。</p>
+<p>然而目前<code>因数分解</code>是公认的数学难题，只能靠<code>暴力穷举</code>，而n数字越大，越难以用穷举计算出因数 p 和 q，也就越安全，当 n 大到二进制 <code>1024</code> 位或 <code>2048</code> 位时，以目前技术要破解几乎不可能，所以非常安全。</p>
+<p>一般情况下我们会使用对称加密给数据加密，使用非对称加密加密对称加密生成的密钥，从而确保数据传输的安全性。快速又安全！</p>
+<blockquote>
+<p>进一步了解的可以阅读：RSA 算法原理<a href="http://www.ruanyifeng.com/blog/2013/06/rsa_algorithm_part_one.html" target="_blank" rel="external">（一）</a><a href="http://www.ruanyifeng.com/blog/2013/07/rsa_algorithm_part_two.html" target="_blank" rel="external">（二）</a></p>
+</blockquote>
+<p><strong>想自己计算的</strong>，提供两份数据供大家推演上述过程，然后这些小数是不会用来加密的，因为太容易被暴力破解。</p>
+<blockquote>
+<p>1、p=3, q=5, n=15, e=7, d=13，我计算了 m=17 算出来 c=23，反过来用 c=23 能算出来 m=17。（这个是我算的，不知道是否正确 ::&gt;_&lt;::）</p>
+<p>2、p=3, q=11, n=33, e=3, d=7</p>
+</blockquote>
+<h5 id="非对称加密的使用场景"><a href="#非对称加密的使用场景" class="headerlink" title="非对称加密的使用场景"></a>非对称加密的使用场景</h5><ul>
+<li><p>公钥加密，私钥解密，主要用于<strong>通信</strong>：<code>HTTPS = HTTP + SSL/TSL</code></p>
+<blockquote>
+<p>通信中，要保证数据（密码 or 机密文件）不被人窃取，那肯定是不希望别人知道我的消息，我就把数据加密（公钥加密），只有我才能解密（私钥解密），私钥一定要好好保存不能被别人知道。<br>感兴趣阅读：<a href="https://juejin.im/post/5c441073e51d455226654d60" target="_blank" rel="external">完全图解 HTTPS</a></p>
+</blockquote>
+</li>
+<li><p>私钥签名，公钥验证，主要用于<strong>签名</strong>（就像你在文件上签字，你的笔迹或者私章就是你的私钥）</p>
+<blockquote>
+<p>签名，就是我认可这个数据，给它盖个戳，你可以信任我——“北京三快在线科技有限公司”，但是不能让别人冒充咱发消息，要保证只有咱自己才能盖这个戳（只有自己知道的私钥来签名），其他需要验证数据是否可信的人（Windows 和各大杀毒软件）拿公钥做验证。</p>
+</blockquote>
+</li>
+<li><p>iOS 签名机制</p>
+<blockquote>
+<p>在 iOS 平台对第三方 APP 有绝对的控制权，一定要保证每一个安装到 iOS 上的 APP 都是经过苹果官方允许的，怎样保证呢？就是通过签名机制。<br>感兴趣的可以看这篇：<a href="http://wereadteam.github.io/2017/03/13/Signature/" target="_blank" rel="external">iOS App 签名的原理</a></p>
+</blockquote>
+</li>
+<li><p>用于访问 github 的 key：~/.ssh/   id_rsa 和 id_rsa.pub</p>
+</li>
+<li><p>token</p>
+<blockquote>
+<p>手机银行兴起之前，网页的网上银行的硬件token<br>在家需要访问公司资源时需要的动态口令，有的公司也是提供的硬件 token。</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="证书的分类"><a href="#证书的分类" class="headerlink" title="证书的分类"></a>证书的分类</h3><ol>
+<li>加密证书</li>
+</ol>
+<ul>
+<li><p>DV（Domain Validation）域名型验证</p>
+<blockquote>
+<p>面向个体用户，安全体系相对较弱，验证方式就是向 whois 信息中的邮箱发送邮件，按照邮件内容进行验证即可通过；</p>
+</blockquote>
+</li>
+<li><p>OV（Organization Validation）组织型验证</p>
+<blockquote>
+<p>面向企业用户，证书在 DV 证书验证的基础上，还需要公司的授权，CA 通过拨打信息库中公司的电话来确认；<br>Google 使用的是 OV 型证书，用 Chrome 打开会显示小锁头</p>
+</blockquote>
+</li>
+<li><p>EV（Extended Validation）扩展型验证</p>
+<blockquote>
+<p>这类证书的申请除了以上两个确认外，还需要公司提供金融机构的开户许可证，要求十分严格，且价格较贵，并且没有通配符证书。<br>Github 使用的是 EV 型证书，用 Chrome 打开会在地址栏显示公司信息</p>
+</blockquote>
+</li>
+</ul>
+<ol>
+<li>签名证书<ul>
+<li>普通签名证书</li>
+<li>EV 签名证书</li>
+</ul>
+</li>
+</ol>
+<p><strong>FAQ</strong>：以上分类的证书的加密效果有区别吗？</p>
+<blockquote>
+<p>没有。</p>
+</blockquote>
+<h3 id="如何获取证书？"><a href="#如何获取证书？" class="headerlink" title="如何获取证书？"></a>如何获取证书？</h3><ul>
+<li><p>国际公认的数字证书认证机构（简称 CA，Certificate Authority）付费购买</p>
+<ul>
+<li>Digicert、Symantec、GoDaddy、Comodo、GeoTrust、GolbalSign等</li>
+<li>举个例子，赛门铁克的 Windows 签名证书</li>
+<li>普通  1年：$499，2年：$869，3年：$1,249。（人民币 6.9 的汇率：3443， 5996，8618）</li>
+<li>EV 1年：$699，2年：$1,219，3年：$1,739。（人民币 6.9 的汇率：4823， 8411，11999）</li>
+</ul>
+</li>
+<li><p><code>Let’s Encrypt</code> 免费获取 SSL 证书</p>
+<ul>
+<li>Let’s Encrypt 是成立于 2014 年的公益数字证书认证机构(CA)。</li>
+<li><a href="https://imququ.com/post/letsencrypt-certificate.html" target="_blank" rel="external">Let’s Encrypt，免费好用的 HTTPS 证书</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>自制：OpenSSL<ul>
+<li>谷歌：<a href="https://www.google.com.hk/search?q=%E5%A6%82%E4%BD%95%E8%87%AA%E5%88%B6%E8%AF%81%E4%B9%A6" target="_blank" rel="external">如何自制证书</a>（不要用百度搜索）</li>
+</ul>
+</li>
+</ul>
+<h3 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h3><ul>
+<li><a href="https://www.barretlee.com/blog/2016/04/24/detail-about-ca-and-certs/" target="_blank" rel="external">细说 CA 和证书</a></li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/blog/tags/证书/" rel="tag"># 证书</a>
+          
+            <a href="/blog/tags/HTTPS/" rel="tag"># HTTPS</a>
+          
+            <a href="/blog/tags/密码学/" rel="tag"># 密码学</a>
+          
+            <a href="/blog/tags/RSA/" rel="tag"># RSA</a>
+          
+        </div>
+      
+
+      
+        
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/blog/2017/04/21/vue-2-0-template/" rel="next" title="Vue2.0 源码阅读：模板渲染">
+                <i class="fa fa-chevron-left"></i> Vue2.0 源码阅读：模板渲染
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+  <div id="container"></div>
+  <link rel="stylesheet" href="https://imsun.github.io/gitment/style/default.css">
+  <script src="https://imsun.github.io/gitment/dist/gitment.browser.js"></script>
+  <script>
+  var gitment = new Gitment({
+    owner: 'zhouweicsu',
+    repo: 'blog',
+    oauth: {
+      client_id: 'a29352de46f83b6ce546',
+      client_secret: 'bbfa72af36b54910c56dbb51b0639a85634ca705',
+    },
+  })
+  gitment.render('container')
+  </script>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
+               alt="zhouwei" />
+          <p class="site-author-name" itemprop="name">zhouwei</p>
+           
+              <p class="site-description motion-element" itemprop="description"></p>
+          
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/blog/archives">
+                <span class="site-state-item-count">21</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/blog/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/blog/tags">
+                <span class="site-state-item-count">45</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/zhouweicsu" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/elizabeth1990" target="_blank" title="Weibo">
+                  
+                    <i class="fa fa-fw fa-weibo"></i>
+                  
+                  Weibo
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/zhou-wei-82-1" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-paper-plane"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://blog.fedeoo.cn" title="fedoo" target="_blank">fedoo</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.jackpu.com" title="jackpu" target="_blank">jackpu</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.wemlion.com" title="文蔺" target="_blank">文蔺</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#日常工作中，哪些与证书相关？"><span class="nav-number">1.</span> <span class="nav-text">日常工作中，哪些与证书相关？</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#网页-HTTPS，SSL-证书"><span class="nav-number">1.1.</span> <span class="nav-text">网页 HTTPS，SSL 证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Windows-代码签名证书"><span class="nav-number">1.2.</span> <span class="nav-text">Windows 代码签名证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Mac-中的证书"><span class="nav-number">1.3.</span> <span class="nav-text">Mac 中的证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不使用证书的后果"><span class="nav-number">1.4.</span> <span class="nav-text">不使用证书的后果</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书的组成"><span class="nav-number">2.</span> <span class="nav-text">证书的组成</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#HTTPS-中证书的工作过程"><span class="nav-number">3.</span> <span class="nav-text">HTTPS 中证书的工作过程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书的原理"><span class="nav-number">4.</span> <span class="nav-text">证书的原理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#不可逆加密"><span class="nav-number">4.1.</span> <span class="nav-text">不可逆加密</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#可逆加密"><span class="nav-number">4.2.</span> <span class="nav-text">可逆加密</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#古典加密算法"><span class="nav-number">4.2.1.</span> <span class="nav-text">古典加密算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#对称加密算法"><span class="nav-number">4.2.2.</span> <span class="nav-text">对称加密算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称加密算法"><span class="nav-number">4.2.3.</span> <span class="nav-text">非对称加密算法</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#RSA-的数学原理"><span class="nav-number">4.2.4.</span> <span class="nav-text">RSA 的数学原理</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#非对称加密的使用场景"><span class="nav-number">4.2.5.</span> <span class="nav-text">非对称加密的使用场景</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#证书的分类"><span class="nav-number">5.</span> <span class="nav-text">证书的分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何获取证书？"><span class="nav-number">6.</span> <span class="nav-text">如何获取证书？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#扩展阅读"><span class="nav-number">7.</span> <span class="nav-text">扩展阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">zhouwei</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+    
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/blog/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/affix.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/blog/js/src/schemes/pisces.js?v=5.1.0"></script>
+
+
+
+  
+  <script type="text/javascript" src="/blog/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/blog/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/blog/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+  
+
+</body>
+</html>
