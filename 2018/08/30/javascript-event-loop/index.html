@@ -87,19 +87,16 @@
 
 
 
-<meta name="description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
-在">
+<meta name="description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="从 Vue.nextTick 源码看 JavaScript 事件循环">
-<meta property="og:url" content="http://zhouweicsu.github.io/blog/2019/08/30/javascript-event-loop/index.html">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2018/08/30/javascript-event-loop/index.html">
 <meta property="og:site_name" content="zhouweicsu">
-<meta property="og:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
-在">
-<meta property="og:updated_time" content="2019-07-06T08:26:11.000Z">
+<meta property="og:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。">
+<meta property="og:updated_time" content="2019-07-06T08:28:14.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="从 Vue.nextTick 源码看 JavaScript 事件循环">
-<meta name="twitter:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
-在">
+<meta name="twitter:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。">
 
 
 
@@ -127,7 +124,7 @@
 
 
 
-  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2019/08/30/javascript-event-loop/"/>
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2018/08/30/javascript-event-loop/"/>
 
 
 
@@ -281,7 +278,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2019/08/30/javascript-event-loop/">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2018/08/30/javascript-event-loop/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="zhouwei">
@@ -320,8 +317,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T19:03:49+08:00">
-                2019-08-30
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-30T19:03:49+08:00">
+                2018-08-30
               </time>
             
 
@@ -379,8 +376,8 @@
 
       
         <h2 id="Vue-nextTick"><a href="#Vue-nextTick" class="headerlink" title="Vue.nextTick"></a>Vue.nextTick</h2><p>虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是<a href="https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97" target="_blank" rel="external">异步执行 DOM 更新</a>，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。</p>
-<p>在 Vue 源码 2.1.10 版本中 nextTick 的实现采用优雅降级的 3 种方式：Promise、MutationObserver 和 setTimeout。到最新的一个版本的 2.5.16 改为了 setImmediate、MessageChannel、Promise 和 setTimeout。</p>
 <a id="more"></a>
+<p>在 Vue 源码 2.1.10 版本中 nextTick 的实现采用优雅降级的 3 种方式：Promise、MutationObserver 和 setTimeout。到最新的一个版本的 2.5.16 改为了 setImmediate、MessageChannel、Promise 和 setTimeout。</p>
 <p>作者在源码中给出了如下的<a href="https://github.com/vuejs/vue/blob/v2.5.16/src/core/util/next-tick.js#L20~L27" target="_blank" rel="external">注释</a>：</p>
 <blockquote>
 <p>Here we have async deferring wrappers using both microtasks and (macro) tasks. In &lt; 2.4 we used microtasks everywhere, but there are some scenarios where microtasks have too high a priority and fire in between supposedly sequential events (e.g. #4521, #6690) or even between bubbling of the same event (#6566). However, using (macro) tasks everywhere also has subtle problems when state is changed right before repaint (e.g. #6813, out-in transitions). Here we use microtask by default, but expose a way to force (macro) task when needed (e.g. in event handlers attached by v-on).</p>
@@ -455,8 +452,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2019/06/16/certificate-knowledge-you-should-know/" rel="next" title="证书知识扫盲">
-                <i class="fa fa-chevron-left"></i> 证书知识扫盲
+              <a href="/blog/2017/04/21/vue-2-0-template/" rel="next" title="Vue2.0 源码阅读：模板渲染">
+                <i class="fa fa-chevron-left"></i> Vue2.0 源码阅读：模板渲染
               </a>
             
           </div>
@@ -464,6 +461,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/blog/2019/06/16/certificate-knowledge-you-should-know/" rel="prev" title="证书知识扫盲">
+                证书知识扫盲 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
