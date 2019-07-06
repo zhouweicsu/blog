@@ -71,7 +71,7 @@
 <link href="/blog/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="JavaScript,ES6,Browserify,Babel,hot reloading," />
+  <meta name="keywords" content="JavaScript,Vue,事件循环," />
 
 
 
@@ -87,16 +87,19 @@
 
 
 
-<meta name="description" content="现在有很多 ES2015 和 React 工程的新手工具包。如果你想快速构建一个原型或者你只是想玩一玩代码，那你肯定希望配置越少越好。必备工具集有： transpiler（编译工具）， bundler（打包工具） 和 hot reloader（热重载）（因为是2015，所以你肯定不希望在重新加载页面上浪费时间）。Browserify 是一个非常棒并且使用起来很简单的 bundler 。更重要的是—">
+<meta name="description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
+在">
 <meta property="og:type" content="article">
-<meta property="og:title" content="「译」用 Browserify， Babel & hot reloading 快速构建 ES2015 工程">
-<meta property="og:url" content="http://zhouweicsu.github.io/blog/2015/10/15/quick-es2015-project-setup-with-browserify-babel-hot-reloading/index.html">
+<meta property="og:title" content="从 Vue.nextTick 源码看 JavaScript 事件循环">
+<meta property="og:url" content="http://zhouweicsu.github.io/blog/2019/08/30/javascript-event-loop/index.html">
 <meta property="og:site_name" content="zhouweicsu">
-<meta property="og:description" content="现在有很多 ES2015 和 React 工程的新手工具包。如果你想快速构建一个原型或者你只是想玩一玩代码，那你肯定希望配置越少越好。必备工具集有： transpiler（编译工具）， bundler（打包工具） 和 hot reloader（热重载）（因为是2015，所以你肯定不希望在重新加载页面上浪费时间）。Browserify 是一个非常棒并且使用起来很简单的 bundler 。更重要的是—">
-<meta property="og:updated_time" content="2019-06-16T10:57:19.000Z">
+<meta property="og:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
+在">
+<meta property="og:updated_time" content="2019-07-06T08:26:11.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="「译」用 Browserify， Babel & hot reloading 快速构建 ES2015 工程">
-<meta name="twitter:description" content="现在有很多 ES2015 和 React 工程的新手工具包。如果你想快速构建一个原型或者你只是想玩一玩代码，那你肯定希望配置越少越好。必备工具集有： transpiler（编译工具）， bundler（打包工具） 和 hot reloader（热重载）（因为是2015，所以你肯定不希望在重新加载页面上浪费时间）。Browserify 是一个非常棒并且使用起来很简单的 bundler 。更重要的是—">
+<meta name="twitter:title" content="从 Vue.nextTick 源码看 JavaScript 事件循环">
+<meta name="twitter:description" content="Vue.nextTick虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是异步执行 DOM 更新，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。
+在">
 
 
 
@@ -124,13 +127,13 @@
 
 
 
-  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2015/10/15/quick-es2015-project-setup-with-browserify-babel-hot-reloading/"/>
+  <link rel="canonical" href="http://zhouweicsu.github.io/blog/2019/08/30/javascript-event-loop/"/>
 
 
 
 
 
-  <title> 「译」用 Browserify， Babel & hot reloading 快速构建 ES2015 工程 | zhouweicsu </title>
+  <title> 从 Vue.nextTick 源码看 JavaScript 事件循环 | zhouweicsu </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -278,7 +281,7 @@
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2015/10/15/quick-es2015-project-setup-with-browserify-babel-hot-reloading/">
+  <link itemprop="mainEntityOfPage" href="http://zhouweicsu.github.io/blog/blog/2019/08/30/javascript-event-loop/">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="zhouwei">
@@ -302,7 +305,7 @@
             
             
               
-                「译」用 Browserify， Babel & hot reloading 快速构建 ES2015 工程
+                从 Vue.nextTick 源码看 JavaScript 事件循环
               
             
           </h1>
@@ -317,8 +320,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2015-10-15T00:00:00+08:00">
-                2015-10-15
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-08-30T19:03:49+08:00">
+                2019-08-30
               </time>
             
 
@@ -375,22 +378,43 @@
       
 
       
-        <p>现在有很多 ES2015 和 React 工程的新手工具包。如果你想快速构建一个原型或者你只是想玩一玩代码，那你肯定希望配置越少越好。必备工具集有： transpiler（编译工具）， bundler（打包工具） 和 hot reloader（热重载）（因为是2015，所以你肯定不希望在重新加载页面上浪费时间）。Browserify 是一个非常棒并且使用起来很简单的 bundler 。更重要的是——它是模块化的，这样你就能在任意时间连接 plugins 和 transforms。Babel 是我们选择的 transpiler，无论你是否使用React，它都很好用。hot reloader 是为了提高开发效率。相对于手动或自动重新加载整个页面，hot reloader 仅仅让浏览器更新部分代码。因此它会很快，并且可以保持应用程序状态，所以你不需要重复之前的操作回到原来的UI状态。本文的例子不是介绍另一个新手工具包，而是教你如何以最少的必备工具开始 ES2015 工程。</p>
+        <h2 id="Vue-nextTick"><a href="#Vue-nextTick" class="headerlink" title="Vue.nextTick"></a>Vue.nextTick</h2><p>虽然 Vue 建议避免直接操作 DOM，但在业务开发中，有时候不得不在数据变化之后操作 DOM，然而我们知道 Vue 默认是<a href="https://cn.vuejs.org/v2/guide/reactivity.html#%E5%BC%82%E6%AD%A5%E6%9B%B4%E6%96%B0%E9%98%9F%E5%88%97" target="_blank" rel="external">异步执行 DOM 更新</a>，数据变化之后所有需要更新的 Watcher 会被推入一个队列，然后，在下一个的事件循环 “tick” 中，Vue 刷新队列并执行更新。那如果我想在数据变化之后操作 DOM 该如何做呢？Vue 提供了 nextTick 方法。</p>
+<p>在 Vue 源码 2.1.10 版本中 nextTick 的实现采用优雅降级的 3 种方式：Promise、MutationObserver 和 setTimeout。到最新的一个版本的 2.5.16 改为了 setImmediate、MessageChannel、Promise 和 setTimeout。</p>
 <a id="more"></a>
-<p>新建一个 <code>package.json</code> 并且安装下面的 packages：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm i -D browserify babelify watchify serve</div></pre></td></tr></table></figure>
-<p>前三个是 bundler， Babel插件 和 文件监视器， <code>serve</code> 包是一个静态服务器。</p>
-<p>将如下代码添加至<code>package.json</code>，这样 Browserify 就会在指定的 stage 下使用 Babel 编译器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;browserify&quot;: &#123; &quot;transform&quot;: [ [&quot;babelify&quot;, &#123;&quot;stage&quot;: [0]&#125;] ]</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>最后，这里有一段 NPM 脚本使用 source maps 来启动 bundler 并进入监视模式，且在指定的目录下启动静态服务器。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">  &quot;start&quot;: &quot;watchify src/index.js -o public/js/bundle.js -dv &amp; serve public&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>在热模块替代方面，我选择 Browserify 安装如下插件与必备包来重新加载 React 组件：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ npm i -D livereactload react-proxy babel-plugin-react-transform</div></pre></td></tr></table></figure></p>
-<p>新建 <code>.babelrc</code> 文件并添加以下内容。这个会告诉 Babel transform 使用已经安装过的插件。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  &quot;env&quot;: &#123;</div><div class="line">    &quot;development&quot;: &#123;</div><div class="line">      &quot;plugins&quot;: [ &quot;react-transform&quot; ],</div><div class="line">      &quot;extra&quot;: &#123;</div><div class="line">        &quot;react-transform&quot;: &#123;</div><div class="line">          &quot;transforms&quot;: [&#123;</div><div class="line">            &quot;transform&quot;: &quot;livereactload/babel-transform&quot;,</div><div class="line">            &quot;imports&quot;: [&quot;react&quot;]</div><div class="line">          &#125;]</div><div class="line">        &#125;</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在将<code>livereactload</code>插件加入 NPM 脚本，然后你就可以开始愉快的玩耍了。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;scripts&quot;: &#123;</div><div class="line">  &quot;start&quot;: &quot;watchify src/index.js -o public/js/bundle.js -dv -p livereactload &amp; serve public&quot;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>若要开发产品或者获取更多深入资料，请访问 GitHub, 你会找到海量现成的模板。</p>
-<p>原文链接：<a href="https://medium.com/@roman01la/quick-es2015-project-setup-with-browserify-babel-hot-reloading-d2ff3fb88032" target="_blank" rel="external">Quick ES2015 project setup with Browserify, Babel &amp; hot reloading</a></p>
+<p>作者在源码中给出了如下的<a href="https://github.com/vuejs/vue/blob/v2.5.16/src/core/util/next-tick.js#L20~L27" target="_blank" rel="external">注释</a>：</p>
+<blockquote>
+<p>Here we have async deferring wrappers using both microtasks and (macro) tasks. In &lt; 2.4 we used microtasks everywhere, but there are some scenarios where microtasks have too high a priority and fire in between supposedly sequential events (e.g. #4521, #6690) or even between bubbling of the same event (#6566). However, using (macro) tasks everywhere also has subtle problems when state is changed right before repaint (e.g. #6813, out-in transitions). Here we use microtask by default, but expose a way to force (macro) task when needed (e.g. in event handlers attached by v-on).</p>
+<p>大概意思就是 nextTick 方法使用了 microtask 和 (macro) task。低于 2.4 的版本中到处都用 microtask，但有些场景下因为 microtask 优先级太高执行的太早了，然而用 (macro) task 也有一些小问题。所以，默认还是使用 microtask，但提供一种方式在必要的情况下可以使用 (macro) task。</p>
+</blockquote>
+<h2 id="microtask-与-macro-task"><a href="#microtask-与-macro-task" class="headerlink" title="microtask 与 (macro) task"></a>microtask 与 (macro) task</h2><p>注释中提到了两个名词：<code>microtask</code> 和 <code>(macro) task</code>，这两个是属于 JavaScript Event Loop（事件循环）中的概念。上面提到的 Promise（浏览器原生实现）、MutationObserver、MessageChannel 属于 microtask，setImmediate 和 setTimeout 属于 (macro) task。</p>
+<p>分类：</p>
+<blockquote>
+<p>(macro) task：script（整体代码）、setTimeout、setInterval、 setImmediate、requestAnimationFrame、I/O、UI Rendering。</p>
+<p>microtask：process.nextTick、Promise、Object.observe、MutationObserver。</p>
+</blockquote>
+<p>我们知道 JavaScript 是单线程语言，所有任务都在主线程上排队等待执行（在执行栈中执行）。但那些耗时的 I/O 操作或者 Ajax 异步请求，线程不可能一直等待，所以，JavaScript 将任务分为<code>同步任务</code>和<code>异步任务</code>，同步任务（我理解就是整体代码）在主线程上排队顺序执行，异步任务分为 (macro) task 和 microtask，基于事件循环机制执行任务。主线程上的同步任务执行完了（即主线程空闲时），才会执行异步任务。</p>
+<p>事件循环由三部分组成：执行 (macro) task，执行 microtask，UI 渲染。具体步骤：执行一个 (macro) task（整体代码也是一个 macro task），然后清空 microtask 队列，最后 UI 渲染（并不是每次都会执行渲染，浏览器只需保证 60Hz 的刷新率即可）。</p>
+<p>看一下浏览器执行一次 UI 渲染的基本流程：</p>
+<ul>
+<li>解析 HTML 构建 DOM tree；</li>
+<li>解析 CSS 构建 CSSOM tree；</li>
+<li>结合 DOM tree 与 CSSOM tree 构建 render tree；</li>
+<li>根据 render tree 计算每个节点的位置信息；</li>
+<li>在屏幕上绘制节点。</li>
+</ul>
+<p>可以看到，一次 UI 渲染浏览器的计算量是非常大的，所以 Vue 在 nextTick 函数的实现中优先使用 microtask，因为一次渲染之前只会执行一个 (macro) task，但会执行完所有的 microtask。</p>
+<h2 id="实例解析"><a href="#实例解析" class="headerlink" title="实例解析"></a>实例解析</h2><p>看一个常见的面试题：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">console.log(&apos;start&apos;)</div><div class="line"></div><div class="line">setTimeout( function () &#123;</div><div class="line">  console.log(&apos;setTimeout&apos;)</div><div class="line">&#125;, 0 )</div><div class="line"></div><div class="line">new Promise(function() &#123;</div><div class="line">  console.log(&apos;promise0&apos;)</div><div class="line">&#125;).then(function() &#123;</div><div class="line">  console.log(&apos;promise1&apos;);</div><div class="line">&#125;).then(function() &#123;</div><div class="line">  console.log(&apos;promise2&apos;);</div><div class="line">&#125;);</div><div class="line"></div><div class="line">console.log(&apos;end&apos;)</div><div class="line"></div><div class="line">// start</div><div class="line">// promise0</div><div class="line">// end</div><div class="line">// promise1</div><div class="line">// promise2</div><div class="line">// setTimeout</div></pre></td></tr></table></figure></p>
+<p>其中整块代码是属于同步代码，setTimeout 是 (macro) task，Promise 是 microtask。所以，先顺序执行代码，输出 start，然后将 setTimeout 放入 异步的 (macro) task 队列，初始化 Promise 会立即执行输出 promise0，then 的回调会放入异步的 microtask 队列，再顺序执行输出 end。这时主进程空闲，会优先处理 microtask，输出 promise1 和 promise2，microtask 队列被清空，再取一个 (macro) task 队列中的任务执行，输出 setTimeout。</p>
+<blockquote>
+<p>事件循环中，microtask 队列只有一个，但 (macro) task 队列不止一个，每个 task 都有一个 task source，每个 source 对应一个队列，相应的优先级也不一样，这里就不展开写。</p>
+<p>注意：浏览器中的 Event Loop 和 Node.js 中的 Event Loop 不一样。</p>
+</blockquote>
+<h2 id="扩展阅读"><a href="#扩展阅读" class="headerlink" title="扩展阅读"></a>扩展阅读</h2><ul>
+<li><a href="https://github.com/Ma63d/vue-analysis/issues/6" target="_blank" rel="external">Vue源码详解之nextTick：MutationObserver只是浮云，microtask才是核心！</a></li>
+<li><a href="https://jakearchibald.com/2015/tasks-microtasks-queues-and-schedules/" target="_blank" rel="external">Tasks, microtasks, queues and schedules</a></li>
+<li><a href="https://www.zhihu.com/question/36972010/answer/71338002" target="_blank" rel="external">Promise的队列与setTimeout的队列有何关联？ - 何幻的回答 - 知乎</a></li>
+<li><a href="https://github.com/aooy/blog/issues/5" target="_blank" rel="external">从event loop规范探究javaScript异步及浏览器更新渲染时机</a></li>
+</ul>
 
       
     </div>
@@ -416,13 +440,9 @@
           
             <a href="/blog/tags/JavaScript/" rel="tag"># JavaScript</a>
           
-            <a href="/blog/tags/ES6/" rel="tag"># ES6</a>
+            <a href="/blog/tags/Vue/" rel="tag"># Vue</a>
           
-            <a href="/blog/tags/Browserify/" rel="tag"># Browserify</a>
-          
-            <a href="/blog/tags/Babel/" rel="tag"># Babel</a>
-          
-            <a href="/blog/tags/hot-reloading/" rel="tag"># hot reloading</a>
+            <a href="/blog/tags/事件循环/" rel="tag"># 事件循环</a>
           
         </div>
       
@@ -435,8 +455,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/blog/2015/09/01/es6-destructuring-in-depth/" rel="next" title="「译」深入理解ES6中的解构">
-                <i class="fa fa-chevron-left"></i> 「译」深入理解ES6中的解构
+              <a href="/blog/2019/06/16/certificate-knowledge-you-should-know/" rel="next" title="证书知识扫盲">
+                <i class="fa fa-chevron-left"></i> 证书知识扫盲
               </a>
             
           </div>
@@ -444,10 +464,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/blog/2015/11/24/dont-lose-user-and-app-state-use-page-visibility/" rel="prev" title="「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧">
-                「译」别再丢用户与应用程序的状态了，赶紧用 Page Visibility 吧 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -508,8 +524,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview sidebar-panel sidebar-panel-active">
+      <section class="site-overview sidebar-panel">
         <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
           <img class="site-author-image" itemprop="image"
                src="https://avatars2.githubusercontent.com/u/2416357?v=3&s=460"
@@ -618,6 +643,22 @@
 
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Vue-nextTick"><span class="nav-number">1.</span> <span class="nav-text">Vue.nextTick</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#microtask-与-macro-task"><span class="nav-number">2.</span> <span class="nav-text">microtask 与 (macro) task</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实例解析"><span class="nav-number">3.</span> <span class="nav-text">实例解析</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#扩展阅读"><span class="nav-number">4.</span> <span class="nav-text">扩展阅读</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
